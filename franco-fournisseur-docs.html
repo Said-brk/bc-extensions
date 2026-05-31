@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franco Fournisseur — Documentation complète · WALYCONSEIL</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F9FB;--bg2:#fff;--bg3:#F0F2F8;
+  --border:#E2E5F0;--border2:#C8CEDF;
+  --text:#181C2E;--mid:#4A5070;--dim:#8890A8;
+  --blue:#1B4FD8;--blue-l:#EEF3FF;--blue-m:#C7D4FA;
+  --a:#059669;--a-bg:#ECFDF5;--a-bd:#A7F3D0;
+  --b:#D97706;--b-bg:#FFFBEB;--b-bd:#FDE68A;
+  --c:#DC2626;--c-bg:#FEF2F2;--c-bd:#FECACA;
+  --r:10px;
+  --sh:0 1px 4px rgba(24,28,46,.06),0 6px 20px rgba(24,28,46,.05);
+  --sh-lg:0 12px 40px rgba(24,28,46,.10),0 2px 8px rgba(24,28,46,.05);
+  --sidebar:280px;
+  --content:860px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* ── TOP NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(248,249,251,.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px;max-width:100%;padding:0 24px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-text{font-size:17px;font-weight:800;letter-spacing:-.02em;background:linear-gradient(95deg,#059669 0%,#1B4FD8 60%,#DC2626 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+.logo-sub{font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.04em;border-left:1px solid var(--border2);padding-left:10px;margin-left:2px}
+@media(max-width:520px){.logo-sub{display:none}}
+.nav-r{display:flex;align-items:center;gap:10px}
+.nav-badge{background:var(--a-bg);color:var(--a);border:1px solid var(--a-bd);font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.04em}
+.btn-nav{background:var(--blue);color:#fff;font-size:13px;font-weight:700;padding:9px 20px;border-radius:var(--r);text-decoration:none;transition:all .2s;box-shadow:0 2px 8px rgba(27,79,216,.25)}
+.btn-nav:hover{background:#1640B0;transform:translateY(-1px)}
+
+/* ── LAYOUT ── */
+.doc-layout{display:flex;min-height:100vh;padding-top:62px}
+.sidebar{width:var(--sidebar);flex-shrink:0;position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto;background:var(--bg2);border-right:1px solid var(--border);padding:28px 0 40px}
+@media(max-width:900px){.sidebar{display:none}}
+.sidebar-section{margin-bottom:28px}
+.sidebar-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:0 20px;margin-bottom:8px}
+.sidebar a{display:block;font-size:13px;font-weight:500;color:var(--mid);text-decoration:none;padding:7px 20px;transition:all .15s;border-left:3px solid transparent}
+.sidebar a:hover{color:var(--blue);background:var(--blue-l);border-left-color:var(--blue-m)}
+.sidebar a.active{color:var(--blue);font-weight:700;background:var(--blue-l);border-left-color:var(--blue)}
+.sidebar a.sub{padding-left:32px;font-size:12px}
+.content{flex:1;min-width:0;padding:52px 56px 100px;max-width:calc(var(--content) + 112px)}
+@media(max-width:1100px){.content{padding:40px 32px 80px}}
+@media(max-width:640px){.content{padding:28px 20px 60px}}
+
+/* ── HERO DOC ── */
+.doc-hero{margin-bottom:56px;padding-bottom:48px;border-bottom:1px solid var(--border);box-shadow:0 1px 0 var(--border)}
+.doc-hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--blue-l);border:1px solid var(--blue-m);color:var(--blue);font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;margin-bottom:20px}
+.doc-hero-eyebrow-dot{width:6px;height:6px;background:var(--a);border-radius:50%;animation:bk 2s ease-in-out infinite}
+@keyframes bk{0%,100%{opacity:1}50%{opacity:.25}}
+.doc-hero h1{font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.08;letter-spacing:-.025em;margin-bottom:16px}
+.doc-hero h1 em{font-style:italic;font-family:'Lora',serif;font-weight:400;color:var(--blue)}
+.doc-hero-meta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.meta-tag{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border);color:var(--mid);font-size:12px;font-weight:600;padding:5px 12px;border-radius:8px}
+.meta-tag svg{width:13px;height:13px;flex-shrink:0}
+
+/* ── SECTIONS ── */
+.doc-section{margin-bottom:72px}
+.doc-section:last-child{margin-bottom:0}
+.section-anchor{display:block;height:80px;margin-top:-80px;visibility:hidden}
+.section-number{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.section-title{font-size:clamp(22px,3vw,32px);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:12px}
+.section-title em{font-style:italic;font-family:'Lora',serif;font-weight:400;color:var(--blue)}
+.section-lead{font-size:16px;color:var(--mid);line-height:1.8;margin-bottom:32px;max-width:700px}
+.subsection{margin-bottom:40px}
+.subsection-title{font-size:18px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.subsection-title .stag{background:var(--blue-l);color:var(--blue);font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;letter-spacing:.04em}
+.subsection-body{font-size:14px;color:var(--mid);line-height:1.85}
+.subsection-body p{margin-bottom:14px}
+.subsection-body p:last-child{margin-bottom:0}
+.subsection-body strong{color:var(--text);font-weight:700}
+.subsection-body ul,.subsection-body ol{margin:12px 0 12px 20px;display:flex;flex-direction:column;gap:7px}
+.subsection-body li{line-height:1.7}
+
+/* ── WHERE TAG ── */
+.where-tag{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border2);color:var(--mid);font-size:12px;font-weight:500;padding:5px 12px;border-radius:6px;margin-bottom:16px;font-family:'JetBrains Mono',monospace}
+.where-tag svg{width:12px;height:12px;color:var(--blue)}
+
+/* ── TABLE ── */
+.doc-table{width:100%;border-collapse:collapse;font-size:13px;margin:20px 0 28px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.doc-table th{background:var(--bg3);color:var(--text);font-weight:700;padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.doc-table td{padding:11px 16px;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top;line-height:1.6}
+.doc-table td:first-child{color:var(--text);font-weight:600;white-space:nowrap}
+.doc-table tr:last-child td{border-bottom:none}
+.doc-table tr:hover td{background:var(--bg)}
+
+/* ── CALLOUT ── */
+.callout{padding:16px 20px;border-radius:var(--r);margin:20px 0;display:flex;gap:12px;align-items:flex-start;font-size:13px;line-height:1.75}
+.callout-icon{flex-shrink:0;font-size:16px;margin-top:1px}
+.callout-body strong{display:block;font-weight:700;margin-bottom:4px;font-size:13px}
+.callout-body{color:var(--mid)}
+.callout.info{background:var(--blue-l);border:1px solid var(--blue-m)}.callout.info .callout-body strong{color:var(--blue)}
+.callout.success{background:var(--a-bg);border:1px solid var(--a-bd)}.callout.success .callout-body strong{color:var(--a)}
+.callout.warning{background:var(--b-bg);border:1px solid var(--b-bd)}.callout.warning .callout-body strong{color:var(--b)}
+.callout.danger{background:var(--c-bg);border:1px solid var(--c-bd)}.callout.danger .callout-body strong{color:var(--c)}
+
+/* ── CODE / FORMULA ── */
+.formula{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);margin:14px 0;overflow-x:auto}
+code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--bg3);padding:2px 7px;border-radius:5px;color:var(--blue)}
+
+/* ── STATUTS ── */
+.status-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:20px 0}
+@media(min-width:640px){.status-grid{grid-template-columns:repeat(2,1fr)}}
+.status-card{padding:16px 20px;border-radius:var(--r);border:1px solid;display:flex;gap:14px;align-items:flex-start}
+.sc-na{background:var(--bg3);border-color:var(--border2)}
+.sc-bad{background:var(--c-bg);border-color:var(--c-bd)}
+.sc-ok{background:var(--a-bg);border-color:var(--a-bd)}
+.sc-fees{background:var(--a-bg);border-color:var(--a-bd)}
+.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.sd-na{background:var(--dim)}
+.sd-bad{background:var(--c)}
+.sd-ok{background:var(--a)}
+.sd-fees{background:var(--a)}
+.sc-body strong{display:block;font-size:14px;font-weight:700;margin-bottom:4px}
+.sc-na .sc-body strong{color:var(--mid)}
+.sc-bad .sc-body strong{color:var(--c)}
+.sc-ok .sc-body strong,.sc-fees .sc-body strong{color:var(--a)}
+.sc-body p{font-size:13px;color:var(--mid);line-height:1.65}
+
+/* ── SCREENSHOT PLACEHOLDER ── */
+.screenshot-slot{margin:28px 0;border-radius:12px;border:2px dashed var(--border2);background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);overflow:hidden}
+.screenshot-slot-inner{padding:36px 28px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px}
+.screenshot-icon{width:52px;height:52px;background:var(--blue-l);border:1px solid var(--blue-m);border-radius:12px;display:flex;align-items:center;justify-content:center}
+.screenshot-icon svg{width:24px;height:24px;color:var(--blue)}
+.screenshot-title{font-size:14px;font-weight:700;color:var(--mid)}
+.screenshot-hint{font-size:12px;color:var(--dim);max-width:400px;line-height:1.6}
+.screenshot-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:var(--blue-l);border:1px solid var(--blue-m);padding:4px 14px;border-radius:999px;margin-bottom:8px}
+.screenshot-slot.wide .screenshot-slot-inner{min-height:200px}
+.screenshot-slot.tall .screenshot-slot-inner{min-height:320px}
+
+/* ── STEPS ── */
+.steps-list{margin:20px 0;display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);box-shadow:0 1px 0 var(--border)}
+.step-item:last-child{border-bottom:none}
+.step-num{width:32px;height:32px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;margin-top:2px}
+.step-content strong{display:block;font-size:14px;font-weight:700;margin-bottom:4px}
+.step-content p{font-size:13px;color:var(--mid);line-height:1.7}
+
+/* ── PRIORITY CHAIN ── */
+.priority-chain{margin:20px 0;display:flex;flex-direction:column;gap:0}
+.pc-item{display:flex;gap:14px;align-items:flex-start;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-bottom:none}
+.pc-item:first-child{border-radius:var(--r) var(--r) 0 0}
+.pc-item:last-child{border-bottom:1px solid var(--border);border-radius:0 0 var(--r) var(--r)}
+.pc-badge{background:var(--blue);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap;flex-shrink:0;margin-top:2px}
+.pc-item:nth-child(1) .pc-badge{background:var(--blue)}
+.pc-item:nth-child(2) .pc-badge{background:var(--mid)}
+.pc-item:nth-child(3) .pc-badge{background:var(--dim)}
+.pc-item:nth-child(4) .pc-badge{background:var(--border2);color:var(--mid)}
+.pc-body strong{display:block;font-size:13px;font-weight:700;margin-bottom:3px}
+.pc-body p{font-size:12px;color:var(--mid);line-height:1.6}
+
+/* ── KPI TILES ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0}
+@media(min-width:640px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi-card{padding:20px;border-radius:var(--r);border:1px solid;text-align:left}
+.kpi-bad{background:var(--c-bg);border-color:var(--c-bd)}
+.kpi-ok{background:var(--a-bg);border-color:var(--a-bd)}
+.kpi-warn{background:var(--b-bg);border-color:var(--b-bd)}
+.kpi-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.kpi-bad .kpi-label{color:var(--c)}
+.kpi-ok .kpi-label{color:var(--a)}
+.kpi-warn .kpi-label{color:var(--b)}
+.kpi-desc{font-size:12px;color:var(--mid);line-height:1.6}
+
+/* ── QUICK REF ── */
+.qr-grid{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:24px}
+.qr-row{display:grid;grid-template-columns:1fr 1fr;background:var(--bg2);gap:0}
+@media(max-width:640px){.qr-row{grid-template-columns:1fr}}
+.qr-row:hover{background:var(--blue-l)}
+.qr-q{padding:12px 16px;font-size:13px;color:var(--text);font-weight:500;border-right:1px solid var(--border)}
+@media(max-width:640px){.qr-q{border-right:none;border-bottom:1px solid var(--border);box-shadow:0 1px 0 var(--border)}}
+.qr-a{padding:12px 16px;font-size:12px;color:var(--mid);font-family:'JetBrains Mono',monospace;line-height:1.6}
+
+/* ── TOC (mobile) ── */
+.toc-mobile{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin-bottom:40px}
+@media(min-width:900px){.toc-mobile{display:none}}
+.toc-mobile summary{font-size:14px;font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.toc-mobile summary::after{content:"▾";font-size:12px;color:var(--dim)}
+details[open] summary::after{content:"▴"}
+.toc-mobile ol{margin-top:14px;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.toc-mobile li a{font-size:13px;color:var(--blue);text-decoration:none}
+.toc-mobile li a:hover{text-decoration:underline}
+
+/* ── DIVIDER ── */
+.section-divider{height:1px;background:var(--border);margin:56px 0}
+
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 0}
+.fi{display:flex;flex-direction:column;gap:10px;max-width:1160px;margin:0 auto;padding:0 24px}
+@media(min-width:640px){.fi{flex-direction:row;align-items:center;justify-content:space-between}}
+.fl{font-size:13px;color:var(--dim)}.ft{font-size:12px;color:var(--dim)}
+
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.rv.vis{opacity:1;transform:none}
+</style>
+
+<style>
+.l-fr { display: none !important; }
+.l-en { display: inline !important; }
+html[lang="fr"] .l-fr { display: inline !important; }
+html[lang="fr"] .l-en { display: none !important; }
+</style>
+
+<style id="lang-css">
+/* Language switcher button */
+.lang-btn-style{background:transparent;border:1.5px solid var(--border2);color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .2s;letter-spacing:.04em}
+.lang-btn-style:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-l)}
+/* DEFAULT: French visible, English hidden */
+.l-en{display:none !important}
+.l-fr{display:inline !important}
+/* When English active: show EN, hide FR */
+html[lang="en"] .l-en{display:inline !important}
+html[lang="en"] .l-fr{display:none !important}
+/* Block-level variants */
+.l-en-block{display:none !important}
+.l-fr-block{display:block !important}
+html[lang="en"] .l-en-block{display:block !important}
+html[lang="en"] .l-fr-block{display:none !important}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <div style="display:flex;align-items:center;gap:16px">
+      <a href="franco-fournisseur.html" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s;flex-shrink:0" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='var(--dim)'">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span class="l-en"><span class="l-fr">Extension</span><span class="l-en">Extension</span></span><span class="l-fr"><span class="l-fr">Extension</span><span class="l-en">Extension</span></span>
+      </a>
+      <a href="#top" class="logo">
+        <svg width="36" height="36" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <rect x="22" y="38" width="70" height="10" rx="2.5" fill="#059669"/>
+          <rect x="22" y="55" width="55" height="10" rx="2.5" fill="#D97706"/>
+          <rect x="22" y="72" width="32" height="10" rx="2.5" fill="#DC2626"/>
+          <rect x="82" y="30" width="3" height="58" rx="1.5" fill="#181C2E"/>
+          <path d="M 83.5 26 L 80 30 L 87 30 Z" fill="#181C2E"/>
+        </svg>
+        <span class="logo-text"><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></span>
+        <span class="logo-sub"><span class="l-en">Documentation</span><span class="l-fr">Documentation</span></span>
+      </a>
+    </div>
+    <div class="nav-r">
+      <span class="nav-badge">v1.0</span>
+      <button id="lang-btn" onclick="toggleLang()" class="lang-btn-style">🇬🇧 EN</button>
+      <a href="#" class="btn-nav-cta"><span class="l-en">Download</span><span class="l-fr"><span class="l-fr">Télécharger</span><span class="l-en">Download</span></span></a>
+    </div>
+  </div>
+</nav>
+
+<div class="doc-layout" id="top">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title"><span class="l-fr">Démarrage</span><span class="l-en">Getting started</span></div>
+      <a href="#s1" class="active">1. Présentation générale</a>
+      <a href="#s2"><span class="l-fr">2. Concepts clés</span><span class="l-en">2. Key concepts</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title"><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></div>
+      <a href="#s3"><span class="l-fr">3. Paramétrage</span><span class="l-en">3. Setup</span></a>
+      <a href="#s31" class="sub"><span class="l-fr">3.1 Règles Franco</span><span class="l-en">3.1 Franco rules</span></a>
+      <a href="#s32" class="sub"><span class="l-fr">3.2 Frais automatiques</span><span class="l-en">3.2 Automatic charges</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title"><span class="l-fr">Commande Achat</span><span class="l-en">Purchase Order</span></div>
+      <a href="#s4"><span class="l-fr">4. Commande Achat</span><span class="l-en">4. Purchase Order</span></a>
+      <a href="#s41" class="sub"><span class="l-fr">4.1 FactBox Franco</span><span class="l-en">4.1 Franco FactBox</span></a>
+      <a href="#s42" class="sub"><span class="l-fr">4.2 Les 4 statuts</span><span class="l-en">4.2 The 4 statuses</span></a>
+      <a href="#s43" class="sub"><span class="l-fr">4.3 Frais au lancement</span><span class="l-en">4.3 Charges on release</span></a>
+      <a href="#s44" class="sub">4.4 Recalculer Franco</a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title"><span class="l-fr">Feuille de demande</span><span class="l-en">Req. Worksheet</span></div>
+      <a href="#s5">5. Feuille de demande</a>
+      <a href="#s51" class="sub"><span class="l-fr">5.1 FactBox par ligne</span><span class="l-en">5.1 Per-line FactBox</span></a>
+      <a href="#s52" class="sub"><span class="l-fr">5.2 Analyse Franco</span><span class="l-en">5.2 Franco Analysis</span></a>
+      <a href="#s53" class="sub"><span class="l-fr">5.3 Rafraîchir Franco</span><span class="l-en">5.3 Refresh Franco</span></a>
+      <a href="#s54" class="sub"><span class="l-fr">5.4 Optimiser Franco</span><span class="l-en">5.4 Franco Optimizer</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Optimiseur Franco</div>
+      <a href="#s6">6. L'Optimiseur</a>
+      <a href="#s61" class="sub"><span class="l-fr">6.1 Logique de suggestion</span><span class="l-en">6.1 Suggestion logic</span></a>
+      <a href="#s62" class="sub"><span class="l-fr">6.2 Filtrage délai</span><span class="l-en">6.2 Lead time filter</span></a>
+      <a href="#s63" class="sub"><span class="l-fr">6.3 Mode d'emploi</span><span class="l-en">6.3 How to use</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title"><span class="l-fr"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span></span><span class="l-en">Activity Dashboard</span></div>
+      <a href="#s7">7. Pile d'activité</a>
+      <a href="#s8"><span class="l-fr">8. Règles de priorité</span><span class="l-en">8. Priority rules</span></a>
+      <a href="#s9"><span class="l-fr">9. Référence rapide</span><span class="l-en">9. Quick reference</span></a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="content">
+
+    <!-- TOC MOBILE -->
+    <details class="toc-mobile rv">
+      <summary><span class="l-fr">Table des matières</span><span class="l-en">Table of contents</span></summary>
+      <ol>
+        <li><a href="#s1"><span class="l-fr">Présentation générale</span><span class="l-en">Overview</span></a></li>
+        <li><a href="#s2"><span class="l-fr">Concepts clés</span><span class="l-en">Key concepts</span></a></li>
+        <li><a href="#s3"><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></a></li>
+        <li><a href="#s4"><span class="l-fr">Gestion sur la Commande Achat</span><span class="l-en">Purchase Order</span></a></li>
+        <li><a href="#s5"><span class="l-fr">Feuille de Demande d'Achat</span><span class="l-en">Requisition Worksheet</span></a></li>
+        <li><a href="#s6"><span class="l-fr">L'Optimiseur Franco</span><span class="l-en">Franco Optimizer</span></a></li>
+        <li><a href="#s7"><span class="l-fr"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span></span><span class="l-en">Activity Dashboard</span></a></li>
+        <li><a href="#s8"><span class="l-fr">Règles de priorité</span><span class="l-en">Priority Rules</span></a></li>
+        <li><a href="#s9"><span class="l-fr"><span class="l-fr">Référence rapide</span><span class="l-en">Quick reference</span></span><span class="l-en">Quick Reference</span></a></li>
+      </ol>
+    </details>
+
+    <!-- HERO -->
+    <div class="doc-hero rv">
+      <div class="doc-hero-eyebrow"><div class="doc-hero-eyebrow-dot"></div><span class="l-fr">Extension Business Central · WALYCONSEIL</span><span class="l-en">Business Central Extension · WALYCONSEIL</span></div>
+      <h1><span class="l-fr">Documentation —</span><span class="l-en">Documentation —</span><br><em><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></em></h1>
+      <div class="doc-hero-meta">
+        <span class="meta-tag"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><span class="l-en"><span class="l-en"><span class="l-en">Version 1.0</span><span class="l-fr">Version 1.0</span></span><span class="l-fr"><span class="l-en">Version 1.0</span><span class="l-fr">Version 1.0</span></span></span><span class="l-fr"><span class="l-en"><span class="l-en">Version 1.0</span><span class="l-fr">Version 1.0</span></span><span class="l-fr"><span class="l-en">Version 1.0</span><span class="l-fr">Version 1.0</span></span></span></span>
+        <span class="meta-tag"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span class="l-en">Microsoft Dynamics 365 Business Central</span><span class="l-fr">Microsoft Dynamics 365 Business Central</span></span>
+        <span class="meta-tag"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 0v10l4.5 4.5"/></svg><span class="l-fr">Éditeur : WALYCONSEIL</span><span class="l-en">Publisher: WALYCONSEIL</span></span>
+      </div>
+    </div>
+
+    <!-- ───────────────────────────────
+         SECTION 1
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s1"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-en"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span><span class="l-fr"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span></span><span class="l-fr"><span class="l-en"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span><span class="l-fr"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span></span></div>
+      <h2 class="section-title">Présentation <em>générale</em></h2>
+      <p class="section-lead">L'extension <strong><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></strong> permet de gérer et piloter les seuils de franchise de port (franco) par fournisseur directement dans Business Central.</p>
+
+      <div class="subsection-body">
+        <p>Sans cet outil, le suivi du franco est manuel, dispersé dans les commandes, et souvent découvert trop tard — après le lancement, quand il n'est plus possible d'ajuster facilement.</p>
+        <p>L'extension intervient à <strong>deux niveaux du processus achat</strong> :</p>
+        <ul>
+          <li><strong>Commande achat</strong> : affichage en temps réel du statut franco sur chaque commande, et application automatique de frais de port si le franco n'est pas atteint au lancement.</li>
+          <li><strong>Feuille de demande d'achat</strong> : analyse consolidée par groupe Fournisseur / Magasin / Date de réception, avec un outil de suggestion pour atteindre le franco avant de lancer les commandes.</li>
+        </ul>
+      </div>
+
+      <div class="screenshot-slot wide rv" style="transition-delay:.08s">
+        <img 
+          src="screenshots/01-overview.png" 
+          alt="Vue d'ensemble — Extension Franco Fournisseur sur Business Central"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">Vue d'ensemble — Extension Franco Fournisseur sur Business Central</div>
+          <div class="screenshot-hint"><span class="l-fr">Page d'accueil BC avec la pile d'activité Franco visible</span><span class="l-en">BC homepage with Franco Fournisseur Activity Stack visible</span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 2
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s2"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></span><span class="l-fr"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></span></div>
+      <h2 class="section-title">Concepts <em>clés</em></h2>
+      <p class="section-lead">Avant de paramétrer l'extension, voici les deux notions fondamentales à maîtriser.</p>
+
+      <div class="subsection">
+        <span class="section-anchor" id="s21"></span>
+        <div class="subsection-title"><span class="l-fr">Le Franco (franchise de port)</span><span class="l-en">The Franco (free-shipping threshold)</span></div>
+        <div class="subsection-body">
+          <p>Un accord commercial par lequel un fournisseur offre la livraison gratuite à partir d'un certain seuil de commande. Ce seuil peut être exprimé de trois façons :</p>
+        </div>
+        <table class="doc-table">
+          <thead><tr><th><span class="l-en">Type</span><span class="l-fr">Type</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th><th><span class="l-fr">Unité</span><span class="l-en">Unit</span></th></tr></thead>
+          <tbody>
+            <tr><td>Montant</td><td>Le total de la commande doit dépasser un montant en devise</td><td>€ (ou devise de la règle)</td></tr>
+            <tr><td>Poids Net</td><td>Le poids net total des articles commandés doit dépasser un seuil</td><td>kg (ou unité de poids définie)</td></tr>
+            <tr><td>Unité</td><td>Le nombre d'unités commandées doit dépasser un seuil</td><td>Palette, Carton, etc.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="subsection">
+        <span class="section-anchor" id="s22"></span>
+        <div class="subsection-title"><span class="l-fr">Le groupe Franco</span><span class="l-en">The Franco Group</span> <span class="stag"><span class="l-fr">Feuille de demande</span><span class="l-en">Req. Worksheet</span></span></div>
+        <div class="subsection-body">
+          <p>Dans la feuille de demande d'achat, le calcul ne se fait pas ligne par ligne, mais par <strong>groupe</strong>. Un groupe est défini par la combinaison unique de :</p>
+          <ul>
+            <li><strong>Fournisseur</strong></li>
+            <li><strong>Magasin</strong></li>
+            <li><strong>Date de réception souhaitée</strong></li>
+          </ul>
+          <p>Toutes les lignes partageant ces trois critères forment un groupe, car elles seront très probablement regroupées dans une même commande fournisseur.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 3
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s3"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 03</span><span class="l-en">Section 03</span></span><span class="l-fr"><span class="l-fr">Section 03</span><span class="l-en">Section 03</span></span></div>
+      <h2 class="section-title"><em><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></em></h2>
+
+      <!-- 3.1 -->
+      <span class="section-anchor" id="s31"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">3.1 Règles Franco Fournisseur</span><span class="l-en">3.1 Franco Vendor Rules</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Menu recherche BC → « Franco fournisseurs »
+        </div>
+        <div class="subsection-body">
+          <p>C'est la table centrale de l'extension. Chaque ligne définit une règle franco pour un fournisseur donné, avec optionnellement un magasin spécifique.</p>
+        </div>
+        <table class="doc-table">
+          <thead><tr><th><span class="l-fr">Champ</span><span class="l-en">Field</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th></tr></thead>
+          <tbody>
+            <tr><td>N° Fournisseur</td><td>Le fournisseur auquel s'applique la règle</td></tr>
+            <tr><td>Magasin</td><td>Optionnel. Si renseigné, règle spécifique au magasin. Si vide, règle globale pour tous les magasins.</td></tr>
+            <tr><td>Franco Activé</td><td>Interrupteur qui active ou désactive la règle sans la supprimer</td></tr>
+            <tr><td>Type</td><td>Montant, Poids Net ou Unité</td></tr>
+            <tr><td>Seuil</td><td>La valeur à atteindre pour obtenir le franco</td></tr>
+            <tr><td>Devise</td><td>Obligatoire si le type est Montant. Doit correspondre à la devise de la commande.</td></tr>
+            <tr><td>Unité de mesure</td><td>Obligatoire si le type est Poids Net ou Unité (ex. KG, PAL)</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout info">
+          <span class="callout-icon">⚡</span>
+          <div class="callout-body"><strong><span class="l-fr">Actions disponibles depuis cette page</span><span class="l-en">Available actions</span></strong>Activer Franco · Désactiver Franco · Frais automatiques (ouvre la configuration des frais, voir section 3.2)</div>
+        </div>
+        <div class="callout warning">
+          <span class="callout-icon">📌</span>
+          <div class="callout-body"><strong><span class="l-fr">Règle de priorité</span><span class="l-en">Priority rule</span></strong>Si un fournisseur a deux règles (une avec magasin spécifique, une globale), la règle avec magasin est toujours prioritaire pour ce magasin.</div>
+        </div>
+        <div class="callout success">
+          <span class="callout-icon">✓</span>
+          <div class="callout-body"><strong><span class="l-fr">Récupération automatique</span><span class="l-en">Auto-retrieval</span></strong>Quand une règle franco est ajoutée, les nouvelles commandes achat créées pour ce fournisseur récupèrent automatiquement le seuil et le type dès la saisie du fournisseur.</div>
+        </div>
+
+        <div class="screenshot-slot rv" >
+        <img 
+          src="screenshots/02-franco-rules-list.png" 
+          alt="Page « Franco fournisseurs » — liste des règles"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">Page « Franco fournisseurs » — liste des règles</div>
+          <div class="screenshot-hint"><span class="l-fr">Liste des règles avec colonnes Fournisseur, Magasin, Type, Seuil, Activé</span><span class="l-en">Franco rules list with Vendor, Location, Type, Threshold columns visible</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- 3.2 -->
+      <span class="section-anchor" id="s32"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">3.2 Frais automatiques</span><span class="l-en">3.2 Automatic charges</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Page « Franco fournisseurs » → sélectionner une règle → Actions → « Frais automatiques »
+        </div>
+        <div class="subsection-body">
+          <p>Permet de définir, pour chaque règle franco, un ou plusieurs frais annexes à insérer automatiquement sur la commande si le franco n'est pas atteint au lancement.</p>
+        </div>
+        <table class="doc-table">
+          <thead><tr><th><span class="l-fr">Champ</span><span class="l-en">Field</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th></tr></thead>
+          <tbody>
+            <tr><td>N° frais annexes</td><td>Code du frais annexe BC. La description se remplit automatiquement.</td></tr>
+            <tr><td>Description</td><td>Libellé modifiable qui apparaîtra sur la ligne de commande</td></tr>
+            <tr><td>Quantité</td><td>Quantité de l'unité de frais (généralement 1)</td></tr>
+            <tr><td>Coût unitaire</td><td>Montant du frais à appliquer</td></tr>
+          </tbody>
+        </table>
+        <div class="callout info">
+          <span class="callout-icon">💡</span>
+          <div class="callout-body"><strong><span class="l-fr">Prérequis</span><span class="l-en">Prerequisite</span></strong>Les frais annexes doivent être préalablement configurés dans BC : Achats → Configuration → Frais annexes. Plusieurs lignes peuvent être définies pour une même règle — elles seront toutes insérées si le franco n'est pas atteint.</div>
+        </div>
+
+        <div class="screenshot-slot rv" >
+        <img 
+          src="screenshots/03-automatic-charges.png" 
+          alt="Configuration des frais automatiques"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">Configuration des frais automatiques</div>
+          <div class="screenshot-hint"><span class="l-fr">Sous-page Frais automatiques avec colonnes N° frais, Description, Quantité, Coût unitaire</span><span class="l-en">Automatic Charges sub-page with Item Charge No., Description, Quantity, Unit Cost columns</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 4
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s4"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 04</span><span class="l-en">Section 04</span></span><span class="l-fr"><span class="l-fr">Section 04</span><span class="l-en">Section 04</span></span></div>
+      <h2 class="section-title">Gestion sur la <em><span class="l-fr">Commande Achat</span><span class="l-en">Purchase Order</span></em></h2>
+
+      <!-- 4.1 -->
+      <span class="section-anchor" id="s41"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">4.1 Le FactBox Franco</span><span class="l-en">4.1 Franco FactBox</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Page Commande Achat → volet de droite (FactBoxes)
+        </div>
+        <div class="subsection-body">
+          <p>Dès qu'un fournisseur est sélectionné et qu'une règle franco est active, le FactBox <strong>« Franco Fournisseur »</strong> apparaît dans le volet droit et se met à jour <strong>automatiquement</strong> à chaque modification de ligne.</p>
+        </div>
+        <table class="doc-table">
+          <thead><tr><th><span class="l-fr">Champ</span><span class="l-en">Field</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th></tr></thead>
+          <tbody>
+            <tr><td>Statut</td><td>Statut franco actuel (voir section 4.2)</td></tr>
+            <tr><td>Type Franco</td><td>Montant, Poids Net ou Unité</td></tr>
+            <tr><td>Seuil Franco</td><td>Valeur à atteindre</td></tr>
+            <tr><td>Devise / Unité</td><td>Devise ou unité de mesure selon le type</td></tr>
+            <tr><td>Valeur Actuelle</td><td>Ce que représente la commande actuellement</td></tr>
+            <tr><td>Restant à Atteindre</td><td>Différence entre le seuil et la valeur actuelle</td></tr>
+          </tbody>
+        </table>
+        <div class="callout info">
+          <span class="callout-icon">🧮</span>
+          <div class="callout-body"><strong>Calcul de la Valeur Actuelle</strong>
+            <ul style="margin-top:6px;padding-left:16px;display:flex;flex-direction:column;gap:5px">
+              <li><strong>Montant</strong> : somme des montants HT de toutes les lignes de type Article</li>
+              <li><strong>Poids Net</strong> : somme de Quantité × Poids Net unitaire (lu sur la fiche article)</li>
+              <li><strong>Unité</strong> : somme des quantités converties dans l'UdM définie sur la règle</li>
+            </ul>
+            <p style="margin-top:8px">⚠️ Les lignes de type Frais Annexes, Compte général ou Ressource ne sont <strong>pas</strong> prises en compte.</p>
+          </div>
+        </div>
+
+        <div class="screenshot-slot wide rv" >
+        <img 
+          src="screenshots/04-factbox-not-reached.png" 
+          alt="FactBox Franco — statut Non Atteint"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">FactBox Franco — statut Non Atteint</div>
+          <div class="screenshot-hint"><span class="l-fr">Volet droit de la commande achat avec le FactBox Franco en rouge « Non Atteint »</span><span class="l-en">Purchase order right pane showing red 'Not Reached' status in Franco FactBox</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- 4.2 -->
+      <span class="section-anchor" id="s42"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">4.2 Les quatre statuts Franco</span><span class="l-en">4.2 The Four Franco Statuses</span></div>
+        <div class="status-grid">
+          <div class="status-card sc-na">
+            <div class="status-dot sd-na"></div>
+            <div class="sc-body">
+              <strong>N/A — Pas de Franco</strong>
+              <p>Aucune règle franco active pour ce fournisseur et ce magasin, ou fournisseur non renseigné.</p>
+            </div>
+          </div>
+          <div class="status-card sc-bad">
+            <div class="status-dot sd-bad"></div>
+            <div class="sc-body">
+              <strong>Franco Non Atteint</strong>
+              <p>Une règle existe et est active, mais la valeur actuelle est inférieure au seuil.</p>
+            </div>
+          </div>
+          <div class="status-card sc-ok">
+            <div class="status-dot sd-ok"></div>
+            <div class="sc-body">
+              <strong>Franco Atteint</strong>
+              <p>La valeur actuelle de la commande est supérieure ou égale au seuil franco.</p>
+            </div>
+          </div>
+          <div class="status-card sc-fees">
+            <div class="status-dot sd-fees"></div>
+            <div class="sc-body">
+              <strong>Frais ajoutés</strong>
+              <p>Le franco n'est pas atteint, mais des frais de port ont été insérés automatiquement lors du lancement.</p>
+            </div>
+          </div>
+        </div>
+        <div class="callout warning">
+          <span class="callout-icon">🔄</span>
+          <div class="callout-body">Si l'utilisateur supprime manuellement les lignes de frais après le lancement, le statut repasse automatiquement à <strong>« Franco Non Atteint »</strong> sans action supplémentaire.</div>
+        </div>
+      </div>
+
+      <!-- 4.3 -->
+      <span class="section-anchor" id="s43"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">4.3 Frais automatiques au lancement</span><span class="l-en">4.3 Automatic Charges on Release</span></div>
+        <div class="subsection-body">
+          <p>Lorsque l'utilisateur clique sur <strong>« Lancer »</strong> (Release) une commande dont le statut est <strong>Non Atteint</strong> et que des frais automatiques sont configurés, le système affiche :</p>
+        </div>
+        <div class="callout danger" style="margin:16px 0">
+          <span class="callout-icon">💬</span>
+          <div class="callout-body"><em>« Le franco fournisseur n'est pas atteint pour ce fournisseur. Des frais automatiques sont configurés. Voulez-vous les ajouter à la commande ? »</em></div>
+        </div>
+        <table class="doc-table">
+          <thead><tr><th><span class="l-fr">Réponse</span><span class="l-en">Response</span></th><th><span class="l-fr">Comportement</span><span class="l-en">Behavior</span></th></tr></thead>
+          <tbody>
+            <tr><td>Oui</td><td>Lignes de frais insérées en fin de commande. Statut passe à « Frais ajoutés ». Lancement continue normalement.</td></tr>
+            <tr><td>Non</td><td>Commande lancée sans frais. Statut reste « Franco Non Atteint ».</td></tr>
+          </tbody>
+        </table>
+
+        <div class="screenshot-slot rv" >
+        <img 
+          src="screenshots/05-factbox-reached.png" 
+          alt="FactBox Franco — statut Franco Atteint"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">FactBox Franco — statut Franco Atteint</div>
+          <div class="screenshot-hint"><span class="l-fr">Même vue avec valeur au-dessus du seuil, statut vert « Franco Atteint »</span><span class="l-en">Same view with order value above threshold, green 'Franco Reached' status</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- 4.4 -->
+      <span class="section-anchor" id="s44"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">4.4 Bouton Recalculer Franco</span><span class="l-en">4.4 Recalculate Franco Button</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Page Commande Achat → onglet « Franco » dans la barre des actions
+        </div>
+        <div class="subsection-body">
+          <p>Force le recalcul complet du statut à partir de l'état actuel des lignes. Utile si :</p>
+          <ul>
+            <li>L'utilisateur a supprimé manuellement des lignes de frais après le lancement</li>
+            <li>Un article a été modifié (poids, prix) hors de la commande</li>
+          </ul>
+          <p>Dans la plupart des cas, le recalcul est automatique. Ce bouton est un <strong>filet de sécurité</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 5
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s5"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></span><span class="l-fr"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></span></div>
+      <h2 class="section-title">Gestion sur la <em><span class="l-fr">Feuille de Demande d'Achat</span><span class="l-en">Requisition Worksheet</span></em></h2>
+      <p class="section-lead">L'extension ajoute trois boutons et un FactBox à la feuille de demande (Achats → Planification → Feuilles de demande).</p>
+
+      <!-- 5.1 -->
+      <span class="section-anchor" id="s51"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">5.1 FactBox Franco par ligne</span><span class="l-en">5.1 Per-Line Franco FactBox</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Feuille de demande → volet de droite, pour la ligne sélectionnée
+        </div>
+        <div class="subsection-body">
+          <p>Pour chaque ligne sélectionnée, le FactBox affiche l'état du franco pour le <strong>groupe</strong> auquel appartient cette ligne (Fournisseur + Magasin + Date de réception). Mêmes champs que sur la commande achat.</p>
+        </div>
+      </div>
+
+      <!-- 5.2 -->
+      <span class="section-anchor" id="s52"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">5.2 Bouton Analyse Franco</span><span class="l-en">5.2 Franco Analysis Button</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Feuille de demande → onglet « Franco » → « Analyse Franco »
+        </div>
+        <div class="subsection-body">
+          <p>Ouvre une page récapitulative avec un <strong>tableau consolidé</strong> de l'état du franco pour tous les groupes présents dans la feuille. Pour chaque groupe, on voit :</p>
+          <ul>
+            <li>Le fournisseur, le magasin et la date de réception</li>
+            <li>Le type de franco, son seuil et la valeur actuelle du groupe</li>
+            <li>Le restant à atteindre et le statut global (Atteint / Non Atteint / N/A)</li>
+          </ul>
+          <p><strong>Quand l'utiliser :</strong> en début de session de planification pour avoir une vue d'ensemble avant de décider des ajustements.</p>
+        </div>
+
+        <div class="screenshot-slot wide rv" >
+        <img 
+          src="screenshots/06-dialog-charges-release.png" 
+          alt="Boîte de dialogue — Frais automatiques au lancement"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">Boîte de dialogue — Frais automatiques au lancement</div>
+          <div class="screenshot-hint"><span class="l-fr">La boîte de confirmation au lancement d'une commande avec franco non atteint</span><span class="l-en">Confirmation dialog at release time when franco is not reached</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- 5.3 -->
+      <span class="section-anchor" id="s53"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">5.3 Bouton Rafraîchir Franco</span><span class="l-en">5.3 Refresh Franco Button</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Feuille de demande → onglet « Franco » → « Rafraîchir Franco »
+        </div>
+        <div class="subsection-body">
+          <p>Affiche d'abord une barre de progression, puis un <strong>résumé chiffré</strong> :</p>
+        </div>
+        <div class="callout success">
+          <span class="callout-icon">✅</span>
+          <div class="callout-body"><em>« Calcul terminé — 5 groupe(s) au total.<br>Franco atteint : 2 | Franco non atteint : 2 | Non applicable : 1<br>Ouvrir la vue détaillée ? »</em></div>
+        </div>
+        <div class="subsection-body">
+          <p><strong>Quand l'utiliser :</strong> sur des feuilles avec un grand nombre de lignes, pour avoir d'abord le résumé avant d'ouvrir la vue détaillée.</p>
+        </div>
+      </div>
+
+      <!-- 5.4 -->
+      <span class="section-anchor" id="s54"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">5.4 Bouton Optimiser Franco</span><span class="l-en">5.4 Franco Optimizer Button</span></div>
+        <div class="where-tag">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Feuille de demande → onglet « Franco » → « Optimiser Franco »
+        </div>
+        <div class="subsection-body">
+          <p>C'est le cœur de l'outil de planification. Il analyse tous les groupes dont le franco <strong>n'est pas atteint</strong> et propose, pour chacun, des articles à ajouter pour atteindre le seuil.</p>
+          <p>Si tous les groupes sont déjà en franco atteint (ou N/A), un message l'indique et l'optimiseur ne s'ouvre pas.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 6
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s6"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></span><span class="l-fr"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></span></div>
+      <h2 class="section-title">L'Optimiseur Franco — <em>Fonctionnement détaillé</em></h2>
+
+      <!-- 6.1 -->
+      <span class="section-anchor" id="s61"></span>
+      <div class="subsection rv">
+        <div class="subsection-title">6.1 Logique de suggestion — Les 6 étapes</div>
+
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong><span class="l-fr">Identification des groupes à optimiser</span><span class="l-en">Identify below-threshold groups</span></strong>
+              <p>Seuls les groupes dont le statut est <strong>« Franco Non Atteint »</strong> sont traités. Les groupes Atteints ou N/A sont ignorés.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong><span class="l-fr">Collecte des articles achetables chez ce fournisseur</span><span class="l-en">Collect purchasable items from this vendor</span></strong>
+              <p>Deux sources consultées : (1) la <strong>fiche article</strong> si le fournisseur par défaut correspond, et (2) le <strong>catalogue Article-Fournisseur</strong> BC. Les articles bloqués sont automatiquement exclus.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <strong><span class="l-fr">Filtrage par compatibilité avec le type de franco</span><span class="l-en">Filter by threshold type compatibility</span></strong>
+              <p><strong>Poids Net</strong> : seuls les articles avec poids net &gt; 0. <strong>Montant</strong> : seuls les articles avec un coût. <strong>Unité</strong> : tous les articles sont éligibles.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <strong><span class="l-fr">Filtrage par délai fournisseur</span><span class="l-en">Filter by vendor lead time</span></strong>
+              <p>Les articles dont la date de livraison au plus tôt dépasse la date de réception du groupe sont exclus. Voir section 6.2 pour le détail.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="step-content">
+              <strong><span class="l-fr">Calcul de la quantité suggérée</span><span class="l-en">Calculate suggested quantity</span></strong>
+              <p>Quantité minimale pour combler exactement l'écart franco, arrondie au supérieur.</p>
+              <div class="formula">Montant : Qté = ⌈ Restant ÷ Prix unitaire ⌉</div>
+              <div class="formula">Poids Net : Qté = ⌈ Restant ÷ (Poids Net × Facteur UdM) ⌉</div>
+              <div class="formula">Unité : Qté = ⌈ Restant × Facteur conversion ⌉</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">6</div>
+            <div class="step-content">
+              <strong>Affichage et ajustements</strong>
+              <p>Colonnes <strong>Qté Suggérée</strong> et <strong>Contribution Franco</strong> remplies. L'utilisateur peut modifier la quantité ou l'unité de mesure — la contribution se recalcule automatiquement.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout info">
+          <span class="callout-icon">💡</span>
+          <div class="callout-body"><strong><span class="l-fr">Note sur le prix utilisé</span><span class="l-en">Price note</span></strong>L'Optimiseur utilise le <strong>dernier coût direct</strong> de l'article. Si ce champ est vide, il utilise le coût standard. Il ne consulte pas les tarifs fournisseur ou accords prix.</div>
+        </div>
+
+        <div class="screenshot-slot wide rv" >
+        <img 
+          src="screenshots/07-order-charges-added.png" 
+          alt="Commande après lancement — frais insérés"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">Commande après lancement — frais insérés</div>
+          <div class="screenshot-hint"><span class="l-fr">Lignes de frais insérées sur la commande, FactBox affichant « Frais ajoutés »</span><span class="l-en">Order lines showing auto-inserted charge line, FactBox showing 'Charges Added'</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+
+      <!-- 6.2 -->
+      <span class="section-anchor" id="s62"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">6.2 Filtrage par délai fournisseur</span><span class="l-en">6.2 Lead Time Filtering</span></div>
+        <div class="subsection-body">
+          <p>Proposer un article qui ne peut pas arriver avant la date de réception souhaitée est inutile. L'Optimiseur calcule la <strong>date de livraison au plus tôt</strong> :</p>
+        </div>
+        <div class="formula">Date de livraison au plus tôt = Date de travail BC + Délai fournisseur</div>
+
+        <p style="font-size:14px;color:var(--mid);margin-bottom:14px">Le délai est lu selon cette priorité (du plus spécifique au plus général) :</p>
+        <div class="priority-chain">
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span>
+            <div class="pc-body"><strong><span class="l-fr">Catalogue Article-Fournisseur</span><span class="l-en">Item-Vendor Catalog</span></strong><p>Achats → Fournisseurs → [Fournisseur] → Catalogue articles → champ « Délai réappro. »</p></div>
+          </div>
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 2</span><span class="l-en">Priority 2</span></span>
+            <div class="pc-body"><strong><span class="l-fr">Fiche article</span><span class="l-en">Item card</span></strong><p>Champ « Délai réappro. » de l'article. S'applique si aucun délai n'est défini dans le catalogue.</p></div>
+          </div>
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span>
+            <div class="pc-body"><strong><span class="l-fr">Fiche fournisseur</span><span class="l-en">Vendor card</span></strong><p>Champ « Délai réappro. » du fournisseur. S'applique si ni le catalogue ni la fiche article ne définissent de délai.</p></div>
+          </div>
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 4</span><span class="l-en">Priority 4</span></span>
+            <div class="pc-body"><strong>Aucun délai configuré</strong><p>L'article est considéré livrable à la date de travail — pas de filtrage appliqué.</p></div>
+          </div>
+        </div>
+
+        <table class="doc-table" style="margin-top:20px">
+          <thead><tr><th>Couleur colonne « Livraison au plus tôt »</th><th><span class="l-fr">Signification</span><span class="l-en">Meaning</span></th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--a)">■ Vert</td><td>Livrable avec marge confortable avant la date cible</td></tr>
+            <tr><td style="color:var(--b)">■ Orange</td><td>Livrable à temps mais dans les 3 derniers jours — à surveiller</td></tr>
+          </tbody>
+        </table>
+
+        <div class="callout info">
+          <span class="callout-icon">⚙️</span>
+          <div class="callout-body"><strong><span class="l-fr">Configurer les délais</span><span class="l-en">Configuring lead times</span></strong>Catalogue article-fournisseur → champ « Délai réappro. » en formule de date BC :<br><code>7J</code> = 7 jours · <code>2S</code> = 2 semaines · <code>1M</code> = 1 mois</div>
+        </div>
+      </div>
+
+      <!-- 6.3 -->
+      <span class="section-anchor" id="s63"></span>
+      <div class="subsection rv">
+        <div class="subsection-title"><span class="l-fr">6.3 Comment utiliser l'Optimiseur</span><span class="l-en">6.3 How to Use the Optimizer</span></div>
+        <div class="steps-list">
+          <div class="step-item"><div class="step-num">1</div><div class="step-content"><strong><span class="l-fr">Ouvrir la feuille de demande d'achat</span><span class="l-en">Open the requisition worksheet</span></strong><p>Achats → Planification → Feuilles de demande</p></div></div>
+          <div class="step-item"><div class="step-num">2</div><div class="step-content"><strong>Cliquer sur « Optimiser Franco »</strong><p>Dans l'onglet Franco. L'Optimiseur s'ouvre avec les propositions pour tous les groupes non atteints.</p></div></div>
+          <div class="step-item"><div class="step-num">3</div><div class="step-content"><strong><span class="l-fr">Examiner les propositions</span><span class="l-en">Review proposals</span></strong><p>Chaque ligne représente un article à ajouter pour combler le franco d'un groupe.</p></div></div>
+          <div class="step-item"><div class="step-num">4</div><div class="step-content"><strong><span class="l-fr">Cocher les lignes à retenir</span><span class="l-en">Check lines to keep</span></strong><p>Case « Sélectionner », ou utiliser « Tout sélectionner » / « Tout désélectionner ».</p></div></div>
+          <div class="step-item"><div class="step-num">5</div><div class="step-content"><strong><span class="l-fr">Ajuster les quantités si nécessaire</span><span class="l-en">Adjust quantities if needed</span></strong><p>La contribution se recalcule automatiquement. On peut aussi changer l'unité de mesure (ex. PCE → PAL).</p></div></div>
+          <div class="step-item"><div class="step-num">6</div><div class="step-content"><strong>Cliquer sur « Créer les lignes sélectionnées »</strong><p>Les propositions cochées sont ajoutées comme nouvelles lignes dans la feuille, avec fournisseur, magasin, date de réception et quantité. Le franco du groupe est recalculé.</p></div></div>
+        </div>
+
+        <div class="screenshot-slot tall rv" >
+        <img 
+          src="screenshots/08-multiorder-factbox.png" 
+          alt="FactBox Franco Multicommande — vue consolidée"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">FactBox Franco Multicommande — vue consolidée</div>
+          <div class="screenshot-hint"><span class="l-fr">Volet droit avec FactBox Franco Multicommande et total consolidé vert « Atteint »</span><span class="l-en">Right pane showing Multi-Order Franco FactBox with green consolidated total</span></div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 7
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s7"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></span><span class="l-fr"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></span></div>
+      <h2 class="section-title">Tableau de bord — <em>Pile d'activité Franco</em></h2>
+      <div class="where-tag">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Page d'accueil BC (Role Center Gestionnaire d'activité) → groupe « Franco Fournisseur en cours »
+      </div>
+      <p class="section-lead" style="margin-top:16px">Cinq indicateurs (tuiles) offrent une vue synthétique de la situation franco sur les commandes achat en cours.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-bad">
+          <div class="kpi-label">Franco Non Atteint</div>
+          <div class="kpi-desc">Nb de commandes dont le franco n'est pas atteint. Rouge si &gt; 0. Un clic ouvre la liste.</div>
+        </div>
+        <div class="kpi-card kpi-ok">
+          <div class="kpi-label">Franco Atteint</div>
+          <div class="kpi-desc">Nb de commandes dont le franco est atteint. Indicateur de performance positif.</div>
+        </div>
+        <div class="kpi-card kpi-warn">
+          <div class="kpi-label">Montant Manquant</div>
+          <div class="kpi-desc">Somme cumulée des montants restants à atteindre. Orange si &gt; 0.</div>
+        </div>
+        <div class="kpi-card kpi-bad">
+          <div class="kpi-label">Urgences &lt; 7 j</div>
+          <div class="kpi-desc">Commandes non atteintes avec date de réception dans les 7 prochains jours.</div>
+        </div>
+        <div class="kpi-card kpi-warn">
+          <div class="kpi-label">Fournisseurs Sans Franco</div>
+          <div class="kpi-desc">Règles franco configurées mais désactivées. Signal de révision nécessaire.</div>
+        </div>
+      </div>
+
+      <div class="callout info" style="margin-top:20px">
+        <span class="callout-icon">ℹ️</span>
+        <div class="callout-body">Les indicateurs portent uniquement sur les <strong>commandes achat</strong>. Les feuilles de demande ne sont pas comptabilisées ici. Tuiles actualisées à chaque ouverture de la page d'accueil.</div>
+      </div>
+
+      <div class="screenshot-slot wide rv" >
+        <img 
+          src="screenshots/09-analysis-page.png" 
+          alt="Page Analyse Franco — tableau consolidé des groupes"
+          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
+          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="screenshot-slot-inner">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title">Page Analyse Franco — tableau consolidé des groupes</div>
+          <div class="screenshot-hint"><span class="l-fr">Page Analyse Franco avec plusieurs groupes (Atteint en vert, Non Atteint en rouge)</span><span class="l-en">Franco Analysis page showing groups with mixed Reached/Not Reached statuses</span></div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 8
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s8"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></span><span class="l-fr"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></span></div>
+      <h2 class="section-title">Règles de <em>priorité du paramétrage</em></h2>
+
+      <div class="subsection">
+        <div class="subsection-title"><span class="l-fr">Priorité de la règle franco sur une commande</span><span class="l-en">Franco rule priority on a purchase order</span></div>
+        <div class="priority-chain">
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span>
+            <div class="pc-body"><strong><span class="l-fr">Fournisseur + Magasin de la commande</span><span class="l-en">Vendor + Order Location</span></strong><p><span class="l-fr">Règle spécifique au magasin — priorité maximale</span><span class="l-en">Location-specific rule — highest priority</span></p></div>
+          </div>
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 2</span><span class="l-en">Priority 2</span></span>
+            <div class="pc-body"><strong><span class="l-fr">Fournisseur + Magasin vide (règle globale)</span><span class="l-en">Vendor + blank Location (global rule)</span></strong><p><span class="l-fr">S'applique si aucune règle spécifique au magasin n'existe</span><span class="l-en">Used if no location-specific rule exists</span></p></div>
+          </div>
+          <div class="pc-item">
+            <span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span>
+            <div class="pc-body"><strong><span class="l-fr">Aucune règle ou règle désactivée</span><span class="l-en">No rule or disabled rule</span></strong><p><span class="l-fr">Statut franco = N/A</span><span class="l-en">Franco status = N/A</span></p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <div class="subsection-title"><span class="l-fr">Priorité du délai fournisseur pour l'Optimiseur</span><span class="l-en">Vendor lead time priority (Optimizer)</span></div>
+        <div class="priority-chain">
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span><div class="pc-body"><strong><span class="l-fr">Catalogue Article-Fournisseur</span><span class="l-en">Item-Vendor Catalog</span></strong><p>Source la plus précise — accord spécifique article × fournisseur</p></div></div>
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 2</span><span class="l-en">Priority 2</span></span><div class="pc-body"><strong><span class="l-fr">Fiche article</span><span class="l-en">Item card</span></strong><p>Si aucun délai dans le catalogue</p></div></div>
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span><div class="pc-body"><strong><span class="l-fr">Fiche fournisseur</span><span class="l-en">Vendor card</span></strong><p>Si ni catalogue ni fiche article ne définissent de délai</p></div></div>
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 4</span><span class="l-en">Priority 4</span></span><div class="pc-body"><strong><span class="l-fr">Pas de délai → livrable immédiatement</span><span class="l-en">No lead time → deliverable today</span></strong><p><span class="l-fr">Pas de filtrage appliqué</span><span class="l-en">No filtering applied</span></p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <!-- ───────────────────────────────
+         SECTION 9
+    ─────────────────────────────────── -->
+    <span class="section-anchor" id="s9"></span>
+    <section class="doc-section rv">
+      <div class="section-number"><span class="l-en"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></span><span class="l-fr"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></span></div>
+      <h2 class="section-title">Référence rapide — <em>Où trouver quoi</em></h2>
+      <p class="section-lead">Tableau de navigation rapide pour retrouver chaque fonctionnalité en un coup d'œil.</p>
+
+      <div class="qr-grid">
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Créer ou modifier une règle franco</span><span class="l-en">Create or edit a franco rule</span></div><div class="qr-a"><span class="l-fr">Recherche BC → Franco fournisseurs</span><span class="l-en">BC Search → Franco fournisseurs</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Activer / Désactiver une règle</span><span class="l-en">Enable / Disable a rule</span></div><div class="qr-a">Franco fournisseurs → Actions → Activer/Désactiver Franco</div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Configurer les frais automatiques</span><span class="l-en">Configure automatic charges</span></div><div class="qr-a">Franco fournisseurs → sélectionner → Actions → Frais automatiques</div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Voir le franco d'une commande en cours</span><span class="l-en">View franco status on an order</span></div><div class="qr-a">Commande Achat → FactBox « Franco Fournisseur » (volet droit)</div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Forcer le recalcul du franco</span><span class="l-en">Force franco recalculation</span></div><div class="qr-a"><span class="l-fr">Commande Achat → onglet Franco → Recalculer Franco</span><span class="l-en">Purchase Order → Franco tab → Recalculate Franco</span></div></div>
+        <div class="qr-row"><div class="qr-q">Vue d'ensemble de tous les groupes franco</div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Analyse Franco</span><span class="l-en">Req. Worksheet → Franco tab → Franco Analysis</span></div></div>
+        <div class="qr-row"><div class="qr-q">Résumé rapide avec chiffres</div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Rafraîchir Franco</span><span class="l-en">Req. Worksheet → Franco tab → Refresh Franco</span></div></div>
+        <div class="qr-row"><div class="qr-q">Suggestions d'articles pour atteindre le franco</div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Optimiser Franco</span><span class="l-en">Req. Worksheet → Franco tab → Optimize Franco</span></div></div>
+        <div class="qr-row"><div class="qr-q">Tableau de bord franco global</div><div class="qr-a"><span class="l-fr">Page d'accueil BC → groupe Franco Fournisseur en cours</span><span class="l-en">BC Role Center → Franco Fournisseur en cours group</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Configurer le délai d'un article chez un fournisseur</span><span class="l-en">Configure item lead time for a vendor</span></div><div class="qr-a"><span class="l-fr">Fiche Fournisseur → Catalogue articles → Délai réappro.</span><span class="l-en">Vendor card → Item Catalog → Lead Time Calculation</span></div></div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div id="cta-doc" style="margin-top:72px;background:var(--blue);border-radius:16px;padding:48px 40px;text-align:center;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px;pointer-events:none"></div>
+      <div style="position:relative;z-index:2">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px">Extension Business Central · WALYCONSEIL</div>
+        <div style="font-size:clamp(22px,3vw,36px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em">Prêt à démarrer ?</div>
+        <div style="font-size:15px;color:rgba(255,255,255,.65);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7">Installez, paramétrez vos premiers seuils et constatez l'effet dès la première commande.</div>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
+          <a href="#" style="background:#fff;color:var(--blue);font-size:14px;font-weight:700;padding:13px 28px;border-radius:var(--r);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,.15)">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
+            Télécharger l'extension
+          </a>
+          <a href="mailto:contact@walyconseil.com" style="background:transparent;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;padding:13px 22px;border-radius:var(--r);border:1.5px solid rgba(255,255,255,.3);text-decoration:none;transition:all .2s">
+            Contacter WALYCONSEIL
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="fi">
+    <div class="fl">Un produit <strong style="color:var(--text)">WALYCONSEIL</strong> · <a href="mailto:contact@walyconseil.com" style="color:var(--blue);text-decoration:none;font-weight:500">contact@walyconseil.com</a></div>
+    <div class="ft">© 2025 WALYCONSEIL — Documentation v1.0 · WALYCONSEIL</div>
+  </div>
+</footer>
+
+<script>
+// ── SCROLL SPY ──
+const anchors = document.querySelectorAll('.section-anchor');
+const links = document.querySelectorAll('.sidebar a');
+function updateActive(){
+  let current = '';
+  anchors.forEach(a=>{
+    if(window.scrollY >= a.offsetTop - 100) current = a.id;
+  });
+  links.forEach(l=>{
+    const href = l.getAttribute('href').replace('#','');
+    l.classList.toggle('active', href === current);
+  });
+}
+window.addEventListener('scroll', updateActive, {passive:true});
+updateActive();
+
+// ── REVEAL ──
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}
+  });
+},{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+
+
+<script>
+// ── LANG SWITCHER — FR default ──
+let currentLang = 'fr';
+document.documentElement.lang = 'fr';
+function toggleLang() {
+  currentLang = currentLang === 'fr' ? 'en' : 'fr';
+  document.documentElement.lang = currentLang;
+  document.getElementById('lang-btn').textContent = currentLang === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR';
+}
+</script>
+
+</body>
+</html>

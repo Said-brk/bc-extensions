@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franco Fournisseur — Vendor Freight Threshold Extension for Business Central · WALYCONSEIL</title>
+<meta name="description" content="Track vendor free-shipping thresholds in real time inside Business Central. Zero licensing. Install in minutes.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F8F9FB;--bg2:#fff;--bg3:#F0F2F8;--bg4:#E8ECF5;
+  --border:#E2E5F0;--border2:#C8CEDF;
+  --text:#181C2E;--mid:#4A5070;--dim:#8890A8;
+  --blue:#1B4FD8;--blue-l:#EEF3FF;--blue-m:#C7D4FA;
+  --a:#059669;--a-bg:#ECFDF5;--a-bd:#A7F3D0;
+  --b:#D97706;--b-bg:#FFFBEB;--b-bd:#FDE68A;
+  --c:#DC2626;--c-bg:#FEF2F2;--c-bd:#FECACA;
+  --r:12px;--sh:0 1px 4px rgba(24,28,46,.06),0 6px 20px rgba(24,28,46,.05);--sh-lg:0 12px 40px rgba(24,28,46,.10),0 2px 8px rgba(24,28,46,.05);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+@media(min-width:640px){.wrap{padding:0 40px}}
+@media(min-width:1024px){.wrap{padding:0 64px}}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4;display:none}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .3s}
+nav.sc{background:rgba(248,249,251,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-mark{width:34px;height:34px;background:linear-gradient(135deg,var(--blue) 0%,#6B4EFF 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:16px;height:16px;color:#fff}
+.logo-text .logo-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.logo-text .logo-sub{font-size:10px;color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.nav-links{display:none;gap:28px;list-style:none}
+@media(min-width:860px){.nav-links{display:flex}}
+.nav-links a{font-size:14px;font-weight:500;color:var(--mid);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-r{display:flex;align-items:center;gap:8px}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;padding:8px 16px;border-radius:var(--r);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-l)}
+.btn-ghost svg{width:13px;height:13px}
+.btn-primary{background:var(--blue);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;padding:9px 20px;border-radius:var(--r);text-decoration:none;transition:all .2s;box-shadow:0 4px 16px rgba(59,125,255,.3)}
+.btn-primary:hover{background:#2b6dee;transform:translateY(-1px)}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--mid)}
+.nav-back svg{width:14px;height:14px}
+
+/* ── HERO ── */
+#hero{position:relative;padding:140px 0 80px;overflow:hidden}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(59,125,255,.1) 0%,transparent 65%);right:-150px;top:-100px;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:60px;align-items:center;position:relative;z-index:2}
+@media(min-width:1024px){.hero-grid{grid-template-columns:1.1fr 1fr}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-l);border:1px solid var(--blue-m);color:var(--blue);font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;margin-bottom:24px;letter-spacing:.04em}
+.hero-badge-dot{width:6px;height:6px;background:var(--a);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4;display:none}}
+h1.hero-h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(34px,5vw,62px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px}
+.hero-h1 em{font-style:italic;font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;color:var(--blue);-webkit-text-fill-color:transparent;background:linear-gradient(90deg,var(--blue),#818CF8);-webkit-background-clip:text;background-clip:text}
+.hero-p{font-size:17px;color:var(--mid);line-height:1.85;max-width:520px;margin-bottom:36px}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.btn-hero{background:var(--blue);color:#fff;font-size:15px;font-weight:600;padding:14px 28px;border-radius:var(--r);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 32px rgba(59,125,255,.35)}
+.btn-hero:hover{background:#2b6dee;transform:translateY(-2px);box-shadow:0 16px 48px rgba(59,125,255,.45)}
+.btn-sec{background:transparent;color:var(--mid);font-size:15px;font-weight:500;padding:14px 22px;border-radius:var(--r);border:1px solid var(--border2);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s}
+.btn-sec:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-l)}
+.hero-doc-nudge{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s}
+.hero-doc-nudge:hover{color:var(--blue)}
+.hero-doc-nudge svg{width:13px;height:13px}
+
+/* HERO VISUAL — live card */
+.hero-visual{position:relative}
+.hv-card{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:28px;box-shadow:var(--sh-lg);position:relative;overflow:hidden}
+.hv-glow{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(59,125,255,.08) 0%,transparent 70%);right:-60px;bottom:-60px;pointer-events:none}
+.hv-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.hv-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
+.hv-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;letter-spacing:.06em;text-transform:uppercase}
+.hv-badge-ok{background:var(--a-bg);color:var(--a);border:1px solid var(--a-bd)}
+.hv-badge-warn{background:var(--b-bg);color:var(--b);border:1px solid var(--b-bd)}
+.hv-badge-bad{background:var(--c-bg);color:var(--c);border:1px solid var(--c-bd)}
+.hv-big{font-family:'Plus Jakarta Sans',sans-serif;font-size:48px;font-weight:800;line-height:1;letter-spacing:-.03em;margin-bottom:4px}
+.hv-big-label{font-size:11px;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:24px}
+.hv-bar{height:8px;background:var(--bg3);border-radius:999px;margin-bottom:24px;overflow:hidden}
+.hv-bar-fill{height:100%;border-radius:999px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.hv-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:20px;border-top:1px solid var(--border)}
+.hv-stat-l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.hv-stat-v{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700}
+.hv-po-list{display:flex;flex-direction:column;gap:10px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border)}
+.hv-po{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:8px;border:1px solid var(--border)}
+.hv-po-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.hv-po-info{flex:1}
+.hv-po-name{font-size:13px;font-weight:600}
+.hv-po-sub{font-size:11px;color:var(--dim)}
+.hv-po-status{font-size:11px;font-weight:700}
+
+/* ── PAIN ── */
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sec-label{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.sec-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(26px,4vw,42px);font-weight:800;line-height:1.1;letter-spacing:-.025em;margin-bottom:14px}
+.sec-sub{font-size:16px;color:var(--mid);max-width:540px;line-height:1.8}
+.pain-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:52px}
+@media(min-width:640px){.pain-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.pain-grid{grid-template-columns:repeat(3,1fr)}}
+.pain-box{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;transition:border-color .2s}
+.pain-box:hover{border-color:var(--border2)}
+.pb-emoji{font-size:26px;margin-bottom:14px;display:block}
+.pb-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;margin-bottom:8px}
+.pb-desc{font-size:13px;color:var(--mid);line-height:1.75}
+
+/* ── FEATURES TABS ── */
+.features-tabs{margin-top:52px}
+.tabs-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px}
+.tab-btn{background:transparent;border:1px solid var(--border);color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;padding:9px 18px;border-radius:var(--r);cursor:pointer;transition:all .2s}
+.tab-btn:hover{border-color:var(--border2);color:var(--text)}
+.tab-btn.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 16px rgba(59,125,255,.3)}
+.tab-panel{display:none}
+.tab-panel.active{display:grid;grid-template-columns:1fr;gap:40px}
+@media(min-width:900px){.tab-panel.active{grid-template-columns:1fr 1fr}}
+.feat-list{display:flex;flex-direction:column;gap:12px}
+.feat-item{display:flex;gap:14px;padding:18px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);transition:border-color .2s}
+.feat-item:hover{border-color:var(--border2)}
+.feat-icon{width:40px;height:40px;border-radius:10px;background:var(--blue-l);border:1px solid var(--blue-m);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.feat-body strong{display:block;font-size:14px;font-weight:600;margin-bottom:4px}
+.feat-body p{font-size:13px;color:var(--mid);line-height:1.65}
+.feat-visual{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:10px}
+.feat-visual-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+
+/* Status rows */
+.status-row{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg2);border-radius:8px;border:1px solid var(--border)}
+.s-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.s-na .s-dot{background:var(--dim)}
+.s-bad .s-dot{background:var(--c)}
+.s-ok .s-dot{background:var(--a)}
+.s-fees .s-dot{background:var(--a)}
+.s-label{font-size:13px;font-weight:600;flex:1}
+.s-na .s-label{color:var(--dim)}
+.s-bad .s-label{color:var(--c)}
+.s-ok .s-label,.s-fees .s-label{color:var(--a)}
+.s-desc{font-size:12px;color:var(--dim)}
+
+/* Opt steps */
+.opt-steps{display:flex;flex-direction:column;gap:0}
+.opt-step{display:flex;gap:12px;padding:12px 14px;background:var(--bg2);border:1px solid var(--border);border-bottom:none;align-items:flex-start}
+.opt-step:first-child{border-radius:var(--r) var(--r) 0 0}
+.opt-step:last-child{border-bottom:1px solid var(--border);border-radius:0 0 var(--r) var(--r)}
+.opt-num{width:22px;height:22px;background:var(--blue);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;margin-top:2px}
+.opt-body strong{display:block;font-size:13px;font-weight:600;margin-bottom:2px}
+.opt-body p{font-size:12px;color:var(--mid);line-height:1.6}
+
+/* KPI tiles */
+.kpi-mini{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.kpi-tile{padding:12px 14px;border-radius:8px;border:1px solid}
+.kpi-tile.red{background:var(--c-bg);border-color:var(--c-bd)}
+.kpi-tile.green{background:var(--a-bg);border-color:var(--a-bd)}
+.kpi-tile.orange{background:var(--b-bg);border-color:var(--b-bd)}
+.kpi-tile-l{font-size:11px;font-weight:700;letter-spacing:.05em}
+.kpi-tile.red .kpi-tile-l{color:var(--c)}
+.kpi-tile.green .kpi-tile-l{color:var(--a)}
+.kpi-tile.orange .kpi-tile-l{color:var(--b)}
+.kpi-tile-d{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.5}
+
+/* Multi-order visual */
+.mo-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.mo-header{padding:10px 14px;background:var(--bg4);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mo-header-lbl{font-size:11px;font-weight:700;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.mo-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border)}
+.mo-row:last-child{border-bottom:none}
+.mo-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mo-name{font-size:12px;font-weight:600;flex:1}
+.mo-val{font-size:12px;color:var(--mid)}
+.mo-status{font-size:11px;font-weight:700}
+.mo-consolidated{padding:10px 14px;background:var(--blue-l);border-top:2px solid var(--blue-m);display:flex;align-items:center;justify-content:space-between}
+.mo-cons-l{font-size:11px;font-weight:700;color:var(--blue)}
+.mo-cons-v{font-size:13px;font-weight:800;color:var(--blue)}
+
+/* ── HOW ── */
+.how-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-top:52px}
+@media(min-width:640px){.how-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.how-grid{grid-template-columns:repeat(4,1fr)}}
+.how-step{background:var(--bg2);padding:30px 24px;transition:background .2s}
+.how-step:hover{background:var(--bg3)}
+.hs-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:40px;font-weight:800;color:var(--border2);line-height:1;margin-bottom:14px;letter-spacing:-.03em;transition:color .2s}
+.how-step:hover .hs-num{color:var(--blue)}
+.hs-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:700;margin-bottom:7px}
+.hs-d{font-size:13px;color:var(--mid);line-height:1.7}
+.usp-row{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
+@media(min-width:640px){.usp-row{grid-template-columns:repeat(4,1fr)}}
+.usp-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);padding:24px 20px;text-align:center}
+.usp-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:36px;font-weight:800;color:var(--blue);letter-spacing:-.03em;line-height:1;margin-bottom:6px}
+.usp-label{font-size:13px;font-weight:600;margin-bottom:4px}
+.usp-desc{font-size:12px;color:var(--dim);line-height:1.6}
+
+/* ── DEMO ── */
+.demo-layout{display:grid;grid-template-columns:1fr;gap:48px;align-items:start;margin-top:52px}
+@media(min-width:1024px){.demo-layout{grid-template-columns:1fr 1.1fr}}
+.ctrl{margin-bottom:22px}
+.ctrl-lbl{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:600;margin-bottom:10px}
+.ctrl-val{background:var(--blue-l);color:var(--blue);font-weight:700;padding:2px 12px;border-radius:999px;font-size:13px}
+input[type=range]{width:100%;-webkit-appearance:none;height:4px;background:var(--border2);border-radius:999px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--blue);border-radius:50%;cursor:pointer;border:2px solid var(--bg);box-shadow:0 2px 8px rgba(59,125,255,.4);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.type-toggle{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.type-btn{background:var(--bg3);border:1px solid var(--border);color:var(--mid);padding:10px 6px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s}
+.type-btn:hover{border-color:var(--border2);color:var(--text)}
+.type-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.demo-result{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:30px}
+.franco-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.franco-head-lbl{font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.fsb{display:inline-flex;align-items:center;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.fsb-ok{background:var(--a-bg);color:var(--a);border:1px solid var(--a-bd)}
+.fsb-warn{background:var(--b-bg);color:var(--b);border:1px solid var(--b-bd)}
+.fsb-bad{background:var(--c-bg);color:var(--c);border:1px solid var(--c-bd)}
+.franco-big{font-family:'Plus Jakarta Sans',sans-serif;font-size:48px;font-weight:800;line-height:1;letter-spacing:-.025em;margin-top:14px;margin-bottom:5px}
+.franco-big .fbu{font-size:22px;font-weight:400;color:var(--blue);margin-left:4px}
+.franco-big-label{font-size:11px;font-weight:600;color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:28px}
+.franco-bar-wrap{margin-bottom:28px;padding-bottom:6px}
+.franco-bar-track{height:10px;background:var(--bg3);border-radius:999px;position:relative;overflow:visible}
+.franco-bar-fill{height:100%;border-radius:999px;transition:width .5s cubic-bezier(.4,0,.2,1),background .3s}
+.franco-bar-marker{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--dim);left:100%;transform:translateX(-1px)}
+.franco-bar-marker::after{content:attr(data-label);position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--dim);letter-spacing:.08em;white-space:nowrap}
+.franco-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:20px;border-top:1px solid var(--border)}
+.franco-stat-lbl{font-size:11px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.franco-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700}
+.demo-insight{margin-top:20px;padding:12px 16px;background:var(--bg3);border-radius:var(--r);font-size:13px;color:var(--mid);line-height:1.65;text-align:center;border:1px solid var(--border)}
+
+/* ── DOC BANNER ── */
+#doc-banner{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 0}
+.doc-banner-in{display:flex;flex-direction:column;gap:28px}
+@media(min-width:768px){.doc-banner-in{flex-direction:row;align-items:center;justify-content:space-between}}
+.doc-banner-badge{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.doc-banner-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.doc-banner-s{font-size:15px;color:var(--mid);max-width:520px;line-height:1.7}
+.btn-doc-cta{background:var(--blue);color:#fff;font-size:14px;font-weight:600;padding:14px 28px;border-radius:var(--r);text-decoration:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;transition:all .2s;box-shadow:0 4px 16px rgba(59,125,255,.3);flex-shrink:0}
+.btn-doc-cta:hover{background:#2b6dee;transform:translateY(-1px)}
+
+/* ── VIDEO ── */
+#video{padding:88px 0;background:var(--bg3);border-top:1px solid var(--border)}
+.vid-inner{text-align:center}
+.vid-label{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.vid-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(24px,3.5vw,38px);font-weight:800;letter-spacing:-.025em;margin-bottom:12px}
+.vid-s{font-size:15px;color:var(--mid);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.75}
+.vid-frame{position:relative;max-width:800px;margin:0 auto;border-radius:14px;overflow:hidden;box-shadow:var(--sh-lg);background:#000;aspect-ratio:16/9;border:1px solid var(--border2)}
+.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:none;border-radius:14px}
+.vid-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,0,.6);gap:14px;cursor:pointer;transition:background .2s}
+.vid-placeholder:hover{background:rgba(0,0,0,.45)}
+.vid-play{width:64px;height:64px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.4);transition:transform .2s}
+.vid-placeholder:hover .vid-play{transform:scale(1.08)}
+.vid-play svg{margin-left:4px}
+.vid-placeholder-text{color:rgba(255,255,255,.7);font-size:14px}
+
+/* ── FAQ ── */
+.faq-list{margin-top:48px;display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.faq-item{background:var(--bg2);cursor:pointer}
+.faq-q{padding:20px 22px;display:flex;justify-content:space-between;align-items:center;font-size:15px;font-weight:600;transition:color .2s;gap:16px}
+.faq-item:hover .faq-q{color:var(--blue)}
+.faq-arrow{font-size:16px;color:var(--dim);transition:transform .25s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(45deg);color:var(--blue)}
+.faq-a{font-size:14px;color:var(--mid);line-height:1.8;padding:0 22px 0;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.faq-item.open .faq-a{max-height:400px;padding:0 22px 20px}
+.faq-a a{color:var(--blue);text-decoration:none}
+
+/* ── CTA ── */
+#cta{padding:96px 0;text-align:center;position:relative;overflow:hidden}
+.cta-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(59,125,255,.1) 0%,transparent 65%);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{position:relative;z-index:2}
+.cta-kicker{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+.cta-t{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:800;line-height:1.07;margin-bottom:14px;letter-spacing:-.025em}
+.cta-s{font-size:16px;color:var(--mid);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.75}
+.cta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+
+/* ── FOOTER ── */
+footer{padding:40px 0;border-top:1px solid var(--border)}
+.footer-in{display:flex;flex-direction:column;gap:16px}
+@media(min-width:640px){.footer-in{flex-direction:row;align-items:center;justify-content:space-between}}
+.footer-left{display:flex;flex-direction:column;gap:8px}
+.footer-copy{font-size:12px;color:var(--dim)}
+.footer-links{display:flex;flex-wrap:wrap;gap:16px}
+.footer-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s;display:inline-flex;align-items:center;gap:5px}
+.footer-links a:hover{color:var(--mid)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.rv.vis{opacity:1;transform:none}
+
+/* Docs-style logo layout */
+.logo > span.logo-text{font-size:16px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.logo > span.logo-sub{font-size:10px;font-weight:600;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;border-left:1px solid var(--border2);padding-left:10px;margin-left:2px}
+@media(max-width:520px){.logo > span.logo-sub{display:none}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap">
+    <div class="nav-in">
+      <div style="display:flex;align-items:center;gap:20px">
+        <a href="index.html" class="nav-back">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          All extensions
+        </a>
+        <a href="#" class="logo">
+          <svg width="38" height="38" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="22" y="38" width="70" height="10" rx="2.5" fill="#059669"/>
+        <rect x="22" y="55" width="55" height="10" rx="2.5" fill="#D97706"/>
+        <rect x="22" y="72" width="32" height="10" rx="2.5" fill="#DC2626"/>
+        <rect x="82" y="30" width="3" height="58" rx="1.5" fill="#181C2E"/>
+        <path d="M 83.5 26 L 80 30 L 87 30 Z" fill="#181C2E"/>
+      </svg>
+          <span class="logo-text"><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></span>
+          <span class="logo-sub">BC Extension</span>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#demo">Live Demo</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-r">
+        <a href="franco-fournisseur-docs.html" class="btn-ghost" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Docs</span>
+        </a>
+        <a href="#cta" class="btn-primary">Download</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge"><div class="hero-badge-dot"></div>Business Central Extension · WALYCONSEIL</div>
+        <h1 class="hero-h1">Stop paying for shipping<br><em>you could have avoided.</em></h1>
+        <p class="hero-p">Every order placed just below the free-shipping threshold is a pure loss. Franco Fournisseur makes it visible, measurable, and optimizable — directly inside Business Central.</p>
+        <div class="hero-btns">
+          <a href="#cta" class="btn-hero">Download <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg></a>
+          <a href="#demo" class="btn-sec">See it live</a>
+        </div>
+        <a href="franco-fournisseur-docs.html" class="hero-doc-nudge" target="_blank">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Read the technical documentation →
+        </a>
+      </div>
+      <div class="hero-visual rv" style="transition-delay:.1s">
+        <div class="hv-card">
+          <div class="hv-glow"></div>
+          <div class="hv-header">
+            <div class="hv-title">Franco Status · Live</div>
+            <div class="hv-badge hv-badge-warn">Close</div>
+          </div>
+          <div class="hv-big">1 850 <span style="font-size:22px;font-weight:400;color:var(--blue)">€</span></div>
+          <div class="hv-big-label">Current order value</div>
+          <div class="hv-bar"><div class="hv-bar-fill" style="width:92%;background:var(--b)"></div></div>
+          <div class="hv-stats">
+            <div><div class="hv-stat-l">Threshold</div><div class="hv-stat-v">2 000 €</div></div>
+            <div><div class="hv-stat-l">Remaining</div><div class="hv-stat-v" style="color:var(--b)">150 €</div></div>
+          </div>
+          <div class="hv-po-list">
+            <div class="hv-po"><div class="hv-po-dot" style="background:var(--a)"></div><div class="hv-po-info"><div class="hv-po-name">PO-001234 — Vendor A</div><div class="hv-po-sub">2 460 € of 2 000 €</div></div><div class="hv-po-status" style="color:var(--a)">Reached</div></div>
+            <div class="hv-po"><div class="hv-po-dot" style="background:var(--b)"></div><div class="hv-po-info"><div class="hv-po-name">PO-001235 — Vendor B</div><div class="hv-po-sub">1 850 € of 2 000 €</div></div><div class="hv-po-status" style="color:var(--b)">150 € left</div></div>
+            <div class="hv-po"><div class="hv-po-dot" style="background:var(--c)"></div><div class="hv-po-info"><div class="hv-po-name">PO-001236 — Vendor C</div><div class="hv-po-sub">680 € of 2 000 €</div></div><div class="hv-po-status" style="color:var(--c)">Not reached</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="sec alt">
+  <div class="wrap">
+    <div class="rv" style="max-width:680px;margin:0 auto 52px;text-align:center">
+      <div class="sec-label">The problem</div>
+      <h2 class="sec-t">You pay for shipping.<br>Without knowing how much you could save.</h2>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-box rv"><span class="pb-emoji">💸</span><div class="pb-title">The most invisible cost in procurement</div><div class="pb-desc">An order at €1,850 when the threshold is €2,000. €80 shipping paid when €150 more would have covered it. Compounded over the year, the loss is significant — but it never shows up in any report.</div></div>
+      <div class="pain-box rv" style="transition-delay:.06s"><span class="pb-emoji">🧠</span><div class="pb-title">Knowledge lives in the buyer's head</div><div class="pb-desc">Known by memory, sometimes noted in a shared spreadsheet, never visible at order entry time. When the buyer moves on, the knowledge goes with them.</div></div>
+      <div class="pain-box rv" style="transition-delay:.12s"><span class="pb-emoji">📜</span><div class="pb-title">Your vendor contracts sit idle</div><div class="pb-desc">Franco conditions are negotiated, signed, archived — but they never follow the order into the system. The result of your negotiation is locked in a PDF.</div></div>
+      <div class="pain-box rv" style="transition-delay:.18s"><span class="pb-emoji">📉</span><div class="pb-title">No measure of the loss</div><div class="pb-desc">How many times this year did you fall just short? You don't know. So you can't quantify it, manage it, or improve it.</div></div>
+      <div class="pain-box rv" style="transition-delay:.24s"><span class="pb-emoji">⚖️</span><div class="pb-title">One vendor, one different rule</div><div class="pb-desc">One thinks in euros, another in kilos, another in cartons. Keeping all of that up to date manually is unmanageable beyond a handful of suppliers.</div></div>
+      <div class="pain-box rv" style="transition-delay:.30s"><span class="pb-emoji">🎯</span><div class="pb-title">No lever to optimize</div><div class="pb-desc">Without visibility, you can't consolidate orders or prioritize high-impact purchases. You suffer your shipping costs — you don't manage them.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES TABS -->
+<section id="features" class="sec">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-label">Features</div>
+      <h2 class="sec-t">Everything the extension<br>does for you.</h2>
+      <p class="sec-sub">Four modules cover the full procurement cycle — from single order to requisition planning.</p>
+    </div>
+    <div class="features-tabs rv" style="transition-delay:.08s">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="order">🛒 Purchase Order</button>
+        <button class="tab-btn" data-tab="multiorder">🔗 Multi-Order Franco</button>
+        <button class="tab-btn" data-tab="worksheet">📋 Req. Worksheet</button>
+        <button class="tab-btn" data-tab="optimizer">🎯 Franco Optimizer</button>
+        <button class="tab-btn" data-tab="dashboard">📊 Dashboard</button>
+      </div>
+
+      <!-- Purchase Order -->
+      <div class="tab-panel active" id="tab-order">
+        <div class="feat-list">
+          <div class="feat-item"><div class="feat-icon">📦</div><div class="feat-body"><strong>Real-time Franco FactBox</strong><p>As soon as a vendor is selected, the FactBox appears in the right-hand pane and recalculates automatically on every line change — amount, net weight, or quantity depending on the rule type.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">🔔</div><div class="feat-body"><strong>Automatic charges on release</strong><p>If the order is released below the threshold, a confirmation prompt appears. With one click, configured shipping charges are inserted automatically on the order lines.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">🔄</div><div class="feat-body"><strong>Recalculate Franco button</strong><p>Safety net to force a full status recalculation at any time — useful after manual charge line deletion or item changes made outside the order.</p></div></div>
+        </div>
+        <div class="feat-visual">
+          <div class="feat-visual-label">The 4 Franco Statuses</div>
+          <div class="status-row s-na"><div class="s-dot"></div><div class="s-label">N/A — No Franco</div><div class="s-desc">No active rule</div></div>
+          <div class="status-row s-bad"><div class="s-dot"></div><div class="s-label">Not Reached</div><div class="s-desc">Below threshold</div></div>
+          <div class="status-row s-ok"><div class="s-dot"></div><div class="s-label">Franco Reached</div><div class="s-desc">Threshold met ✓</div></div>
+          <div class="status-row s-fees"><div class="s-dot"></div><div class="s-label">Charges Added</div><div class="s-desc">Shipping auto-invoiced</div></div>
+        </div>
+      </div>
+
+      <!-- Multi-Order -->
+      <div class="tab-panel" id="tab-multiorder">
+        <div class="feat-list">
+          <div class="feat-item"><div class="feat-icon">🔗</div><div class="feat-body"><strong>Multi-Order Franco FactBox</strong><p>A dedicated FactBox on the purchase order shows the consolidated franco status across all open orders for the same vendor — not just the current one. See at a glance whether combining orders would unlock free shipping.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">👁️</div><div class="feat-body"><strong>Per-order breakdown</strong><p>The FactBox lists each open order for the vendor with its individual amount, so buyers can identify which orders to consolidate or supplement to cross the threshold collectively.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">⚡</div><div class="feat-body"><strong>Live consolidated total</strong><p>The combined value and the remaining amount to reach the franco are shown in real time, updating as orders change. No manual calculation needed.</p></div></div>
+        </div>
+        <div class="feat-visual">
+          <div class="feat-visual-label">Multi-Order Consolidated View</div>
+          <div class="mo-card">
+            <div class="mo-header">
+              <div class="mo-header-lbl">Vendor B — Open Orders</div>
+              <div style="font-size:11px;color:var(--b);font-weight:700">Not consolidated</div>
+            </div>
+            <div class="mo-row"><div class="mo-dot" style="background:var(--blue)"></div><div class="mo-name">PO-001235 (current)</div><div class="mo-val">1 850 €</div></div>
+            <div class="mo-row"><div class="mo-dot" style="background:var(--blue)"></div><div class="mo-name">PO-001231</div><div class="mo-val">320 €</div></div>
+            <div class="mo-consolidated">
+              <div class="mo-cons-l">Combined total · Threshold 2 000 €</div>
+              <div class="mo-cons-v" style="color:var(--a)">2 170 € ✓ Reached</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Worksheet -->
+      <div class="tab-panel" id="tab-worksheet">
+        <div class="feat-list">
+          <div class="feat-item"><div class="feat-icon">👁️</div><div class="feat-body"><strong>Per-line FactBox</strong><p>For each selected line in the worksheet, the FactBox shows the franco status for the entire group (Vendor + Location + Expected Receipt Date).</p></div></div>
+          <div class="feat-item"><div class="feat-icon">📊</div><div class="feat-body"><strong>Franco Analysis</strong><p>Consolidated table of all groups in the worksheet — vendor, location, date, threshold type, current value, remaining and status. Perfect at the start of a planning session.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">⚡</div><div class="feat-body"><strong>Refresh Franco</strong><p>Quick calculation with a progress bar, followed by an instant summary: 5 groups, 2 reached, 2 not reached, 1 N/A. Option to open the detailed view in one click.</p></div></div>
+        </div>
+        <div class="feat-visual">
+          <div class="feat-visual-label">Refresh Franco Summary</div>
+          <div style="background:var(--a-bg);border:1px solid var(--a-bd);border-radius:8px;padding:14px 16px;font-size:13px;color:var(--a);font-weight:600;line-height:1.7">
+            ✅ Calculation complete — 5 group(s) total<br>
+            <span style="color:var(--a)">Reached: 2</span> &nbsp;·&nbsp;
+            <span style="color:var(--c)">Not reached: 2</span> &nbsp;·&nbsp;
+            <span style="color:var(--dim)">N/A: 1</span>
+          </div>
+          <div style="font-size:12px;color:var(--dim);line-height:1.6;margin-top:8px">Groups are calculated on the unique combination <strong style="color:var(--mid)">Vendor + Location + Expected Receipt Date</strong>.</div>
+        </div>
+      </div>
+
+      <!-- Optimizer -->
+      <div class="tab-panel" id="tab-optimizer">
+        <div class="feat-list">
+          <div class="feat-item"><div class="feat-icon">🔍</div><div class="feat-body"><strong>Smart article suggestions</strong><p>Analyzes all below-threshold groups and proposes purchasable items from that vendor (via item card and Item-Vendor catalog), filtered by threshold type compatibility and lead time.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">📅</div><div class="feat-body"><strong>Lead time filtering</strong><p>Only items deliverable before the group's expected receipt date are proposed. Green/orange color coding on the "Earliest Delivery" column.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">✏️</div><div class="feat-body"><strong>Adjustable quantities and UoM</strong><p>Edit the suggested quantity or change the unit of measure (PCS → PAL). The franco contribution recalculates automatically before creating lines.</p></div></div>
+        </div>
+        <div class="feat-visual">
+          <div class="feat-visual-label">Optimizer Steps</div>
+          <div class="opt-steps">
+            <div class="opt-step"><div class="opt-num">1</div><div class="opt-body"><strong>Below-threshold groups identified</strong><p>Only "Not Reached" groups are processed</p></div></div>
+            <div class="opt-step"><div class="opt-num">2</div><div class="opt-body"><strong>Eligible items collected</strong><p>Item card + Item-Vendor catalog, blocked items excluded</p></div></div>
+            <div class="opt-step"><div class="opt-num">3</div><div class="opt-body"><strong>Type + lead time filtering</strong><p>Franco compatibility and delivery before target date</p></div></div>
+            <div class="opt-step"><div class="opt-num">4</div><div class="opt-body"><strong>Minimum quantity calculated</strong><p>⌈ Remaining ÷ Unit price ⌉ — rounded up</p></div></div>
+            <div class="opt-step"><div class="opt-num">5</div><div class="opt-body"><strong>Lines created in worksheet</strong><p>Selected proposals join their group automatically</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="tab-panel" id="tab-dashboard">
+        <div class="feat-list">
+          <div class="feat-item"><div class="feat-icon">🏠</div><div class="feat-body"><strong>Franco Activity Stack on the BC Role Center</strong><p>Five clickable tiles give an instant view of the franco situation across all open purchase orders, refreshed on every page load.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">🚨</div><div class="feat-body"><strong>Urgencies &lt; 7 days</strong><p>Dedicated tile for orders where the franco is not reached and the expected receipt date is within the week. Prioritize immediate action.</p></div></div>
+          <div class="feat-item"><div class="feat-icon">💡</div><div class="feat-body"><strong>Cumulative missing amount</strong><p>A single value summarizes the total financial impact of all below-threshold orders. One actionable number for management.</p></div></div>
+        </div>
+        <div class="feat-visual">
+          <div class="feat-visual-label">5 Dashboard Tiles</div>
+          <div class="kpi-mini">
+            <div class="kpi-tile red"><div class="kpi-tile-l">Not Reached</div><div class="kpi-tile-d">Orders below threshold</div></div>
+            <div class="kpi-tile green"><div class="kpi-tile-l">Franco Reached</div><div class="kpi-tile-d">Positive performance</div></div>
+            <div class="kpi-tile orange"><div class="kpi-tile-l">Missing Amount</div><div class="kpi-tile-d">Cumulative financial gap</div></div>
+            <div class="kpi-tile red"><div class="kpi-tile-l">Urgencies &lt;7d</div><div class="kpi-tile-d">Imminent receipt date</div></div>
+            <div class="kpi-tile orange" style="grid-column:span 2"><div class="kpi-tile-l">Vendors Without Franco</div><div class="kpi-tile-d">Disabled rules to review</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo" class="sec alt">
+  <div class="wrap">
+    <div class="sec-header rv">
+      <div class="sec-label">Interactive simulation</div>
+      <h2 class="sec-t">See your franco <em style="font-style:italic;color:var(--blue)">in real time.</em></h2>
+    </div>
+    <div class="demo-layout">
+      <div class="rv">
+        <p style="font-size:15px;color:var(--mid);line-height:1.85;margin-bottom:28px">Pick a threshold type, adjust the negotiated value and the current order total. The panel on the right mirrors exactly what your team sees on their Purchase Order.</p>
+        <div class="ctrl">
+          <div class="ctrl-lbl"><span>Threshold type</span></div>
+          <div class="type-toggle">
+            <button class="type-btn active" data-type="amount">Amount</button>
+            <button class="type-btn" data-type="weight">Weight</button>
+            <button class="type-btn" data-type="unit">Unit</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-lbl"><span>Negotiated threshold</span><span class="ctrl-val" id="lT">2 000 €</span></div>
+          <input type="range" id="sT" min="500" max="5000" step="100" value="2000">
+        </div>
+        <div class="ctrl">
+          <div class="ctrl-lbl"><span>Current order value</span><span class="ctrl-val" id="lC">1 600 €</span></div>
+          <input type="range" id="sC" min="0" max="5000" step="50" value="1600">
+        </div>
+        <div style="background:var(--blue-l);border:1px solid var(--blue-m);border-radius:var(--r);padding:16px 18px;font-size:13px;color:var(--mid);line-height:1.75">
+          <span style="font-weight:700;color:var(--blue)">💡 Universal rule</span><br>
+          A vendor can think in euros, kilos, or quantities. The extension covers all three and recalculates on every line change.
+        </div>
+      </div>
+      <div class="demo-result rv" style="transition-delay:.1s">
+        <div class="franco-head">
+          <div class="franco-head-lbl">Franco Status — Current Order</div>
+          <span class="fsb fsb-warn" id="fsbStatus">Close</span>
+        </div>
+        <div class="franco-big"><span id="fbVal">1 600</span><span class="fbu" id="fbUnit">€</span></div>
+        <div class="franco-big-label">Current order value</div>
+        <div class="franco-bar-wrap">
+          <div class="franco-bar-track">
+            <div class="franco-bar-fill" id="fbFill" style="width:80%;background:var(--b)"></div>
+            <div class="franco-bar-marker" id="fbMarker" data-label="THRESHOLD"></div>
+          </div>
+        </div>
+        <div class="franco-stats">
+          <div><div class="franco-stat-lbl">Threshold</div><div class="franco-stat-val" id="fsThr">2 000 €</div></div>
+          <div><div class="franco-stat-lbl">Remaining</div><div class="franco-stat-val" id="fsRem" style="color:var(--b)">400 €</div></div>
+        </div>
+        <div class="demo-insight" id="insight">—</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-header center rv" style="text-align:center">
+      <div class="sec-label">Setup</div>
+      <h2 class="sec-t">Up and running<br>in under a day.</h2>
+      <p class="sec-sub" style="margin:0 auto">No integration project. No external consultant. Install, configure, and go.</p>
+    </div>
+    <div class="how-grid rv">
+      <div class="how-step"><div class="hs-num">01</div><div class="hs-t">Install the extension</div><div class="hs-d">Download the .app file and deploy from BC admin. A few clicks, no external dependencies.</div></div>
+      <div class="how-step"><div class="hs-num">02</div><div class="hs-t">Configure your thresholds</div><div class="hs-d">Per vendor: choose threshold type (amount, weight, unit) and value. Minutes per vendor.</div></div>
+      <div class="how-step"><div class="hs-num">03</div><div class="hs-t">Place orders as usual</div><div class="hs-d">Buyers work on the same screens. Real-time franco status appears on every purchase order.</div></div>
+      <div class="how-step"><div class="hs-num">04</div><div class="hs-t">Manage your margin</div><div class="hs-d">Track reached thresholds, optimize with the worksheet, measure from the dashboard.</div></div>
+    </div>
+    <div class="usp-row">
+      <div class="usp-card rv"><div class="usp-num" data-target="3">0</div><div class="usp-label">Threshold types</div><div class="usp-desc">Amount, weight or unit</div></div>
+      <div class="usp-card rv" style="transition-delay:.07s"><div class="usp-num" data-target="0" data-suffix="€">0€</div><div class="usp-label">By WALYCONSEIL</div><div class="usp-desc">Crafted by ERP practitioners</div></div>
+      <div class="usp-card rv" style="transition-delay:.14s"><div class="usp-num" data-target="100" data-suffix="%">0%</div><div class="usp-label">Real-time</div><div class="usp-desc">Recalculated on every change</div></div>
+      <div class="usp-card rv" style="transition-delay:.21s"><div class="usp-num" data-target="0">0</div><div class="usp-label">Standard objects modified</div><div class="usp-desc">Clean install & uninstall</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOC BANNER -->
+<section id="doc-banner">
+  <div class="wrap">
+    <div class="doc-banner-in rv">
+      <div>
+        <div class="doc-banner-badge">Technical Documentation</div>
+        <div class="doc-banner-t">Everything you need to configure,<br>deploy and validate.</div>
+        <div class="doc-banner-s">Detailed setup guide, priority rules, Optimizer logic, vendor lead time configuration, quick reference — all documented for AppSource submission.</div>
+      </div>
+      <a href="franco-fournisseur-docs.html" class="btn-doc-cta" target="_blank">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Open Documentation
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video">
+  <div class="wrap">
+    <div class="vid-inner rv">
+      <div class="vid-label">Demo</div>
+      <h2 class="vid-t">See the extension in action.</h2>
+      <p class="vid-s">Under 5 minutes — install, configure your first thresholds, and see the immediate effect on your purchase orders.</p>
+      <div class="vid-frame">
+        <iframe id="yt-iframe" src="" title="Franco Fournisseur demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:none"></iframe>
+        <div class="vid-placeholder" id="vid-placeholder" onclick="loadVideo()">
+          <div class="vid-play"><svg width="24" height="24" fill="var(--blue)" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="vid-placeholder-text">Watch the demo — 5 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="sec alt">
+  <div class="wrap" style="max-width:760px">
+    <div class="sec-header rv">
+      <div class="sec-label">FAQ</div>
+      <h2 class="sec-t">Everything you want to know.</h2>
+    </div>
+    <div class="faq-list rv">
+      <div class="faq-item"><div class="faq-q"><span>Does it modify my existing BC configuration?</span><span class="faq-arrow">+</span></div><div class="faq-a">No. The extension adds fields without modifying any standard BC object. It installs and uninstalls cleanly with no impact on existing data.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>Do my buyers need to learn a new tool?</span><span class="faq-arrow">+</span></div><div class="faq-a">No. Everything happens on the screens they already know. The franco status appears exactly where it's useful, and never blocks data entry.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>Can I have different thresholds per vendor?</span><span class="faq-arrow">+</span></div><div class="faq-a">Yes. Each vendor has its own threshold type, value, and unit. You can also define a different rule per location for the same vendor.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>How does the Multi-Order Franco work?</span><span class="faq-arrow">+</span></div><div class="faq-a">A dedicated FactBox on each purchase order consolidates all open orders for the same vendor. It shows the combined total and whether the franco threshold is reached across those orders — helping buyers decide whether to consolidate before releasing.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>How does the Franco Optimizer work?</span><span class="faq-arrow">+</span></div><div class="faq-a">The Optimizer scans all below-threshold groups in the requisition worksheet. For each one, it suggests purchasable items from that vendor, filters by threshold type compatibility and lead time, then calculates the minimum quantity needed. You select what you want, adjust quantities if needed, and lines are created automatically.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>Who is this extension for?</span><span class="faq-arrow">+</span></div><div class="faq-a">Yes. Contact us to learn more about pricing and deployment.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>Where is the full technical documentation?</span><span class="faq-arrow">+</span></div><div class="faq-a">The complete technical documentation — setup, priority rules, Optimizer logic, quick reference — is available at <a href="franco-fournisseur-docs.html" target="_blank">franco-fournisseur-docs.html</a>.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="cta-kicker">Business Central Extension · WALYCONSEIL</div>
+      <h2 class="cta-t">Stop paying for shipping<br>you don't need to.</h2>
+      <p class="cta-s">Download, configure your first thresholds, and see the effect on the first order. Contact us to get started.</p>
+      <div class="cta-btns">
+        <a href="#" class="btn-hero">Download the extension <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg></a>
+        <a href="franco-fournisseur-docs.html" class="btn-sec" target="_blank">Technical documentation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-in">
+      <div class="footer-left">
+        <div class="footer-copy">A <strong style="color:var(--mid)">WALYCONSEIL</strong> product · <a href="mailto:contact@walyconseil.com" style="color:var(--blue);text-decoration:none">contact@walyconseil.com</a></div>
+        <div class="footer-copy">© 2025 WALYCONSEIL — Business Central Extension by WALYCONSEIL</div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>All extensions</a>
+        <a href="franco-fournisseur-docs.html"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>Documentation</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>40));
+document.querySelectorAll('.faq-item').forEach(item=>{
+  item.querySelector('.faq-q').addEventListener('click',()=>{
+    const open=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!open)item.classList.add('open');
+  });
+});
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+  });
+});
+const YT_VIDEO_ID='YOUR_VIDEO_ID';
+function loadVideo(){
+  if(YT_VIDEO_ID==='YOUR_VIDEO_ID'){alert('Replace YOUR_VIDEO_ID with your YouTube video ID.');return;}
+  const f=document.getElementById('yt-iframe'),p=document.getElementById('vid-placeholder');
+  f.src='https://www.youtube.com/embed/'+YT_VIDEO_ID+'?autoplay=1&rel=0';
+  f.style.display='block';p.style.display='none';
+}
+(function(){
+  const P={amount:{unit:'€',min:500,max:5000,step:100,t:2000,c:1600},weight:{unit:'kg',min:100,max:3000,step:50,t:2000,c:1450},unit:{unit:'pcs',min:50,max:1000,step:10,t:300,c:240}};
+  const sT=document.getElementById('sT'),sC=document.getElementById('sC');
+  const lT=document.getElementById('lT'),lC=document.getElementById('lC');
+  const fbVal=document.getElementById('fbVal'),fbUnit=document.getElementById('fbUnit');
+  const fbFill=document.getElementById('fbFill'),fsbStatus=document.getElementById('fsbStatus');
+  const fsThr=document.getElementById('fsThr'),fsRem=document.getElementById('fsRem');
+  const insight=document.getElementById('insight');
+  let ct='amount';
+  const fmt=n=>Math.round(n).toLocaleString('en-US');
+  function update(){
+    const p=P[ct],t=+sT.value,c=+sC.value;
+    lT.textContent=fmt(t)+' '+p.unit;lC.textContent=fmt(c)+' '+p.unit;
+    fbVal.textContent=fmt(c);fbUnit.textContent=p.unit;
+    fsThr.textContent=fmt(t)+' '+p.unit;
+    const r=c/t,rem=Math.max(0,t-c);
+    fsRem.textContent=rem>0?fmt(rem)+' '+p.unit:'— reached';
+    fsRem.style.color=rem>0?'var(--b)':'var(--a)';
+    fbFill.style.width=Math.min(r*100,100)+'%';
+    if(r>=1){fbFill.style.background='var(--a)';fsbStatus.textContent='Reached';fsbStatus.className='fsb fsb-ok';insight.textContent='✓ Threshold reached. Shipping is free on this order.';}
+    else if(r>=.85){fbFill.style.background='var(--b)';fsbStatus.textContent='Close';fsbStatus.className='fsb fsb-warn';insight.textContent='→ Just '+fmt(rem)+' '+p.unit+' more to unlock free shipping.';}
+    else{fbFill.style.background='var(--c)';fsbStatus.textContent='Not reached';fsbStatus.className='fsb fsb-bad';insight.textContent='→ '+fmt(rem)+' '+p.unit+' short of the free-shipping threshold.';}
+  }
+  document.querySelectorAll('.type-btn').forEach(b=>b.addEventListener('click',()=>{
+    ct=b.dataset.type;
+    document.querySelectorAll('.type-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    const p=P[ct];
+    sT.min=p.min;sT.max=p.max;sT.step=p.step;sT.value=p.t;
+    sC.min=0;sC.max=p.max;sC.step=p.step;sC.value=p.c;
+    update();
+  }));
+  sT.addEventListener('input',update);sC.addEventListener('input',update);
+  update();
+})();
+function counter(el,target,suffix){
+  const d=1400,s=performance.now();
+  const r=n=>{const t=Math.min((n-s)/d,1),e=1-Math.pow(1-t,3),v=Math.round(e*target);
+    el.textContent=v.toLocaleString('en-US')+(suffix||'');if(t<1)requestAnimationFrame(r)};
+  requestAnimationFrame(r);
+}
+const io=new IntersectionObserver(e=>{e.forEach(x=>{
+  if(!x.isIntersecting)return;
+  x.target.classList.add('vis');
+  const n=x.target.querySelector('[data-target]');
+  if(n)counter(n,+n.dataset.target,n.dataset.suffix||'');
+  io.unobserve(x.target);
+})},{threshold:.1});
+document.querySelectorAll('.rv,.usp-card').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
