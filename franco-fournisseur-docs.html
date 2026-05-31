@@ -37,16 +37,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(248,249,251,
 .btn-nav:hover{background:#1640B0;transform:translateY(-1px)}
 
 /* ── LAYOUT ── */
-.doc-layout{display:flex;min-height:100vh;padding-top:62px}
-.sidebar{width:var(--sidebar);flex-shrink:0;position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto;background:var(--bg2);border-right:1px solid var(--border);padding:28px 0 40px}
-@media(max-width:900px){.sidebar{display:none}}
+.doc-layout{display:flex;min-height:100vh;padding-top:62px;position:relative}
+.sidebar{
+  position:fixed;
+  top:62px;left:0;
+  width:var(--sidebar);
+  height:calc(100vh - 62px);
+  overflow-y:auto;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  padding:28px 0 40px;
+  z-index:100;
+  transition:transform .3s ease;
+}
+.sidebar.collapsed{transform:translateX(-100%)}
+.sidebar-toggle{
+  position:fixed;top:50%;left:var(--sidebar);
+  transform:translateY(-50%);z-index:101;
+  background:var(--bg2);border:1px solid var(--border2);border-left:none;
+  color:var(--mid);font-size:13px;padding:8px 5px;cursor:pointer;
+  transition:left .3s ease,color .2s,background .2s;
+  border-radius:0 6px 6px 0;font-family:'Plus Jakarta Sans',sans-serif;
+  box-shadow:2px 0 8px rgba(24,28,46,.06);
+}
+.sidebar-toggle:hover{color:var(--blue);background:var(--blue-l)}
+.sidebar.collapsed+.sidebar-toggle{left:0}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sidebar-toggle{left:0px!important}.content{margin-left:0!important}}
 .sidebar-section{margin-bottom:28px}
 .sidebar-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:0 20px;margin-bottom:8px}
 .sidebar a{display:block;font-size:13px;font-weight:500;color:var(--mid);text-decoration:none;padding:7px 20px;transition:all .15s;border-left:3px solid transparent}
 .sidebar a:hover{color:var(--blue);background:var(--blue-l);border-left-color:var(--blue-m)}
 .sidebar a.active{color:var(--blue);font-weight:700;background:var(--blue-l);border-left-color:var(--blue)}
 .sidebar a.sub{padding-left:32px;font-size:12px}
-.content{flex:1;min-width:0;padding:52px 56px 100px;max-width:calc(var(--content) + 112px)}
+.content{flex:1;min-width:0;padding:52px 56px 100px;max-width:calc(var(--content) + 112px);margin-left:var(--sidebar);transition:margin-left .3s ease}
 @media(max-width:1100px){.content{padding:40px 32px 80px}}
 @media(max-width:640px){.content{padding:28px 20px 60px}}
 
@@ -255,25 +278,31 @@ html[lang="en"] .l-fr-block{display:none !important}
   </div>
 </nav>
 
+<button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Toggle navigation" aria-label="Toggle navigation">
+  <svg id="toggle-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path d="M15 18l-6-6 6-6"/>
+  </svg>
+</button>
+
 <div class="doc-layout" id="top">
 
   <!-- ── SIDEBAR ── -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-section">
       <div class="sidebar-title"><span class="l-fr">Démarrage</span><span class="l-en">Getting started</span></div>
-      <a href="#s1" class="active">1. Présentation générale</a>
+      <a href="#s1" class="active"><span class="l-fr">1. Présentation générale</span><span class="l-en">1. Overview</span></a>
       <a href="#s2"><span class="l-fr">2. Concepts clés</span><span class="l-en">2. Key concepts</span></a>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-title"><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></div>
       <a href="#s3"><span class="l-fr">3. Paramétrage</span><span class="l-en">3. Setup</span></a>
-      <a href="#s31" class="sub"><span class="l-fr">3.1 Règles Franco</span><span class="l-en">3.1 Franco rules</span></a>
+      <a href="#s31" class="sub"><span class="l-fr">3.1 Règles Franco</span><span class="l-en">3.1 Free Shipping Threshold rules</span></a>
       <a href="#s32" class="sub"><span class="l-fr">3.2 Frais automatiques</span><span class="l-en">3.2 Automatic charges</span></a>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-title"><span class="l-fr">Commande Achat</span><span class="l-en">Purchase Order</span></div>
       <a href="#s4"><span class="l-fr">4. Commande Achat</span><span class="l-en">4. Purchase Order</span></a>
-      <a href="#s41" class="sub"><span class="l-fr">4.1 FactBox Franco</span><span class="l-en">4.1 Franco FactBox</span></a>
+      <a href="#s41" class="sub"><span class="l-fr">4.1 FactBox Franco</span><span class="l-en">4.1 Free Shipping FactBox</span></a>
       <a href="#s42" class="sub"><span class="l-fr">4.2 Les 4 statuts</span><span class="l-en">4.2 The 4 statuses</span></a>
       <a href="#s43" class="sub"><span class="l-fr">4.3 Frais au lancement</span><span class="l-en">4.3 Charges on release</span></a>
       <a href="#s44" class="sub">4.4 Recalculer Franco</a>
@@ -282,9 +311,9 @@ html[lang="en"] .l-fr-block{display:none !important}
       <div class="sidebar-title"><span class="l-fr">Feuille de demande</span><span class="l-en">Req. Worksheet</span></div>
       <a href="#s5">5. Feuille de demande</a>
       <a href="#s51" class="sub"><span class="l-fr">5.1 FactBox par ligne</span><span class="l-en">5.1 Per-line FactBox</span></a>
-      <a href="#s52" class="sub"><span class="l-fr">5.2 Analyse Franco</span><span class="l-en">5.2 Franco Analysis</span></a>
-      <a href="#s53" class="sub"><span class="l-fr">5.3 Rafraîchir Franco</span><span class="l-en">5.3 Refresh Franco</span></a>
-      <a href="#s54" class="sub"><span class="l-fr">5.4 Optimiser Franco</span><span class="l-en">5.4 Franco Optimizer</span></a>
+      <a href="#s52" class="sub"><span class="l-fr">5.2 Analyse Franco</span><span class="l-en">5.2 Threshold Analysis</span></a>
+      <a href="#s53" class="sub"><span class="l-fr">5.3 Rafraîchir Franco</span><span class="l-en">5.3 Refresh Thresholds</span></a>
+      <a href="#s54" class="sub"><span class="l-fr">5.4 Optimiser Franco</span><span class="l-en">5.4 Free Shipping Optimizer</span></a>
     </div>
     <div class="sidebar-section">
       <div class="sidebar-title">Optimiseur Franco</div>
@@ -295,7 +324,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     </div>
     <div class="sidebar-section">
       <div class="sidebar-title"><span class="l-fr"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span></span><span class="l-en">Activity Dashboard</span></div>
-      <a href="#s7">7. Pile d'activité</a>
+      <a href="#s7"><span class="l-fr">7. Pile d'activité</span><span class="l-en">7. Dashboard</span></a>
       <a href="#s8"><span class="l-fr">8. Règles de priorité</span><span class="l-en">8. Priority rules</span></a>
       <a href="#s9"><span class="l-fr">9. Référence rapide</span><span class="l-en">9. Quick reference</span></a>
     </div>
@@ -313,7 +342,7 @@ html[lang="en"] .l-fr-block{display:none !important}
         <li><a href="#s3"><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></a></li>
         <li><a href="#s4"><span class="l-fr">Gestion sur la Commande Achat</span><span class="l-en">Purchase Order</span></a></li>
         <li><a href="#s5"><span class="l-fr">Feuille de Demande d'Achat</span><span class="l-en">Requisition Worksheet</span></a></li>
-        <li><a href="#s6"><span class="l-fr">L'Optimiseur Franco</span><span class="l-en">Franco Optimizer</span></a></li>
+        <li><a href="#s6"><span class="l-fr">L'Optimiseur Franco</span><span class="l-en">Free Shipping Optimizer</span></a></li>
         <li><a href="#s7"><span class="l-fr"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span></span><span class="l-en">Activity Dashboard</span></a></li>
         <li><a href="#s8"><span class="l-fr">Règles de priorité</span><span class="l-en">Priority Rules</span></a></li>
         <li><a href="#s9"><span class="l-fr"><span class="l-fr">Référence rapide</span><span class="l-en">Quick reference</span></span><span class="l-en">Quick Reference</span></a></li>
@@ -338,32 +367,24 @@ html[lang="en"] .l-fr-block{display:none !important}
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-en"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span><span class="l-fr"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span></span><span class="l-fr"><span class="l-en"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span><span class="l-fr"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span></span></div>
       <h2 class="section-title">Présentation <em>générale</em></h2>
-      <p class="section-lead">L'extension <strong><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></strong> permet de gérer et piloter les seuils de franchise de port (franco) par fournisseur directement dans Business Central.</p>
+      <p class="section-lead">L'extension <strong><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></strong> <span class="l-fr">permet de gérer et piloter les seuils de franchise de port (franco) par fournisseur directement dans Business Central.</span><span class="l-en">tracks and manages vendor free shipping thresholds directly in Business Central, eliminating manual tracking and ensuring every order meets or exceeds the free shipping threshold.</span></p>
 
       <div class="subsection-body">
-        <p>Sans cet outil, le suivi du franco est manuel, dispersé dans les commandes, et souvent découvert trop tard — après le lancement, quand il n'est plus possible d'ajuster facilement.</p>
-        <p>L'extension intervient à <strong>deux niveaux du processus achat</strong> :</p>
+        <p><span class="l-fr">Sans cet outil, le suivi du franco est manuel, dispersé dans les commandes, et souvent découvert trop tard — après le lancement, quand il n'est plus possible d'ajuster facilement.</span><span class="l-en">Without this extension, threshold tracking is manual, scattered across orders, and typically discovered too late — after release, when adjusting is no longer easy.</span></p>
+        <p><span class="l-fr">L'extension intervient à</span><span class="l-en">The extension operates at</span> <strong>deux niveaux du processus achat</strong> :</p>
         <ul>
-          <li><strong>Commande achat</strong> : affichage en temps réel du statut franco sur chaque commande, et application automatique de frais de port si le franco n'est pas atteint au lancement.</li>
-          <li><strong>Feuille de demande d'achat</strong> : analyse consolidée par groupe Fournisseur / Magasin / Date de réception, avec un outil de suggestion pour atteindre le franco avant de lancer les commandes.</li>
+          <li><strong>Commande achat</strong> <span class="l-fr">: affichage en temps réel du statut franco sur chaque commande, et application automatique de frais de port si le franco n'est pas atteint au lancement.</span><span class="l-en">: real-time free shipping status on every purchase order, and automatic shipping charges if the threshold is not reached at release.</span></li>
+          <li><strong><span class="l-fr">Feuille de demande d'achat</span><span class="l-en">Requisition Worksheet</span></strong> <span class="l-fr">: analyse consolidée par groupe Fournisseur / Magasin / Date de réception, avec un outil de suggestion pour atteindre le franco avant de lancer les commandes.</span><span class="l-en">: consolidated analysis by Vendor / Location / Expected Receipt Date group, with an Optimizer to reach the threshold before releasing orders.</span></li>
         </ul>
       </div>
 
       <div class="screenshot-slot wide rv" style="transition-delay:.08s">
-        <img 
-          src="screenshots/01-overview.png" 
-          alt="Vue d'ensemble — Extension Franco Fournisseur sur Business Central"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
         <div class="screenshot-slot-inner">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">Vue d'ensemble — Extension Franco Fournisseur sur Business Central</div>
-          <div class="screenshot-hint"><span class="l-fr">Page d'accueil BC avec la pile d'activité Franco visible</span><span class="l-en">BC homepage with Franco Fournisseur Activity Stack visible</span></div>
+          <div class="screenshot-title"><span class="l-fr">Vue d'ensemble — Extension en action sur Business Central</span><span class="l-en">Overview — Vendor Free Shipping extension in Business Central</span></div>
+          <div class="screenshot-hint"><span class="l-fr">Capture recommandée : page d'accueil BC avec la pile d'activité Franco visible</span><span class="l-en">Recommended: BC homepage with Vendor Free Shipping Activity Stack visible in Role Center</span></div>
         </div>
-      </div>
       </div>
     </section>
 
@@ -376,35 +397,35 @@ html[lang="en"] .l-fr-block{display:none !important}
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></span><span class="l-fr"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></span></div>
       <h2 class="section-title">Concepts <em>clés</em></h2>
-      <p class="section-lead">Avant de paramétrer l'extension, voici les deux notions fondamentales à maîtriser.</p>
+      <p class="section-lead"><span class="l-fr">Avant de paramétrer l'extension, voici les deux notions fondamentales à maîtriser.</span><span class="l-en">Before configuring the extension, here are the two fundamental concepts to understand.</span></p>
 
       <div class="subsection">
         <span class="section-anchor" id="s21"></span>
-        <div class="subsection-title"><span class="l-fr">Le Franco (franchise de port)</span><span class="l-en">The Franco (free-shipping threshold)</span></div>
+        <div class="subsection-title"><span class="l-fr">Le Franco (franchise de port)</span><span class="l-en">The Free Shipping Threshold</span></div>
         <div class="subsection-body">
-          <p>Un accord commercial par lequel un fournisseur offre la livraison gratuite à partir d'un certain seuil de commande. Ce seuil peut être exprimé de trois façons :</p>
+          <p><span class="l-fr">Un accord commercial par lequel un fournisseur offre la livraison gratuite à partir d'un certain seuil de commande. Ce seuil peut être exprimé de trois façons :</span><span class="l-en">A commercial agreement by which a vendor offers free delivery above a certain order threshold. The threshold can be expressed in three ways:</span></p>
         </div>
         <table class="doc-table">
           <thead><tr><th><span class="l-en">Type</span><span class="l-fr">Type</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th><th><span class="l-fr">Unité</span><span class="l-en">Unit</span></th></tr></thead>
           <tbody>
-            <tr><td>Montant</td><td>Le total de la commande doit dépasser un montant en devise</td><td>€ (ou devise de la règle)</td></tr>
-            <tr><td>Poids Net</td><td>Le poids net total des articles commandés doit dépasser un seuil</td><td>kg (ou unité de poids définie)</td></tr>
-            <tr><td>Unité</td><td>Le nombre d'unités commandées doit dépasser un seuil</td><td>Palette, Carton, etc.</td></tr>
+            <tr><td>Montant</td><td><span class="l-fr">Le total de la commande doit dépasser un montant en devise</span><span class="l-en">The order total must exceed a monetary value</span></td><td><span class="l-fr">€ (ou devise de la règle)</span><span class="l-en">€ (or rule currency)</span></td></tr>
+            <tr><td>Poids Net</td><td><span class="l-fr">Le poids net total des articles commandés doit dépasser un seuil</span><span class="l-en">The total net weight of ordered items must exceed a threshold</span></td><td><span class="l-fr">kg (ou unité de poids définie)</span><span class="l-en">kg (or defined weight unit)</span></td></tr>
+            <tr><td>Unité</td><td><span class="l-fr">Le nombre d'unités commandées doit dépasser un seuil</span><span class="l-en">The number of ordered units must exceed a threshold</span></td><td>Palette, Carton, etc.</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="subsection">
         <span class="section-anchor" id="s22"></span>
-        <div class="subsection-title"><span class="l-fr">Le groupe Franco</span><span class="l-en">The Franco Group</span> <span class="stag"><span class="l-fr">Feuille de demande</span><span class="l-en">Req. Worksheet</span></span></div>
+        <div class="subsection-title"><span class="l-fr">Le groupe Franco</span><span class="l-en">The Free Shipping Group</span> <span class="stag"><span class="l-fr">Feuille de demande</span><span class="l-en">Req. Worksheet</span></span></div>
         <div class="subsection-body">
-          <p>Dans la feuille de demande d'achat, le calcul ne se fait pas ligne par ligne, mais par <strong>groupe</strong>. Un groupe est défini par la combinaison unique de :</p>
+          <p><span class="l-fr">Dans la feuille de demande d'achat, le calcul ne se fait pas ligne par ligne, mais par</span><span class="l-en">In the requisition worksheet, calculation is not per line but per</span> <strong>groupe</strong><span class="l-fr">. Un groupe est défini par la combinaison unique de :</span><span class="l-en">. A group is defined by the unique combination of:</span></p>
           <ul>
             <li><strong>Fournisseur</strong></li>
             <li><strong>Magasin</strong></li>
-            <li><strong>Date de réception souhaitée</strong></li>
+            <li><strong><span class="l-fr">Date de réception souhaitée</span><span class="l-en">Expected Receipt Date</span></strong></li>
           </ul>
-          <p>Toutes les lignes partageant ces trois critères forment un groupe, car elles seront très probablement regroupées dans une même commande fournisseur.</p>
+          <p><span class="l-fr">Toutes les lignes partageant ces trois critères forment un groupe, car elles seront très probablement regroupées dans une même commande fournisseur.</span><span class="l-en">All lines sharing these three values form one group, because they will likely be consolidated into a single vendor order.</span></p>
         </div>
       </div>
     </section>
@@ -422,55 +443,47 @@ html[lang="en"] .l-fr-block{display:none !important}
       <!-- 3.1 -->
       <span class="section-anchor" id="s31"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">3.1 Règles Franco Fournisseur</span><span class="l-en">3.1 Franco Vendor Rules</span></div>
+        <div class="subsection-title"><span class="l-fr">3.1 Règles Franco Fournisseur</span><span class="l-en">3.1 Vendor Free Shipping Rules</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Menu recherche BC → « Franco fournisseurs »
+          <span class="l-fr">Menu recherche BC → « Franco fournisseurs »</span><span class="l-en">BC Search → Vendor Free Shipping Thresholds</span>
         </div>
         <div class="subsection-body">
-          <p>C'est la table centrale de l'extension. Chaque ligne définit une règle franco pour un fournisseur donné, avec optionnellement un magasin spécifique.</p>
+          <p><span class="l-fr">C'est la table centrale de l'extension. Chaque ligne définit une règle franco pour un fournisseur donné, avec optionnellement un magasin spécifique.</span><span class="l-en">The central configuration table. Each row defines a vendor free shipping threshold rule for a given vendor, with an optional location filter.</span></p>
         </div>
         <table class="doc-table">
           <thead><tr><th><span class="l-fr">Champ</span><span class="l-en">Field</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th></tr></thead>
           <tbody>
-            <tr><td>N° Fournisseur</td><td>Le fournisseur auquel s'applique la règle</td></tr>
-            <tr><td>Magasin</td><td>Optionnel. Si renseigné, règle spécifique au magasin. Si vide, règle globale pour tous les magasins.</td></tr>
-            <tr><td>Franco Activé</td><td>Interrupteur qui active ou désactive la règle sans la supprimer</td></tr>
-            <tr><td>Type</td><td>Montant, Poids Net ou Unité</td></tr>
-            <tr><td>Seuil</td><td>La valeur à atteindre pour obtenir le franco</td></tr>
-            <tr><td>Devise</td><td>Obligatoire si le type est Montant. Doit correspondre à la devise de la commande.</td></tr>
-            <tr><td>Unité de mesure</td><td>Obligatoire si le type est Poids Net ou Unité (ex. KG, PAL)</td></tr>
+            <tr><td>N° Fournisseur</td><td><span class="l-fr">Le fournisseur auquel s'applique la règle</span><span class="l-en">The vendor this rule applies to</span></td></tr>
+            <tr><td>Magasin</td><td><span class="l-fr">Optionnel. Si renseigné, règle spécifique au magasin. Si vide, règle globale pour tous les magasins.</span><span class="l-en">Optional. If set, rule applies only to this location. If blank, applies to all locations (global rule).</span></td></tr>
+            <tr><td>Franco Activé</td><td><span class="l-fr">Interrupteur qui active ou désactive la règle sans la supprimer</span><span class="l-en">Toggle that activates or deactivates the rule without deleting it</span></td></tr>
+            <tr><td>Type</td><td><span class="l-fr">Montant, Poids Net ou Unité</span><span class="l-en">Amount, Net Weight, or Unit</span></td></tr>
+            <tr><td>Seuil</td><td><span class="l-fr">La valeur à atteindre pour obtenir le franco</span><span class="l-en">The value to reach to obtain free shipping</span></td></tr>
+            <tr><td>Devise</td><td><span class="l-fr">Obligatoire si le type est Montant. Doit correspondre à la devise de la commande.</span><span class="l-en">Required for Amount type. Must match the order currency.</span></td></tr>
+            <tr><td><span class="l-fr">Unité de mesure</span><span class="l-en">Unit of Measure</span></td><td><span class="l-fr">Obligatoire si le type est Poids Net ou Unité (ex. KG, PAL)</span><span class="l-en">Required for Net Weight or Unit type (e.g. KG, PAL)</span></td></tr>
           </tbody>
         </table>
 
         <div class="callout info">
           <span class="callout-icon">⚡</span>
-          <div class="callout-body"><strong><span class="l-fr">Actions disponibles depuis cette page</span><span class="l-en">Available actions</span></strong>Activer Franco · Désactiver Franco · Frais automatiques (ouvre la configuration des frais, voir section 3.2)</div>
+          <div class="callout-body"><strong><span class="l-fr">Actions disponibles depuis cette page</span><span class="l-en">Available actions</span></strong><span class="l-fr">Activer Franco · Désactiver Franco · Frais automatiques (ouvre la configuration des frais, voir sect</span><span class="l-en">Enable Free Shipping · Disable Free Shipping · Automatic Charges (opens charge configuration, see section 3.2)</span>ion 3.2)</div>
         </div>
         <div class="callout warning">
           <span class="callout-icon">📌</span>
-          <div class="callout-body"><strong><span class="l-fr">Règle de priorité</span><span class="l-en">Priority rule</span></strong>Si un fournisseur a deux règles (une avec magasin spécifique, une globale), la règle avec magasin est toujours prioritaire pour ce magasin.</div>
+          <div class="callout-body"><strong><span class="l-fr">Règle de priorité</span><span class="l-en">Priority rule</span></strong><span class="l-fr">Si un fournisseur a deux règles (une avec magasin spécifique, une globale), la règle avec magasin est toujours prioritaire pour ce magasin.</span><span class="l-en">If a vendor has two rules (one with a specific location, one global), the location-specific rule always takes priority for that location.</span></div>
         </div>
         <div class="callout success">
           <span class="callout-icon">✓</span>
-          <div class="callout-body"><strong><span class="l-fr">Récupération automatique</span><span class="l-en">Auto-retrieval</span></strong>Quand une règle franco est ajoutée, les nouvelles commandes achat créées pour ce fournisseur récupèrent automatiquement le seuil et le type dès la saisie du fournisseur.</div>
+          <div class="callout-body"><strong><span class="l-fr">Récupération automatique</span><span class="l-en">Auto-retrieval</span></strong><span class="l-fr">Quand une règle franco est ajoutée, les nouvelles commandes achat créées pour ce fournisseur récupèrent automatiquement le seuil et le type dès la saisie du fournisseur.</span><span class="l-en">When a threshold rule is added, new purchase orders for this vendor automatically inherit the threshold type and value as soon as the vendor is entered.</span></div>
         </div>
 
-        <div class="screenshot-slot rv" >
-        <img 
-          src="screenshots/02-franco-rules-list.png" 
-          alt="Page « Franco fournisseurs » — liste des règles"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">Page « Franco fournisseurs » — liste des règles</div>
-          <div class="screenshot-hint"><span class="l-fr">Liste des règles avec colonnes Fournisseur, Magasin, Type, Seuil, Activé</span><span class="l-en">Franco rules list with Vendor, Location, Type, Threshold columns visible</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">Page « Franco fournisseurs » — liste des règles</span><span class="l-en">Vendor Free Shipping Thresholds — rules list</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : liste des règles franco avec les colonnes Fournisseur, Magasin, Type, Seuil, Activé</span><span class="l-en">Recommended: Vendor Free Shipping Thresholds list with Vendor, Location, Type, Threshold, Enabled columns</span></div>
+          </div>
         </div>
       </div>
 
@@ -480,40 +493,32 @@ html[lang="en"] .l-fr-block{display:none !important}
         <div class="subsection-title"><span class="l-fr">3.2 Frais automatiques</span><span class="l-en">3.2 Automatic charges</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Page « Franco fournisseurs » → sélectionner une règle → Actions → « Frais automatiques »
+          <span class="l-fr">Page « Franco fournisseurs » → sélectionner une règle → Actions → « Frais automatiques »</span><span class="l-en">Vendor Free Shipping Thresholds page → select rule → Actions → Automatic Charges</span>
         </div>
         <div class="subsection-body">
-          <p>Permet de définir, pour chaque règle franco, un ou plusieurs frais annexes à insérer automatiquement sur la commande si le franco n'est pas atteint au lancement.</p>
+          <p><span class="l-fr">Permet de définir, pour chaque règle franco, un ou plusieurs frais annexes à insérer automatiquement sur la commande si le franco n'est pas atteint au lancement.</span><span class="l-en">Defines one or more item charges to automatically insert on the purchase order when the free shipping threshold is not reached at release.</span></p>
         </div>
         <table class="doc-table">
           <thead><tr><th><span class="l-fr">Champ</span><span class="l-en">Field</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th></tr></thead>
           <tbody>
             <tr><td>N° frais annexes</td><td>Code du frais annexe BC. La description se remplit automatiquement.</td></tr>
-            <tr><td>Description</td><td>Libellé modifiable qui apparaîtra sur la ligne de commande</td></tr>
-            <tr><td>Quantité</td><td>Quantité de l'unité de frais (généralement 1)</td></tr>
-            <tr><td>Coût unitaire</td><td>Montant du frais à appliquer</td></tr>
+            <tr><td>Description</td><td><span class="l-fr">Libellé modifiable qui apparaîtra sur la ligne de commande</span><span class="l-en">Editable label that will appear on the order line</span></td></tr>
+            <tr><td>Quantité</td><td><span class="l-fr">Quantité de l'unité de frais (généralement 1)</span><span class="l-en">Charge unit quantity (typically 1)</span></td></tr>
+            <tr><td>Coût unitaire</td><td><span class="l-fr">Montant du frais à appliquer</span><span class="l-en">Charge amount to apply</span></td></tr>
           </tbody>
         </table>
         <div class="callout info">
           <span class="callout-icon">💡</span>
-          <div class="callout-body"><strong><span class="l-fr">Prérequis</span><span class="l-en">Prerequisite</span></strong>Les frais annexes doivent être préalablement configurés dans BC : Achats → Configuration → Frais annexes. Plusieurs lignes peuvent être définies pour une même règle — elles seront toutes insérées si le franco n'est pas atteint.</div>
+          <div class="callout-body"><strong><span class="l-fr">Prérequis</span><span class="l-en">Prerequisite</span></strong><span class="l-fr">Les frais annexes doivent être préalablement configurés dans BC : Achats → Configuration → Frais annexes. Plusieurs lignes peuvent être définies pour une même règle — elles seront toutes insérées si le franco n'est pas atteint.</span><span class="l-en">Item charges must be configured in BC first: Purchases → Setup → Item Charges. Multiple lines can be defined per rule — all will be inserted if the threshold is not reached.</span></div>
         </div>
 
-        <div class="screenshot-slot rv" >
-        <img 
-          src="screenshots/03-automatic-charges.png" 
-          alt="Configuration des frais automatiques"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">Configuration des frais automatiques</div>
-          <div class="screenshot-hint"><span class="l-fr">Sous-page Frais automatiques avec colonnes N° frais, Description, Quantité, Coût unitaire</span><span class="l-en">Automatic Charges sub-page with Item Charge No., Description, Quantity, Unit Cost columns</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">Configuration des frais automatiques</span><span class="l-en">Automatic charges configuration</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : sous-page Frais automatiques avec les colonnes N° frais, Description, Quantité, Coût unitaire</span><span class="l-en">Recommended: Automatic Charges sub-page with Item Charge No., Description, Quantity, Unit Cost columns</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -531,92 +536,84 @@ html[lang="en"] .l-fr-block{display:none !important}
       <!-- 4.1 -->
       <span class="section-anchor" id="s41"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">4.1 Le FactBox Franco</span><span class="l-en">4.1 Franco FactBox</span></div>
+        <div class="subsection-title"><span class="l-fr">4.1 Le FactBox Franco</span><span class="l-en">4.1 Free Shipping FactBox</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Page Commande Achat → volet de droite (FactBoxes)
+          <span class="l-fr">Page Commande Achat → volet de droite (FactBoxes)</span><span class="l-en">Purchase Order → right-hand pane (FactBoxes)</span>
         </div>
         <div class="subsection-body">
-          <p>Dès qu'un fournisseur est sélectionné et qu'une règle franco est active, le FactBox <strong>« Franco Fournisseur »</strong> apparaît dans le volet droit et se met à jour <strong>automatiquement</strong> à chaque modification de ligne.</p>
+          <p><span class="l-fr">Dès qu'un fournisseur est sélectionné et qu'une règle franco est active, le FactBox</span><span class="l-en">As soon as a vendor with an active threshold rule is selected, the FactBox</span> <strong><span class="l-fr">« Franco Fournisseur »</span><span class="l-en">"Free Shipping Threshold"</span></strong> <span class="l-fr">apparaît dans le volet droit et se met à jour</span><span class="l-en">appears in the right pane and updates</span> <strong>automatiquement</strong> <span class="l-fr">à chaque modification de ligne.</span><span class="l-en">on every line change.</span></p>
         </div>
         <table class="doc-table">
           <thead><tr><th><span class="l-fr">Champ</span><span class="l-en">Field</span></th><th><span class="l-en">Description</span><span class="l-fr">Description</span></th></tr></thead>
           <tbody>
             <tr><td>Statut</td><td>Statut franco actuel (voir section 4.2)</td></tr>
-            <tr><td>Type Franco</td><td>Montant, Poids Net ou Unité</td></tr>
-            <tr><td>Seuil Franco</td><td>Valeur à atteindre</td></tr>
-            <tr><td>Devise / Unité</td><td>Devise ou unité de mesure selon le type</td></tr>
-            <tr><td>Valeur Actuelle</td><td>Ce que représente la commande actuellement</td></tr>
-            <tr><td>Restant à Atteindre</td><td>Différence entre le seuil et la valeur actuelle</td></tr>
+            <tr><td>Type Franco</td><td><span class="l-fr">Montant, Poids Net ou Unité</span><span class="l-en">Amount, Net Weight, or Unit</span></td></tr>
+            <tr><td>Seuil Franco</td><td><span class="l-fr">Valeur à atteindre</span><span class="l-en">Value to reach</span></td></tr>
+            <tr><td>Devise / Unité</td><td><span class="l-fr">Devise ou unité de mesure selon le type</span><span class="l-en">Currency or unit of measure depending on type</span></td></tr>
+            <tr><td>Valeur Actuelle</td><td><span class="l-fr">Ce que représente la commande actuellement</span><span class="l-en">What the order currently represents</span></td></tr>
+            <tr><td><span class="l-fr">Restant à Atteindre</span><span class="l-en">Remaining to Reach</span></td><td><span class="l-fr">Différence entre le seuil et la valeur actuelle</span><span class="l-en">Difference between the threshold and the current value</span></td></tr>
           </tbody>
         </table>
         <div class="callout info">
           <span class="callout-icon">🧮</span>
           <div class="callout-body"><strong>Calcul de la Valeur Actuelle</strong>
             <ul style="margin-top:6px;padding-left:16px;display:flex;flex-direction:column;gap:5px">
-              <li><strong>Montant</strong> : somme des montants HT de toutes les lignes de type Article</li>
-              <li><strong>Poids Net</strong> : somme de Quantité × Poids Net unitaire (lu sur la fiche article)</li>
-              <li><strong>Unité</strong> : somme des quantités converties dans l'UdM définie sur la règle</li>
+              <li><strong>Montant</strong> <span class="l-fr">: somme des montants HT de toutes les lignes de type Article</span><span class="l-en">: sum of pre-tax amounts of all Item-type lines</span></li>
+              <li><strong>Poids Net</strong> <span class="l-fr">: somme de Quantité × Poids Net unitaire (lu sur la fiche article)</span><span class="l-en">: sum of Quantity × Unit Net Weight (read from item card)</span></li>
+              <li><strong>Unité</strong> <span class="l-fr">: somme des quantités converties dans l'UdM définie sur la règle</span><span class="l-en">: sum of quantities converted to the UoM defined on the rule</span></li>
             </ul>
-            <p style="margin-top:8px">⚠️ Les lignes de type Frais Annexes, Compte général ou Ressource ne sont <strong>pas</strong> prises en compte.</p>
+            <p style="margin-top:8px"><span class="l-fr">⚠️ Les lignes de type Frais Annexes, Compte général ou Ressource ne sont</span><span class="l-en">⚠️ Item Charge, G/L Account, and Resource lines are</span> <strong>pas</strong> prises en compte.</p>
           </div>
         </div>
 
-        <div class="screenshot-slot wide rv" >
-        <img 
-          src="screenshots/04-factbox-not-reached.png" 
-          alt="FactBox Franco — statut Non Atteint"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">FactBox Franco — statut Non Atteint</div>
-          <div class="screenshot-hint"><span class="l-fr">Volet droit de la commande achat avec le FactBox Franco en rouge « Non Atteint »</span><span class="l-en">Purchase order right pane showing red 'Not Reached' status in Franco FactBox</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot wide rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">FactBox Franco sur la Commande Achat</span><span class="l-en">Free Shipping FactBox on Purchase Order</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : volet droit de la commande achat avec le FactBox Franco visible, idéalement avec un statut </span><span class="l-en">Recommended: purchase order right pane with Free Shipping FactBox visible, ideally showing red 'Not Reached' status</span><span class="l-fr">« Franco Non Atteint »</span><span class="l-en">"Threshold Not Reached"</span> (rouge)</div>
+          </div>
         </div>
       </div>
 
       <!-- 4.2 -->
       <span class="section-anchor" id="s42"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">4.2 Les quatre statuts Franco</span><span class="l-en">4.2 The Four Franco Statuses</span></div>
+        <div class="subsection-title"><span class="l-fr">4.2 Les quatre statuts Franco</span><span class="l-en">4.2 The Four Threshold Statuses</span></div>
         <div class="status-grid">
           <div class="status-card sc-na">
             <div class="status-dot sd-na"></div>
             <div class="sc-body">
               <strong>N/A — Pas de Franco</strong>
-              <p>Aucune règle franco active pour ce fournisseur et ce magasin, ou fournisseur non renseigné.</p>
+              <p><span class="l-fr">Aucune règle franco active pour ce fournisseur et ce magasin, ou fournisseur non renseigné.</span><span class="l-en">No active threshold rule exists for this vendor and location, or vendor is not set.</span></p>
             </div>
           </div>
           <div class="status-card sc-bad">
             <div class="status-dot sd-bad"></div>
             <div class="sc-body">
               <strong>Franco Non Atteint</strong>
-              <p>Une règle existe et est active, mais la valeur actuelle est inférieure au seuil.</p>
+              <p><span class="l-fr">Une règle existe et est active, mais la valeur actuelle est inférieure au seuil.</span><span class="l-en">A rule exists and is active, but the current order value is below the threshold.</span></p>
             </div>
           </div>
           <div class="status-card sc-ok">
             <div class="status-dot sd-ok"></div>
             <div class="sc-body">
               <strong>Franco Atteint</strong>
-              <p>La valeur actuelle de la commande est supérieure ou égale au seuil franco.</p>
+              <p><span class="l-fr">La valeur actuelle de la commande est supérieure ou égale au seuil franco.</span><span class="l-en">The current order value is greater than or equal to the free shipping threshold.</span></p>
             </div>
           </div>
           <div class="status-card sc-fees">
             <div class="status-dot sd-fees"></div>
             <div class="sc-body">
               <strong>Frais ajoutés</strong>
-              <p>Le franco n'est pas atteint, mais des frais de port ont été insérés automatiquement lors du lancement.</p>
+              <p><span class="l-fr">Le franco n'est pas atteint, mais des frais de port ont été insérés automatiquement lors du lancement.</span><span class="l-en">The threshold is not reached, but shipping charges were automatically inserted at release.</span></p>
             </div>
           </div>
         </div>
         <div class="callout warning">
           <span class="callout-icon">🔄</span>
-          <div class="callout-body">Si l'utilisateur supprime manuellement les lignes de frais après le lancement, le statut repasse automatiquement à <strong>« Franco Non Atteint »</strong> sans action supplémentaire.</div>
+          <div class="callout-body"><span class="l-fr">Si l'utilisateur supprime manuellement les lignes de frais après le lancement, le statut repasse automatiquement à <strong><span class="l-fr">« Franco Non Atteint »</span><span class="l-en">"Threshold Not Reached"</span></strong> <span class="l-fr">sans action supplémentaire.</span><span class="l-en">with no further action required.</span></span><span class="l-en">If the user manually deletes charge lines after release, the status automatically reverts to <strong>"Threshold Not Reached"</strong> with no further action required.</span></div>
         </div>
       </div>
 
@@ -625,53 +622,45 @@ html[lang="en"] .l-fr-block{display:none !important}
       <div class="subsection rv">
         <div class="subsection-title"><span class="l-fr">4.3 Frais automatiques au lancement</span><span class="l-en">4.3 Automatic Charges on Release</span></div>
         <div class="subsection-body">
-          <p>Lorsque l'utilisateur clique sur <strong>« Lancer »</strong> (Release) une commande dont le statut est <strong>Non Atteint</strong> et que des frais automatiques sont configurés, le système affiche :</p>
+          <p><span class="l-fr">Lorsque l'utilisateur clique sur</span><span class="l-en">When the user clicks</span> <strong>« Lancer »</strong> <span class="l-fr">(Release) une commande dont le statut est</span><span class="l-en">(Release) on an order with status</span> <strong>Non Atteint</strong> <span class="l-fr">et que des frais automatiques sont configurés, le système affiche :</span><span class="l-en">and automatic charges are configured, the system displays:</span></p>
         </div>
         <div class="callout danger" style="margin:16px 0">
           <span class="callout-icon">💬</span>
-          <div class="callout-body"><em>« Le franco fournisseur n'est pas atteint pour ce fournisseur. Des frais automatiques sont configurés. Voulez-vous les ajouter à la commande ? »</em></div>
+          <div class="callout-body"><em><span class="l-fr">« Le franco fournisseur n'est pas atteint pour ce fournisseur. Des frais automatiques sont configurés. Voulez-vous les ajouter à la commande ? »</span><span class="l-en">"The vendor free shipping threshold is not reached for this vendor. Automatic charges are configured. Do you want to add them to the order?"</span></em></div>
         </div>
         <table class="doc-table">
           <thead><tr><th><span class="l-fr">Réponse</span><span class="l-en">Response</span></th><th><span class="l-fr">Comportement</span><span class="l-en">Behavior</span></th></tr></thead>
           <tbody>
-            <tr><td>Oui</td><td>Lignes de frais insérées en fin de commande. Statut passe à « Frais ajoutés ». Lancement continue normalement.</td></tr>
-            <tr><td>Non</td><td>Commande lancée sans frais. Statut reste « Franco Non Atteint ».</td></tr>
+            <tr><td>Oui</td><td><span class="l-fr">Lignes de frais insérées en fin de commande. Statut passe à « Frais ajoutés ». Lancement continue normalement.</span><span class="l-en">Charge lines inserted at end of order. Status changes to "Charges Added". Release continues normally.</span></td></tr>
+            <tr><td>Non</td><td><span class="l-fr">Commande lancée sans frais. Statut reste <span class="l-fr">« Franco Non Atteint »</span><span class="l-en">"Threshold Not Reached"</span>.</span><span class="l-en">Order released without charges. Status stays "Threshold Not Reached".</span></td></tr>
           </tbody>
         </table>
 
-        <div class="screenshot-slot rv" >
-        <img 
-          src="screenshots/05-factbox-reached.png" 
-          alt="FactBox Franco — statut Franco Atteint"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">FactBox Franco — statut Franco Atteint</div>
-          <div class="screenshot-hint"><span class="l-fr">Même vue avec valeur au-dessus du seuil, statut vert « Franco Atteint »</span><span class="l-en">Same view with order value above threshold, green 'Franco Reached' status</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">Boîte de dialogue — Frais automatiques au lancement</span><span class="l-en">Confirmation dialog — Automatic charges on release</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : la boîte de confirmation qui s'affiche lors du lancement d'une commande avec franco non atteint</span><span class="l-en">Recommended: The confirmation dialog displayed when releasing an order with threshold not reached</span></div>
+          </div>
         </div>
       </div>
 
       <!-- 4.4 -->
       <span class="section-anchor" id="s44"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">4.4 Bouton Recalculer Franco</span><span class="l-en">4.4 Recalculate Franco Button</span></div>
+        <div class="subsection-title"><span class="l-fr">4.4 Bouton Recalculer Franco</span><span class="l-en">4.4 Recalculate Threshold Button</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Page Commande Achat → onglet « Franco » dans la barre des actions
+          <span class="l-fr">Page Commande Achat → onglet « Franco » dans la barre des actions</span><span class="l-en">Purchase Order → "Free Shipping" tab in the action bar</span>
         </div>
         <div class="subsection-body">
-          <p>Force le recalcul complet du statut à partir de l'état actuel des lignes. Utile si :</p>
+          <p><span class="l-fr">Force le recalcul complet du statut à partir de l'état actuel des lignes. Utile si :</span><span class="l-en">Forces a complete recalculation of the status from the current state of lines. Useful when:</span></p>
           <ul>
-            <li>L'utilisateur a supprimé manuellement des lignes de frais après le lancement</li>
-            <li>Un article a été modifié (poids, prix) hors de la commande</li>
+            <li><span class="l-fr">L'utilisateur a supprimé manuellement des lignes de frais après le lancement</span><span class="l-en">The user manually deleted charge lines after release</span></li>
+            <li><span class="l-fr">Un article a été modifié (poids, prix) hors de la commande</span><span class="l-en">An item was modified (weight, price) outside the order</span></li>
           </ul>
-          <p>Dans la plupart des cas, le recalcul est automatique. Ce bouton est un <strong>filet de sécurité</strong>.</p>
+          <p><span class="l-fr">Dans la plupart des cas, le recalcul est automatique. Ce bouton est un</span><span class="l-en">In most cases, recalculation is automatic. This button is a</span> <strong><span class="l-fr">filet de sécurité</span><span class="l-en">safety net</span></strong>.</p>
         </div>
       </div>
     </section>
@@ -685,88 +674,80 @@ html[lang="en"] .l-fr-block{display:none !important}
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></span><span class="l-fr"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></span></div>
       <h2 class="section-title">Gestion sur la <em><span class="l-fr">Feuille de Demande d'Achat</span><span class="l-en">Requisition Worksheet</span></em></h2>
-      <p class="section-lead">L'extension ajoute trois boutons et un FactBox à la feuille de demande (Achats → Planification → Feuilles de demande).</p>
+      <p class="section-lead"><span class="l-fr">L'extension ajoute trois boutons et un FactBox à la feuille de demande (</span><span class="l-en">The extension adds three buttons and a FactBox to the requisition worksheet.</span><span class="l-fr">Achats → Planification → Feuilles de demande</span><span class="l-en">Purchases → Planning → Req. Worksheets</span>).</p>
 
       <!-- 5.1 -->
       <span class="section-anchor" id="s51"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">5.1 FactBox Franco par ligne</span><span class="l-en">5.1 Per-Line Franco FactBox</span></div>
+        <div class="subsection-title"><span class="l-fr">5.1 FactBox Franco par ligne</span><span class="l-en">5.1 Per-Line Free Shipping FactBox</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Feuille de demande → volet de droite, pour la ligne sélectionnée
+          <span class="l-fr">Feuille de demande → volet de droite, pour la ligne sélectionnée</span><span class="l-en">Req. Worksheet → right-hand pane (selected line)</span>
         </div>
         <div class="subsection-body">
-          <p>Pour chaque ligne sélectionnée, le FactBox affiche l'état du franco pour le <strong>groupe</strong> auquel appartient cette ligne (Fournisseur + Magasin + Date de réception). Mêmes champs que sur la commande achat.</p>
+          <p><span class="l-fr">Pour chaque ligne sélectionnée, le FactBox affiche l'état du franco pour le</span><span class="l-en">For each selected line, the FactBox shows the free shipping status for the</span> <strong>groupe</strong> <span class="l-fr">auquel appartient cette ligne (Fournisseur + Magasin + Date de réception). Mêmes champs que sur la commande achat.</span><span class="l-en">this line belongs to (Vendor + Location + Expected Receipt Date). Same fields as on the purchase order.</span></p>
         </div>
       </div>
 
       <!-- 5.2 -->
       <span class="section-anchor" id="s52"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">5.2 Bouton Analyse Franco</span><span class="l-en">5.2 Franco Analysis Button</span></div>
+        <div class="subsection-title"><span class="l-fr">5.2 Bouton Analyse Franco</span><span class="l-en">5.2 Threshold Analysis Button</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Feuille de demande → onglet « Franco » → « Analyse Franco »
+          <span class="l-fr">Feuille de demande → onglet « Franco » → « Analyse Franco »</span><span class="l-en">Req. Worksheet → "Free Shipping" tab → "Threshold Analysis"</span>
         </div>
         <div class="subsection-body">
-          <p>Ouvre une page récapitulative avec un <strong>tableau consolidé</strong> de l'état du franco pour tous les groupes présents dans la feuille. Pour chaque groupe, on voit :</p>
+          <p><span class="l-fr"><span class="l-fr">Ouvre une page récapitulative avec un</span><span class="l-en">Opens a summary page with a</span> <strong><span class="l-fr">tableau consolidé</span><span class="l-en">consolidated table</span></strong> <span class="l-fr">de l'état du franco pour tous les groupes présents dans la feuille. Pour chaque groupe, on voit :</span><span class="l-en">of the free shipping threshold status for all groups in the worksheet. For each group:</span></span><span class="l-en">Opens a summary page with a <strong>consolidated table</strong> of the free shipping threshold status for all groups in the worksheet. For each group:</span></p>
           <ul>
-            <li>Le fournisseur, le magasin et la date de réception</li>
-            <li>Le type de franco, son seuil et la valeur actuelle du groupe</li>
-            <li>Le restant à atteindre et le statut global (Atteint / Non Atteint / N/A)</li>
+            <li><span class="l-fr">Le fournisseur, le magasin et la date de réception</span><span class="l-en">The vendor, location, and expected receipt date</span></li>
+            <li><span class="l-fr">Le type de franco, son seuil et la valeur actuelle du groupe</span><span class="l-en">The threshold type, value, and current group total</span></li>
+            <li><span class="l-fr">Le restant à atteindre et le statut global (Atteint / Non Atteint / N/A)</span><span class="l-en">The remaining amount and overall status (Reached / Not Reached / N/A)</span></li>
           </ul>
-          <p><strong>Quand l'utiliser :</strong> en début de session de planification pour avoir une vue d'ensemble avant de décider des ajustements.</p>
+          <p><strong>Quand l'utiliser :</strong> <span class="l-fr">en début de session de planification pour avoir une vue d'ensemble avant de décider des ajustements.</span><span class="l-en">at the start of a planning session to get a full picture before deciding on adjustments.</span></p>
         </div>
 
-        <div class="screenshot-slot wide rv" >
-        <img 
-          src="screenshots/06-dialog-charges-release.png" 
-          alt="Boîte de dialogue — Frais automatiques au lancement"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">Boîte de dialogue — Frais automatiques au lancement</div>
-          <div class="screenshot-hint"><span class="l-fr">La boîte de confirmation au lancement d'une commande avec franco non atteint</span><span class="l-en">Confirmation dialog at release time when franco is not reached</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot wide rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">Page Analyse Franco — <span class="l-fr">tableau consolidé</span><span class="l-en">consolidated table</span> des groupes</span><span class="l-en">Threshold Analysis — consolidated group table</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : la page Analyse Franco avec plusieurs groupes affichés (mix de statuts Atteint/Non Atteint)</span><span class="l-en">Recommended: Threshold Analysis page showing multiple groups with mixed Reached/Not Reached statuses</span></div>
+          </div>
         </div>
       </div>
 
       <!-- 5.3 -->
       <span class="section-anchor" id="s53"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">5.3 Bouton Rafraîchir Franco</span><span class="l-en">5.3 Refresh Franco Button</span></div>
+        <div class="subsection-title"><span class="l-fr">5.3 Bouton Rafraîchir Franco</span><span class="l-en">5.3 Refresh Thresholds Button</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Feuille de demande → onglet « Franco » → « Rafraîchir Franco »
+          <span class="l-fr">Feuille de demande → onglet « Franco » → « Rafraîchir Franco »</span><span class="l-en">Req. Worksheet → "Free Shipping" tab → "Refresh Thresholds"</span>
         </div>
         <div class="subsection-body">
-          <p>Affiche d'abord une barre de progression, puis un <strong>résumé chiffré</strong> :</p>
+          <p><span class="l-fr"><span class="l-fr">Affiche d'abord une barre de progression, puis un</span><span class="l-en">Shows a progress bar, then an instant</span> <strong>résumé chiffré</strong> :</span><span class="l-en">Shows a progress bar, then an instant <strong>numerical summary</strong>:</span></p>
         </div>
         <div class="callout success">
           <span class="callout-icon">✅</span>
-          <div class="callout-body"><em>« Calcul terminé — 5 groupe(s) au total.<br>Franco atteint : 2 | Franco non atteint : 2 | Non applicable : 1<br>Ouvrir la vue détaillée ? »</em></div>
+          <div class="callout-body"><em><span class="l-fr">« Calcul terminé — 5 groupe(s) au total.</span><span class="l-en">"Calculation complete — 5 group(s) total.</span><br>Franco atteint : 2 | Franco non atteint : 2 | Non applicable : 1<br><span class="l-fr">Ouvrir la vue détaillée ? »</span><span class="l-en">Open detailed view?"</span></em></div>
         </div>
         <div class="subsection-body">
-          <p><strong>Quand l'utiliser :</strong> sur des feuilles avec un grand nombre de lignes, pour avoir d'abord le résumé avant d'ouvrir la vue détaillée.</p>
+          <p><strong>Quand l'utiliser :</strong> <span class="l-fr">sur des feuilles avec un grand nombre de lignes, pour avoir d'abord le résumé avant d'ouvrir la vue détaillée.</span><span class="l-en">on worksheets with many lines, to get the summary first before opening the full detail view.</span></p>
         </div>
       </div>
 
       <!-- 5.4 -->
       <span class="section-anchor" id="s54"></span>
       <div class="subsection rv">
-        <div class="subsection-title"><span class="l-fr">5.4 Bouton Optimiser Franco</span><span class="l-en">5.4 Franco Optimizer Button</span></div>
+        <div class="subsection-title"><span class="l-fr">5.4 Bouton Optimiser Franco</span><span class="l-en">5.4 Free Shipping Optimizer Button</span></div>
         <div class="where-tag">
           <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Feuille de demande → onglet « Franco » → « Optimiser Franco »
+          <span class="l-fr">Feuille de demande → onglet « Franco » → « Optimiser Franco »</span><span class="l-en">Req. Worksheet → "Free Shipping" tab → "Optimize Thresholds"</span>
         </div>
         <div class="subsection-body">
-          <p>C'est le cœur de l'outil de planification. Il analyse tous les groupes dont le franco <strong>n'est pas atteint</strong> et propose, pour chacun, des articles à ajouter pour atteindre le seuil.</p>
-          <p>Si tous les groupes sont déjà en franco atteint (ou N/A), un message l'indique et l'optimiseur ne s'ouvre pas.</p>
+          <p><span class="l-fr"><span class="l-fr">C'est le cœur de l'outil de planification. Il analyse tous les groupes dont le franco</span><span class="l-en">The core planning tool. Analyzes all groups where the threshold is</span> <strong>n'est pas atteint</strong> <span class="l-fr">et propose, pour chacun, des articles à ajouter pour atteindre le seuil.</span><span class="l-en">and suggests, for each one, items to add to reach the free shipping threshold.</span></span><span class="l-en">The core planning tool. Analyzes all groups where the threshold is <strong>not reached</strong> and suggests, for each one, items to add to reach the free shipping threshold.</span></p>
+          <p><span class="l-fr">Si tous les groupes sont déjà en franco atteint (ou N/A), un message l'indique et l'optimiseur ne s'ouvre pas.</span><span class="l-en">If all groups are already at threshold reached (or N/A), a message indicates this and the Optimizer does not open.</span></p>
         </div>
       </div>
     </section>
@@ -779,81 +760,73 @@ html[lang="en"] .l-fr-block{display:none !important}
     <span class="section-anchor" id="s6"></span>
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></span><span class="l-fr"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></span></div>
-      <h2 class="section-title">L'Optimiseur Franco — <em>Fonctionnement détaillé</em></h2>
+      <h2 class="section-title">L'Optimiseur Franco — <em><span class="l-fr">Fonctionnement détaillé</span><span class="l-en">Detailed operation</span></em></h2>
 
       <!-- 6.1 -->
       <span class="section-anchor" id="s61"></span>
       <div class="subsection rv">
-        <div class="subsection-title">6.1 Logique de suggestion — Les 6 étapes</div>
+        <div class="subsection-title"><span class="l-fr">6.1 Logique de suggestion — Les 6 étapes</span><span class="l-en">6.1 Suggestion Logic — 6 Steps</span></div>
 
         <div class="steps-list">
           <div class="step-item">
             <div class="step-num">1</div>
             <div class="step-content">
               <strong><span class="l-fr">Identification des groupes à optimiser</span><span class="l-en">Identify below-threshold groups</span></strong>
-              <p>Seuls les groupes dont le statut est <strong>« Franco Non Atteint »</strong> sont traités. Les groupes Atteints ou N/A sont ignorés.</p>
+              <p><span class="l-fr">Seuls les groupes dont le statut est</span><span class="l-en">Only groups with status</span> <strong><span class="l-fr">« Franco Non Atteint »</span><span class="l-en">"Threshold Not Reached"</span></strong> <span class="l-fr">sont traités. Les groupes Atteints ou N/A sont ignorés.</span><span class="l-en">are processed. Reached and N/A groups are skipped.</span></p>
             </div>
           </div>
           <div class="step-item">
             <div class="step-num">2</div>
             <div class="step-content">
               <strong><span class="l-fr">Collecte des articles achetables chez ce fournisseur</span><span class="l-en">Collect purchasable items from this vendor</span></strong>
-              <p>Deux sources consultées : (1) la <strong>fiche article</strong> si le fournisseur par défaut correspond, et (2) le <strong>catalogue Article-Fournisseur</strong> BC. Les articles bloqués sont automatiquement exclus.</p>
+              <p><span class="l-fr">Deux sources consultées : (1) la</span><span class="l-en">Two sources consulted: (1) the</span> <strong>fiche article</strong> <span class="l-fr">si le fournisseur par défaut correspond, et (2) le</span><span class="l-en">if the default vendor matches, and (2) the</span> <strong>catalogue Article-Fournisseur</strong> <span class="l-fr">BC. Les articles bloqués sont automatiquement exclus.</span><span class="l-en">BC. Blocked items are automatically excluded.</span></p>
             </div>
           </div>
           <div class="step-item">
             <div class="step-num">3</div>
             <div class="step-content">
               <strong><span class="l-fr">Filtrage par compatibilité avec le type de franco</span><span class="l-en">Filter by threshold type compatibility</span></strong>
-              <p><strong>Poids Net</strong> : seuls les articles avec poids net &gt; 0. <strong>Montant</strong> : seuls les articles avec un coût. <strong>Unité</strong> : tous les articles sont éligibles.</p>
+              <p><strong>Poids Net</strong> <span class="l-fr">: seuls les articles avec poids net &gt; 0.</span><span class="l-en">: only items with Net Weight &gt; 0.</span> <strong>Montant</strong> <span class="l-fr">: seuls les articles avec un coût.</span><span class="l-en">: only items with a cost.</span> <strong>Unité</strong> <span class="l-fr">: tous les articles sont éligibles.</span><span class="l-en">: all items are eligible.</span></p>
             </div>
           </div>
           <div class="step-item">
             <div class="step-num">4</div>
             <div class="step-content">
               <strong><span class="l-fr">Filtrage par délai fournisseur</span><span class="l-en">Filter by vendor lead time</span></strong>
-              <p>Les articles dont la date de livraison au plus tôt dépasse la date de réception du groupe sont exclus. Voir section 6.2 pour le détail.</p>
+              <p><span class="l-fr">Les articles dont la <span class="l-fr">date de livraison au plus tôt</span><span class="l-en">earliest delivery date</span> <span class="l-fr">dépasse la date de réception du groupe sont exclus.</span><span class="l-en">exceeds the group's expected receipt date are excluded.</span></span><span class="l-en">Items whose earliest delivery date exceeds the group's expected receipt date are excluded.</span> <span class="l-fr">Voir section 6.2 pour le détail.</span><span class="l-en">See section 6.2 for details.</span></p>
             </div>
           </div>
           <div class="step-item">
             <div class="step-num">5</div>
             <div class="step-content">
               <strong><span class="l-fr">Calcul de la quantité suggérée</span><span class="l-en">Calculate suggested quantity</span></strong>
-              <p>Quantité minimale pour combler exactement l'écart franco, arrondie au supérieur.</p>
-              <div class="formula">Montant : Qté = ⌈ Restant ÷ Prix unitaire ⌉</div>
-              <div class="formula">Poids Net : Qté = ⌈ Restant ÷ (Poids Net × Facteur UdM) ⌉</div>
-              <div class="formula">Unité : Qté = ⌈ Restant × Facteur conversion ⌉</div>
+              <p><span class="l-fr">Quantité minimale pour combler exactement l'écart franco, arrondie au supérieur.</span><span class="l-en">Minimum quantity to exactly bridge the threshold gap, rounded up to the ceiling.</span></p>
+              <div class="formula"><span class="l-fr">Montant : Qté = ⌈ Restant ÷ Prix unitaire ⌉</span><span class="l-en">Amount: Qty = ⌈ Remaining ÷ Unit price ⌉</span></div>
+              <div class="formula"><span class="l-fr">Poids Net : Qté = ⌈ Restant ÷ (Poids Net × Facteur UdM) ⌉</span><span class="l-en">Net Weight: Qty = ⌈ Remaining ÷ (Net Weight × UoM factor) ⌉</span></div>
+              <div class="formula"><span class="l-fr">Unité : Qté = ⌈ Restant × Facteur conversion ⌉</span><span class="l-en">Unit: Qty = ⌈ Remaining × Conversion factor ⌉</span></div>
             </div>
           </div>
           <div class="step-item">
             <div class="step-num">6</div>
             <div class="step-content">
               <strong>Affichage et ajustements</strong>
-              <p>Colonnes <strong>Qté Suggérée</strong> et <strong>Contribution Franco</strong> remplies. L'utilisateur peut modifier la quantité ou l'unité de mesure — la contribution se recalcule automatiquement.</p>
+              <p>Colonnes <strong>Qté Suggérée</strong> et <strong>Contribution Franco</strong> <span class="l-fr">remplies. L'utilisateur peut modifier la quantité ou l'unité de mesure — la contribution se recalcule automatiquement.</span><span class="l-en">populated. The user can edit the quantity or unit of measure — the contribution recalculates automatically.</span></p>
             </div>
           </div>
         </div>
 
         <div class="callout info">
           <span class="callout-icon">💡</span>
-          <div class="callout-body"><strong><span class="l-fr">Note sur le prix utilisé</span><span class="l-en">Price note</span></strong>L'Optimiseur utilise le <strong>dernier coût direct</strong> de l'article. Si ce champ est vide, il utilise le coût standard. Il ne consulte pas les tarifs fournisseur ou accords prix.</div>
+          <div class="callout-body"><strong><span class="l-fr">Note sur le prix utilisé</span><span class="l-en">Price note</span></strong>L'Optimiseur utilise le <strong><span class="l-fr">dernier coût direct</span><span class="l-en">last direct cost</span></strong> <span class="l-fr">de l'article. Si ce champ est vide, il utilise le coût standard. Il ne consulte pas les tarifs fournisseur ou accords prix.</span><span class="l-en">from the item card. If blank, it falls back to standard cost. Vendor price lists and price agreements are not consulted.</span></div>
         </div>
 
-        <div class="screenshot-slot wide rv" >
-        <img 
-          src="screenshots/07-order-charges-added.png" 
-          alt="Commande après lancement — frais insérés"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">Commande après lancement — frais insérés</div>
-          <div class="screenshot-hint"><span class="l-fr">Lignes de frais insérées sur la commande, FactBox affichant « Frais ajoutés »</span><span class="l-en">Order lines showing auto-inserted charge line, FactBox showing 'Charges Added'</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot wide rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">Page Optimiseur Franco — propositions d'articles</span><span class="l-en">Free Shipping Optimizer — item proposals</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : la page Optimiseur avec plusieurs propositions d'articles, colonnes Qté Suggérée et Contribution</span><span class="l-en">Recommended: Optimizer page with multiple item proposals, Suggested Qty and Contribution columns visible</span> Franco visibles</div>
+          </div>
         </div>
       </div>
 
@@ -862,41 +835,41 @@ html[lang="en"] .l-fr-block{display:none !important}
       <div class="subsection rv">
         <div class="subsection-title"><span class="l-fr">6.2 Filtrage par délai fournisseur</span><span class="l-en">6.2 Lead Time Filtering</span></div>
         <div class="subsection-body">
-          <p>Proposer un article qui ne peut pas arriver avant la date de réception souhaitée est inutile. L'Optimiseur calcule la <strong>date de livraison au plus tôt</strong> :</p>
+          <p><span class="l-fr">Proposer un article qui ne peut pas arriver avant la date de réception souhaitée est inutile. L'Optimiseur calcule la </span><span class="l-en">Proposing an item that cannot arrive before the group's expected receipt date has no operational value. The Optimizer filters items by calculating their</span><strong><span class="l-fr">date de livraison au plus tôt</span><span class="l-en">earliest delivery date</span></strong> :</p>
         </div>
-        <div class="formula">Date de livraison au plus tôt = Date de travail BC + Délai fournisseur</div>
+        <div class="formula"><span class="l-fr">Date de livraison au plus tôt = Date de travail BC + Délai fournisseur</span><span class="l-en">Earliest Delivery Date = BC Work Date + Vendor Lead Time</span></div>
 
-        <p style="font-size:14px;color:var(--mid);margin-bottom:14px">Le délai est lu selon cette priorité (du plus spécifique au plus général) :</p>
+        <p style="font-size:14px;color:var(--mid);margin-bottom:14px"><span class="l-fr">Le délai est lu selon cette priorité (du plus spécifique au plus général) :</span><span class="l-en">Lead time is read in this priority order (most specific to most general):</span></p>
         <div class="priority-chain">
           <div class="pc-item">
             <span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span>
-            <div class="pc-body"><strong><span class="l-fr">Catalogue Article-Fournisseur</span><span class="l-en">Item-Vendor Catalog</span></strong><p>Achats → Fournisseurs → [Fournisseur] → Catalogue articles → champ « Délai réappro. »</p></div>
+            <div class="pc-body"><strong><span class="l-fr">Catalogue Article-Fournisseur</span><span class="l-en">Item-Vendor Catalog</span></strong><p><span class="l-fr">Achats → Fournisseurs → [Fournisseur] → Catalogue articles → champ « Délai réappro. »</span><span class="l-en">Purchases → Vendors → [Vendor] → Item Catalog → Lead Time Calculation field</span></p></div>
           </div>
           <div class="pc-item">
             <span class="pc-badge"><span class="l-fr">Priorité 2</span><span class="l-en">Priority 2</span></span>
-            <div class="pc-body"><strong><span class="l-fr">Fiche article</span><span class="l-en">Item card</span></strong><p>Champ « Délai réappro. » de l'article. S'applique si aucun délai n'est défini dans le catalogue.</p></div>
+            <div class="pc-body"><strong><span class="l-fr">Fiche article</span><span class="l-en">Item card</span></strong><p><span class="l-fr">Champ « Délai réappro. » de l'article. S'applique si aucun délai n'est défini dans le catalogue.</span><span class="l-en">Item "Lead Time Calculation" field. Used if no lead time is defined in the catalog.</span></p></div>
           </div>
           <div class="pc-item">
             <span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span>
-            <div class="pc-body"><strong><span class="l-fr">Fiche fournisseur</span><span class="l-en">Vendor card</span></strong><p>Champ « Délai réappro. » du fournisseur. S'applique si ni le catalogue ni la fiche article ne définissent de délai.</p></div>
+            <div class="pc-body"><strong><span class="l-fr">Fiche fournisseur</span><span class="l-en">Vendor card</span></strong><p><span class="l-fr">Champ « Délai réappro. » du fournisseur. S'applique si ni le catalogue ni la fiche article ne définissent de délai.</span><span class="l-en">Vendor "Lead Time Calculation" field. Used if neither catalog nor item card defines a lead time.</span></p></div>
           </div>
           <div class="pc-item">
             <span class="pc-badge"><span class="l-fr">Priorité 4</span><span class="l-en">Priority 4</span></span>
-            <div class="pc-body"><strong>Aucun délai configuré</strong><p>L'article est considéré livrable à la date de travail — pas de filtrage appliqué.</p></div>
+            <div class="pc-body"><strong><span class="l-fr">Aucun délai configuré</span><span class="l-en">No lead time configured</span></strong><p><span class="l-fr">L'article est considéré livrable à la date de travail — pas de filtrage appliqué.</span><span class="l-en">The item is considered deliverable today — no filtering applied.</span></p></div>
           </div>
         </div>
 
         <table class="doc-table" style="margin-top:20px">
-          <thead><tr><th>Couleur colonne « Livraison au plus tôt »</th><th><span class="l-fr">Signification</span><span class="l-en">Meaning</span></th></tr></thead>
+          <thead><tr><th><span class="l-fr">Couleur colonne « Livraison au plus tôt »</span><span class="l-en">"Earliest Delivery" column color</span></th><th><span class="l-fr">Signification</span><span class="l-en">Meaning</span></th></tr></thead>
           <tbody>
-            <tr><td style="color:var(--a)">■ Vert</td><td>Livrable avec marge confortable avant la date cible</td></tr>
-            <tr><td style="color:var(--b)">■ Orange</td><td>Livrable à temps mais dans les 3 derniers jours — à surveiller</td></tr>
+            <tr><td style="color:var(--a)">■ Vert</td><td><span class="l-fr">Livrable avec marge confortable avant la date cible</span><span class="l-en">Deliverable with comfortable margin before the target date</span></td></tr>
+            <tr><td style="color:var(--b)">■ Orange</td><td><span class="l-fr">Livrable à temps mais dans les 3 derniers jours — à surveiller</span><span class="l-en">Deliverable on time but within the last 3 days — monitor closely</span></td></tr>
           </tbody>
         </table>
 
         <div class="callout info">
           <span class="callout-icon">⚙️</span>
-          <div class="callout-body"><strong><span class="l-fr">Configurer les délais</span><span class="l-en">Configuring lead times</span></strong>Catalogue article-fournisseur → champ « Délai réappro. » en formule de date BC :<br><code>7J</code> = 7 jours · <code>2S</code> = 2 semaines · <code>1M</code> = 1 mois</div>
+          <div class="callout-body"><strong><span class="l-fr">Configurer les délais</span><span class="l-en">Configuring lead times</span></strong><span class="l-fr">Catalogue article-fournisseur → champ « Délai réappro. » en formule de date BC :</span><span class="l-en">Item-Vendor catalog → Lead Time Calculation field as BC date formula:</span><br><code>7J</code> = 7 jours · <code>2S</code> = 2 semaines · <code>1M</code> = 1 mois</div>
         </div>
       </div>
 
@@ -905,29 +878,21 @@ html[lang="en"] .l-fr-block{display:none !important}
       <div class="subsection rv">
         <div class="subsection-title"><span class="l-fr">6.3 Comment utiliser l'Optimiseur</span><span class="l-en">6.3 How to Use the Optimizer</span></div>
         <div class="steps-list">
-          <div class="step-item"><div class="step-num">1</div><div class="step-content"><strong><span class="l-fr">Ouvrir la feuille de demande d'achat</span><span class="l-en">Open the requisition worksheet</span></strong><p>Achats → Planification → Feuilles de demande</p></div></div>
-          <div class="step-item"><div class="step-num">2</div><div class="step-content"><strong>Cliquer sur « Optimiser Franco »</strong><p>Dans l'onglet Franco. L'Optimiseur s'ouvre avec les propositions pour tous les groupes non atteints.</p></div></div>
-          <div class="step-item"><div class="step-num">3</div><div class="step-content"><strong><span class="l-fr">Examiner les propositions</span><span class="l-en">Review proposals</span></strong><p>Chaque ligne représente un article à ajouter pour combler le franco d'un groupe.</p></div></div>
-          <div class="step-item"><div class="step-num">4</div><div class="step-content"><strong><span class="l-fr">Cocher les lignes à retenir</span><span class="l-en">Check lines to keep</span></strong><p>Case « Sélectionner », ou utiliser « Tout sélectionner » / « Tout désélectionner ».</p></div></div>
-          <div class="step-item"><div class="step-num">5</div><div class="step-content"><strong><span class="l-fr">Ajuster les quantités si nécessaire</span><span class="l-en">Adjust quantities if needed</span></strong><p>La contribution se recalcule automatiquement. On peut aussi changer l'unité de mesure (ex. PCE → PAL).</p></div></div>
-          <div class="step-item"><div class="step-num">6</div><div class="step-content"><strong>Cliquer sur « Créer les lignes sélectionnées »</strong><p>Les propositions cochées sont ajoutées comme nouvelles lignes dans la feuille, avec fournisseur, magasin, date de réception et quantité. Le franco du groupe est recalculé.</p></div></div>
+          <div class="step-item"><div class="step-num">1</div><div class="step-content"><strong><span class="l-fr">Ouvrir la feuille de demande d'achat</span><span class="l-en">Open the requisition worksheet</span></strong><p><span class="l-fr">Achats → Planification → Feuilles de demande</span><span class="l-en">Purchases → Planning → Req. Worksheets</span></p></div></div>
+          <div class="step-item"><div class="step-num">2</div><div class="step-content"><strong><span class="l-fr">Cliquer sur « Optimiser Franco »</span><span class="l-en">Click "Optimize Thresholds"</span></strong><p><span class="l-fr">Dans l'onglet Franco. L'Optimiseur s'ouvre avec les propositions pour tous les groupes non atteints.</span><span class="l-en">In the Free Shipping tab. The Optimizer opens with proposals for all below-threshold groups.</span></p></div></div>
+          <div class="step-item"><div class="step-num">3</div><div class="step-content"><strong><span class="l-fr">Examiner les propositions</span><span class="l-en">Review proposals</span></strong><p><span class="l-fr">Chaque ligne représente un article à ajouter pour combler le franco d'un groupe.</span><span class="l-en">Each line represents an item that could be added to close the threshold gap for one group.</span></p></div></div>
+          <div class="step-item"><div class="step-num">4</div><div class="step-content"><strong><span class="l-fr">Cocher les lignes à retenir</span><span class="l-en">Check lines to keep</span></strong><p><span class="l-fr">Case « Sélectionner », ou utiliser « Tout sélectionner » / « Tout désélectionner ».</span><span class="l-en">"Select" checkbox per line, or use "Select All" / "Deselect All".</span></p></div></div>
+          <div class="step-item"><div class="step-num">5</div><div class="step-content"><strong><span class="l-fr">Ajuster les quantités si nécessaire</span><span class="l-en">Adjust quantities if needed</span></strong><p><span class="l-fr">La contribution se recalcule automatiquement. On peut aussi changer l'unité de mesure (ex. PCE → PAL).</span><span class="l-en">The contribution recalculates automatically. You can also change the UoM (e.g. PCS → PAL).</span></p></div></div>
+          <div class="step-item"><div class="step-num">6</div><div class="step-content"><strong><span class="l-fr">Cliquer sur « Créer les lignes sélectionnées »</span><span class="l-en">Click "Create Selected Lines"</span></strong><p><span class="l-fr">Les propositions cochées sont ajoutées comme nouvelles lignes dans la feuille, avec fournisseur, magasin, date de réception et quantité. Le franco du groupe est recalculé.</span><span class="l-en">Checked proposals are added as new worksheet lines with vendor, location, receipt date and quantity. The group's threshold status is recalculated.</span></p></div></div>
         </div>
 
-        <div class="screenshot-slot tall rv" >
-        <img 
-          src="screenshots/08-multiorder-factbox.png" 
-          alt="FactBox Franco Multicommande — vue consolidée"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
-        <div class="screenshot-slot-inner">
-          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">FactBox Franco Multicommande — vue consolidée</div>
-          <div class="screenshot-hint"><span class="l-fr">Volet droit avec FactBox Franco Multicommande et total consolidé vert « Atteint »</span><span class="l-en">Right pane showing Multi-Order Franco FactBox with green consolidated total</span></div>
-        </div>
-      </div>
+        <div class="screenshot-slot tall rv">
+          <div class="screenshot-slot-inner">
+            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+            <div class="screenshot-title"><span class="l-fr">Optimiseur — Sélection et création des lignes</span><span class="l-en">Optimizer — selecting and creating lines</span></div>
+            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : l'Optimiseur avec des lignes cochées et le bouton « Créer les lignes sélectionnées » visible</span><span class="l-en">Recommended: Optimizer with checked lines and 'Create Selected Lines' button highlighted</span></div>
+          </div>
         </div>
       </div>
     </section>
@@ -940,56 +905,48 @@ html[lang="en"] .l-fr-block{display:none !important}
     <span class="section-anchor" id="s7"></span>
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></span><span class="l-fr"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></span></div>
-      <h2 class="section-title">Tableau de bord — <em>Pile d'activité Franco</em></h2>
+      <h2 class="section-title">Tableau de bord — <em><span class="l-fr">Pile d'activité Franco</span><span class="l-en">Vendor Free Shipping Activity Stack</span></em></h2>
       <div class="where-tag">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        Page d'accueil BC (Role Center Gestionnaire d'activité) → groupe « Franco Fournisseur en cours »
+        <span class="l-fr">Page d'accueil BC (Role Center Gestionnaire d'activité) → groupe « Franco Fournisseur en cours »</span><span class="l-en">BC Role Center (Activity Manager) → "Vendor Free Shipping" activity group</span>
       </div>
-      <p class="section-lead" style="margin-top:16px">Cinq indicateurs (tuiles) offrent une vue synthétique de la situation franco sur les commandes achat en cours.</p>
+      <p class="section-lead" style="margin-top:16px"><span class="l-fr">Cinq indicateurs (tuiles) offrent une vue synthétique de la situation franco sur les commandes achat en cours.</span><span class="l-en">Five clickable tiles give an instant view of the vendor free shipping threshold status across all open purchase orders, refreshed on every page activation.</span></p>
 
       <div class="kpi-grid">
         <div class="kpi-card kpi-bad">
           <div class="kpi-label">Franco Non Atteint</div>
-          <div class="kpi-desc">Nb de commandes dont le franco n'est pas atteint. Rouge si &gt; 0. Un clic ouvre la liste.</div>
+          <div class="kpi-desc"><span class="l-fr">Nb de commandes dont le franco n'est pas atteint. Rouge si &gt; 0. Un clic ouvre la liste.</span><span class="l-en">Open POs below threshold. Red if &gt; 0. Click to open filtered list.</span></div>
         </div>
         <div class="kpi-card kpi-ok">
           <div class="kpi-label">Franco Atteint</div>
-          <div class="kpi-desc">Nb de commandes dont le franco est atteint. Indicateur de performance positif.</div>
+          <div class="kpi-desc"><span class="l-fr">Nb de commandes dont le franco est atteint. Indicateur de performance positif.</span><span class="l-en">Open POs above threshold. Positive performance indicator.</span></div>
         </div>
         <div class="kpi-card kpi-warn">
           <div class="kpi-label">Montant Manquant</div>
-          <div class="kpi-desc">Somme cumulée des montants restants à atteindre. Orange si &gt; 0.</div>
+          <div class="kpi-desc"><span class="l-fr">Somme cumulée des montants restants à atteindre. Orange si &gt; 0.</span><span class="l-en">Cumulative gap across all below-threshold POs. Orange if &gt; 0.</span></div>
         </div>
         <div class="kpi-card kpi-bad">
           <div class="kpi-label">Urgences &lt; 7 j</div>
-          <div class="kpi-desc">Commandes non atteintes avec date de réception dans les 7 prochains jours.</div>
+          <div class="kpi-desc"><span class="l-fr">Commandes non atteintes avec date de réception dans les 7 prochains jours.</span><span class="l-en">Below-threshold POs with receipt date in the next 7 days.</span></div>
         </div>
         <div class="kpi-card kpi-warn">
           <div class="kpi-label">Fournisseurs Sans Franco</div>
-          <div class="kpi-desc">Règles franco configurées mais désactivées. Signal de révision nécessaire.</div>
+          <div class="kpi-desc"><span class="l-fr">Règles franco configurées mais désactivées. Signal de révision nécessaire.</span><span class="l-en">Configured but disabled threshold rules. Signal for review.</span></div>
         </div>
       </div>
 
       <div class="callout info" style="margin-top:20px">
         <span class="callout-icon">ℹ️</span>
-        <div class="callout-body">Les indicateurs portent uniquement sur les <strong>commandes achat</strong>. Les feuilles de demande ne sont pas comptabilisées ici. Tuiles actualisées à chaque ouverture de la page d'accueil.</div>
+        <div class="callout-body"><span class="l-fr">Les indicateurs portent uniquement sur les</span><span class="l-en">Tiles cover</span> <strong>commandes achat</strong><span class="l-fr">. Les feuilles de demande ne sont pas comptabilisées ici. Tuiles actualisées à chaque ouverture de la page d'accueil.</span><span class="l-en">. Requisition worksheets are not counted here. Tiles refresh on every page load.</span></div>
       </div>
 
-      <div class="screenshot-slot wide rv" >
-        <img 
-          src="screenshots/09-analysis-page.png" 
-          alt="Page Analyse Franco — tableau consolidé des groupes"
-          style="width:100%;border-radius:12px;border:1px solid var(--border);display:none;box-shadow:var(--sh)"
-          onload="this.style.display='block';this.nextElementSibling.style.display='none'"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-        >
+      <div class="screenshot-slot wide rv">
         <div class="screenshot-slot-inner">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title">Page Analyse Franco — tableau consolidé des groupes</div>
-          <div class="screenshot-hint"><span class="l-fr">Page Analyse Franco avec plusieurs groupes (Atteint en vert, Non Atteint en rouge)</span><span class="l-en">Franco Analysis page showing groups with mixed Reached/Not Reached statuses</span></div>
+          <div class="screenshot-title"><span class="l-fr"><span class="l-fr">Pile d'activité Franco</span><span class="l-en">Vendor Free Shipping Activity Stack</span> — Page d'accueil BC</span><span class="l-en">Vendor Free Shipping Activity Stack — BC Role Center</span></div>
+          <div class="screenshot-hint"><span class="l-fr">Capture recommandée : le groupe « Franco Fournisseur en cours » sur le Role Center avec les 5 tuiles visibles</span><span class="l-en">Recommended: Role Center with Vendor Free Shipping activity group and all 5 tiles visible</span></div>
         </div>
-      </div>
       </div>
     </section>
 
@@ -1001,10 +958,10 @@ html[lang="en"] .l-fr-block{display:none !important}
     <span class="section-anchor" id="s8"></span>
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></span><span class="l-fr"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></span></div>
-      <h2 class="section-title">Règles de <em>priorité du paramétrage</em></h2>
+      <h2 class="section-title">Règles de <em><span class="l-fr">priorité du paramétrage</span><span class="l-en">configuration priority</span></em></h2>
 
       <div class="subsection">
-        <div class="subsection-title"><span class="l-fr">Priorité de la règle franco sur une commande</span><span class="l-en">Franco rule priority on a purchase order</span></div>
+        <div class="subsection-title"><span class="l-fr">Priorité de la règle franco sur une commande</span><span class="l-en">Free Shipping Threshold rule priority on a purchase order</span></div>
         <div class="priority-chain">
           <div class="pc-item">
             <span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span>
@@ -1016,7 +973,7 @@ html[lang="en"] .l-fr-block{display:none !important}
           </div>
           <div class="pc-item">
             <span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span>
-            <div class="pc-body"><strong><span class="l-fr">Aucune règle ou règle désactivée</span><span class="l-en">No rule or disabled rule</span></strong><p><span class="l-fr">Statut franco = N/A</span><span class="l-en">Franco status = N/A</span></p></div>
+            <div class="pc-body"><strong><span class="l-fr">Aucune règle ou règle désactivée</span><span class="l-en">No rule or disabled rule</span></strong><p><span class="l-fr">Statut franco = N/A</span><span class="l-en">Free Shipping status = N/A</span></p></div>
           </div>
         </div>
       </div>
@@ -1024,9 +981,9 @@ html[lang="en"] .l-fr-block{display:none !important}
       <div class="subsection">
         <div class="subsection-title"><span class="l-fr">Priorité du délai fournisseur pour l'Optimiseur</span><span class="l-en">Vendor lead time priority (Optimizer)</span></div>
         <div class="priority-chain">
-          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span><div class="pc-body"><strong><span class="l-fr">Catalogue Article-Fournisseur</span><span class="l-en">Item-Vendor Catalog</span></strong><p>Source la plus précise — accord spécifique article × fournisseur</p></div></div>
-          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 2</span><span class="l-en">Priority 2</span></span><div class="pc-body"><strong><span class="l-fr">Fiche article</span><span class="l-en">Item card</span></strong><p>Si aucun délai dans le catalogue</p></div></div>
-          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span><div class="pc-body"><strong><span class="l-fr">Fiche fournisseur</span><span class="l-en">Vendor card</span></strong><p>Si ni catalogue ni fiche article ne définissent de délai</p></div></div>
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span><div class="pc-body"><strong><span class="l-fr">Catalogue Article-Fournisseur</span><span class="l-en">Item-Vendor Catalog</span></strong><p><span class="l-fr">Source la plus précise — accord spécifique article × fournisseur</span><span class="l-en">Most precise — specific item × vendor agreement</span></p></div></div>
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 2</span><span class="l-en">Priority 2</span></span><div class="pc-body"><strong><span class="l-fr">Fiche article</span><span class="l-en">Item card</span></strong><p><span class="l-fr">Si aucun délai dans le catalogue</span><span class="l-en">If no lead time in the catalog</span></p></div></div>
+          <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 3</span><span class="l-en">Priority 3</span></span><div class="pc-body"><strong><span class="l-fr">Fiche fournisseur</span><span class="l-en">Vendor card</span></strong><p><span class="l-fr">Si ni catalogue ni fiche article ne définissent de délai</span><span class="l-en">If neither catalog nor item card defines a lead time</span></p></div></div>
           <div class="pc-item"><span class="pc-badge"><span class="l-fr">Priorité 4</span><span class="l-en">Priority 4</span></span><div class="pc-body"><strong><span class="l-fr">Pas de délai → livrable immédiatement</span><span class="l-en">No lead time → deliverable today</span></strong><p><span class="l-fr">Pas de filtrage appliqué</span><span class="l-en">No filtering applied</span></p></div></div>
         </div>
       </div>
@@ -1040,19 +997,19 @@ html[lang="en"] .l-fr-block{display:none !important}
     <span class="section-anchor" id="s9"></span>
     <section class="doc-section rv">
       <div class="section-number"><span class="l-en"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></span><span class="l-fr"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></span></div>
-      <h2 class="section-title">Référence rapide — <em>Où trouver quoi</em></h2>
-      <p class="section-lead">Tableau de navigation rapide pour retrouver chaque fonctionnalité en un coup d'œil.</p>
+      <h2 class="section-title"><span class="l-fr">Référence rapide —</span><span class="l-en">Quick Reference —</span> <em><span class="l-fr">Où trouver quoi</span><span class="l-en">Where to Find What</span></em></h2>
+      <p class="section-lead"><span class="l-fr">Tableau de navigation rapide pour retrouver chaque fonctionnalité en un coup d'œil.</span><span class="l-en">Quick navigation table to find any feature at a glance.</span></p>
 
       <div class="qr-grid">
-        <div class="qr-row"><div class="qr-q"><span class="l-fr">Créer ou modifier une règle franco</span><span class="l-en">Create or edit a franco rule</span></div><div class="qr-a"><span class="l-fr">Recherche BC → Franco fournisseurs</span><span class="l-en">BC Search → Franco fournisseurs</span></div></div>
-        <div class="qr-row"><div class="qr-q"><span class="l-fr">Activer / Désactiver une règle</span><span class="l-en">Enable / Disable a rule</span></div><div class="qr-a">Franco fournisseurs → Actions → Activer/Désactiver Franco</div></div>
-        <div class="qr-row"><div class="qr-q"><span class="l-fr">Configurer les frais automatiques</span><span class="l-en">Configure automatic charges</span></div><div class="qr-a">Franco fournisseurs → sélectionner → Actions → Frais automatiques</div></div>
-        <div class="qr-row"><div class="qr-q"><span class="l-fr">Voir le franco d'une commande en cours</span><span class="l-en">View franco status on an order</span></div><div class="qr-a">Commande Achat → FactBox « Franco Fournisseur » (volet droit)</div></div>
-        <div class="qr-row"><div class="qr-q"><span class="l-fr">Forcer le recalcul du franco</span><span class="l-en">Force franco recalculation</span></div><div class="qr-a"><span class="l-fr">Commande Achat → onglet Franco → Recalculer Franco</span><span class="l-en">Purchase Order → Franco tab → Recalculate Franco</span></div></div>
-        <div class="qr-row"><div class="qr-q">Vue d'ensemble de tous les groupes franco</div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Analyse Franco</span><span class="l-en">Req. Worksheet → Franco tab → Franco Analysis</span></div></div>
-        <div class="qr-row"><div class="qr-q">Résumé rapide avec chiffres</div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Rafraîchir Franco</span><span class="l-en">Req. Worksheet → Franco tab → Refresh Franco</span></div></div>
-        <div class="qr-row"><div class="qr-q">Suggestions d'articles pour atteindre le franco</div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Optimiser Franco</span><span class="l-en">Req. Worksheet → Franco tab → Optimize Franco</span></div></div>
-        <div class="qr-row"><div class="qr-q">Tableau de bord franco global</div><div class="qr-a"><span class="l-fr">Page d'accueil BC → groupe Franco Fournisseur en cours</span><span class="l-en">BC Role Center → Franco Fournisseur en cours group</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Créer ou modifier une règle franco</span><span class="l-en">Create or edit a free shipping threshold rule</span></div><div class="qr-a"><span class="l-fr">Recherche BC → Franco fournisseurs</span><span class="l-en">BC Search → Vendor Free Shipping Thresholds</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Activer / Désactiver une règle</span><span class="l-en">Enable / Disable a rule</span></div><div class="qr-a"><span class="l-fr">Franco fournisseurs → Actions → Activer/Désactiver Franco</span><span class="l-en">Vendor Free Shipping Thresholds → Actions → Enable/Disable</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Configurer les frais automatiques</span><span class="l-en">Configure automatic charges</span></div><div class="qr-a"><span class="l-fr">Franco fournisseurs → sélectionner → Actions → Frais automatiques</span><span class="l-en">Vendor Free Shipping Thresholds → select → Actions → Automatic Charges</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Voir le franco d'une commande en cours</span><span class="l-en">View free shipping status on an order</span></div><div class="qr-a"><span class="l-fr">Commande Achat → FactBox <span class="l-fr">« Franco Fournisseur »</span><span class="l-en">"Free Shipping Threshold"</span> (volet droit)</span><span class="l-en">Purchase Order → Free Shipping FactBox (right pane)</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Forcer le recalcul du franco</span><span class="l-en">Force threshold recalculation</span></div><div class="qr-a"><span class="l-fr">Commande Achat → onglet Franco → Recalculer Franco</span><span class="l-en">Purchase Order → Free Shipping tab → Recalculate Threshold</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Vue d'ensemble de tous les groupes franco</span><span class="l-en">View all worksheet group statuses</span></div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Analyse Franco</span><span class="l-en">Req. Worksheet → Free Shipping tab → Threshold Analysis</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Résumé rapide avec chiffres</span><span class="l-en">Quick summary with counts</span></div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Rafraîchir Franco</span><span class="l-en">Req. Worksheet → Free Shipping tab → Refresh Thresholds</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Suggestions d'articles pour atteindre le franco</span><span class="l-en">Get item suggestions to reach the threshold</span></div><div class="qr-a"><span class="l-fr">Feuille de demande → onglet Franco → Optimiser Franco</span><span class="l-en">Req. Worksheet → Free Shipping tab → Optimize Thresholds</span></div></div>
+        <div class="qr-row"><div class="qr-q"><span class="l-fr">Tableau de bord franco global</span><span class="l-en">View global free shipping dashboard</span></div><div class="qr-a"><span class="l-fr">Page d'accueil BC → groupe Franco Fournisseur en cours</span><span class="l-en">BC Role Center → Vendor Free Shipping activity group</span></div></div>
         <div class="qr-row"><div class="qr-q"><span class="l-fr">Configurer le délai d'un article chez un fournisseur</span><span class="l-en">Configure item lead time for a vendor</span></div><div class="qr-a"><span class="l-fr">Fiche Fournisseur → Catalogue articles → Délai réappro.</span><span class="l-en">Vendor card → Item Catalog → Lead Time Calculation</span></div></div>
       </div>
     </section>
@@ -1062,12 +1019,12 @@ html[lang="en"] .l-fr-block{display:none !important}
       <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:20px 20px;pointer-events:none"></div>
       <div style="position:relative;z-index:2">
         <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px">Extension Business Central · WALYCONSEIL</div>
-        <div style="font-size:clamp(22px,3vw,36px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em">Prêt à démarrer ?</div>
-        <div style="font-size:15px;color:rgba(255,255,255,.65);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7">Installez, paramétrez vos premiers seuils et constatez l'effet dès la première commande.</div>
+        <div style="font-size:clamp(22px,3vw,36px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:-.02em"><span class="l-fr">Prêt à démarrer ?</span><span class="l-en">Ready to get started?</span></div>
+        <div style="font-size:15px;color:rgba(255,255,255,.65);margin-bottom:32px;max-width:440px;margin-left:auto;margin-right:auto;line-height:1.7"><span class="l-fr">Installez, paramétrez vos premiers seuils et constatez l'effet dès la première commande.</span><span class="l-en">Install, configure your first thresholds, and see the effect on the first order.</span></div>
         <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
           <a href="#" style="background:#fff;color:var(--blue);font-size:14px;font-weight:700;padding:13px 28px;border-radius:var(--r);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,.15)">
             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"/></svg>
-            Télécharger l'extension
+            <span class="l-fr">Télécharger l'extension</span><span class="l-en">Download the extension</span>
           </a>
           <a href="mailto:contact@walyconseil.com" style="background:transparent;color:rgba(255,255,255,.85);font-size:14px;font-weight:600;padding:13px 22px;border-radius:var(--r);border:1.5px solid rgba(255,255,255,.3);text-decoration:none;transition:all .2s">
             Contacter WALYCONSEIL
@@ -1087,6 +1044,60 @@ html[lang="en"] .l-fr-block{display:none !important}
 </footer>
 
 <script>
+
+// ── SIDEBAR TOGGLE ──
+function toggleSidebar(){
+  const sidebar = document.getElementById('sidebar');
+  const icon = document.getElementById('toggle-icon');
+  const btn = document.getElementById('sidebar-toggle');
+  const mainContent = document.querySelector('.content');
+  const isCollapsed = sidebar.classList.toggle('collapsed');
+  btn.style.left = isCollapsed ? '0px' : 'var(--sidebar)';
+  icon.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
+  if(mainContent) mainContent.style.marginLeft = isCollapsed ? '0' : 'var(--sidebar)';
+  try{localStorage.setItem('sidebar-collapsed', isCollapsed);}catch(e){}
+}
+
+// On mobile: toggle becomes open/close instead
+function handleToggle(){
+  if(window.innerWidth <= 900){
+    const sidebar = document.getElementById('sidebar');
+    const btn = document.getElementById('sidebar-toggle');
+    sidebar.classList.toggle('open');
+    btn.style.left = sidebar.classList.contains('open') ? 'var(--sidebar)' : '0px';
+  } else {
+    toggleSidebar();
+  }
+}
+document.getElementById('sidebar-toggle').onclick = handleToggle;
+
+// Restore state
+(function(){
+  if(window.innerWidth <= 900) return;
+  try{
+    if(localStorage.getItem('sidebar-collapsed') === 'true'){
+      const sidebar = document.getElementById('sidebar');
+      const btn = document.getElementById('sidebar-toggle');
+      const icon = document.getElementById('toggle-icon');
+      const mainContent = document.querySelector('.content');
+      sidebar.classList.add('collapsed');
+      btn.style.left = '0px';
+      icon.style.transform = 'rotate(180deg)';
+      if(mainContent) mainContent.style.marginLeft = '0';
+    }
+  }catch(e){}
+})();
+
+// Close mobile sidebar on link click
+document.querySelectorAll('.sidebar a').forEach(a => {
+  a.addEventListener('click', () => {
+    if(window.innerWidth <= 900){
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebar-toggle').style.left = '0px';
+    }
+  });
+});
+
 // ── SCROLL SPY ──
 const anchors = document.querySelectorAll('.section-anchor');
 const links = document.querySelectorAll('.sidebar a');
