@@ -224,11 +224,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 0}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .rv.vis{opacity:1;transform:none}
 
-/* Screenshot slots */
-.ss-img-wrap { display: block; }
-.ss-placeholder { display: flex !important; }  /* visible by default */
-/* JS will hide placeholder when image loads */
 
+
+/* Screenshot: image visible by default, placeholder hidden */
+.ss-img-wrap { display: block; }
+.ss-placeholder { display: none !important; }
+/* When image fails, JS adds .img-error to the slot → show placeholder */
+.screenshot-slot.img-error .ss-img-wrap { display: none; }
+.screenshot-slot.img-error .ss-placeholder { display: flex !important; }
 </style>
 
 <style>
@@ -386,11 +389,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
       <div class="screenshot-slot wide rv" style="transition-delay:.08s">
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/01-overview.png"
-            alt="Vue d'ensemble — Extension en action sur Business CentralOverview — Vendor Free Shipping extension in Business Central"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/01-overview.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -493,11 +492,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/02-franco-rules-list.png"
-            alt="Page « Franco fournisseurs » — liste des règlesVendor Free Shipping Thresholds — rules list"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/02-franco-rules-list.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -536,11 +531,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/03-automatic-charges.png"
-            alt="Configuration des frais automatiquesAutomatic charges configuration"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/03-automatic-charges.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -599,11 +590,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot wide rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/04-factbox-not-reached.png"
-            alt="FactBox Franco sur la Commande AchatFree Shipping FactBox on Purchase Order"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/04-factbox-not-reached.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -676,11 +663,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/05-factbox-reached.png"
-            alt="Boîte de dialogue — Frais automatiques au lancementConfirmation dialog — Automatic charges on release"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/05-factbox-reached.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -755,11 +738,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot wide rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/06-dialog-charges-release.png"
-            alt="Page Analyse Franco — tableau consolidéconsolidated table des groupesThreshold Analysis — consolidated group table"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/06-dialog-charges-release.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -876,11 +855,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot wide rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/07-order-charges-added.png"
-            alt="Page Optimiseur Franco — propositions d'articlesFree Shipping Optimizer — item proposals"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/07-order-charges-added.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -950,11 +925,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
         <div class="screenshot-slot tall rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/08-multiorder-factbox.png"
-            alt="Optimiseur — Sélection et création des lignesOptimizer — selecting and creating lines"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/08-multiorder-factbox.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -1012,11 +983,7 @@ html[lang="en"] .l-fr-block{display:none !important}
 
       <div class="screenshot-slot wide rv" >
         <div class="ss-img-wrap" style="position:relative">
-          <img
-            src="screenshots/09-analysis-page.png"
-            alt="Pile d'activité FrancoVendor Free Shipping Activity Stack — Page d'accueil BCVendor Free Shipping Activity Stack — BC Role Center"
-            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
-          >
+          <img src="screenshots/09-analysis-page.png" alt="" style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)" onerror="this.closest('.screenshot-slot').classList.add('img-error')">
         </div>
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
@@ -1215,31 +1182,7 @@ function toggleLang() {
 </script>
 
 
-<script>
-// Simple: if any screenshot img fails, hide it and show placeholder
-document.querySelectorAll('.ss-img-wrap img').forEach(function(img) {
-  img.addEventListener('load', function() {
-    // Image loaded — hide placeholder
-    var placeholder = img.closest('.screenshot-slot').querySelector('.ss-placeholder');
-    if (placeholder) placeholder.style.display = 'none';
-    img.closest('.ss-img-wrap').style.display = 'block';
-  });
-  img.addEventListener('error', function() {
-    // Image failed — hide img, show placeholder
-    img.closest('.ss-img-wrap').style.display = 'none';
-    var placeholder = img.closest('.screenshot-slot').querySelector('.ss-placeholder');
-    if (placeholder) placeholder.style.display = 'flex';
-  });
-  // Trigger for cached images
-  if (img.complete) {
-    if (img.naturalWidth === 0) {
-      img.dispatchEvent(new Event('error'));
-    } else {
-      img.dispatchEvent(new Event('load'));
-    }
-  }
-});
-</script>
+
 
 </body>
 </html>
