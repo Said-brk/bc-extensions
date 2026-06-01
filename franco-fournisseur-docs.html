@@ -17,9 +17,7 @@
   --r:10px;
   --sh:0 1px 4px rgba(24,28,46,.06),0 6px 20px rgba(24,28,46,.05);
   --sh-lg:0 12px 40px rgba(24,28,46,.10),0 2px 8px rgba(24,28,46,.05);
-  --sidebar:280px;
-  --content:860px;
-}
+  }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;overflow-x:hidden}
@@ -37,41 +35,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(248,249,251,
 .btn-nav:hover{background:#1640B0;transform:translateY(-1px)}
 
 /* ── LAYOUT ── */
-.doc-layout{min-height:100vh;padding-top:62px}
-.sidebar{
-  position:fixed;
-  top:62px;left:0;
-  width:var(--sidebar);
-  height:calc(100vh - 62px);
-  overflow-y:auto;
-  background:var(--bg2);
-  border-right:1px solid var(--border);
-  padding:28px 0 40px;
-  z-index:100;
-  transition:transform .3s ease;
+
+.sidebar.collapsed+
 }
-.sidebar.collapsed{transform:translateX(-100%)}
-.sidebar-toggle{
-  position:fixed;top:50%;left:var(--sidebar);
-  transform:translateY(-50%);z-index:101;
-  background:var(--bg2);border:1px solid var(--border2);border-left:none;
-  color:var(--mid);font-size:13px;padding:8px 5px;cursor:pointer;
-  transition:left .3s ease,color .2s,background .2s;
-  border-radius:0 6px 6px 0;font-family:'Plus Jakarta Sans',sans-serif;
-  box-shadow:2px 0 8px rgba(24,28,46,.06);
-}
-.sidebar-toggle:hover{color:var(--blue);background:var(--blue-l)}
-.sidebar.collapsed+.sidebar-toggle{left:0}
-@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.sidebar-toggle{left:0px!important}.content{margin-left:0!important}}
 .sidebar-section{margin-bottom:28px}
 .sidebar-title{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);padding:0 20px;margin-bottom:8px}
 .sidebar a{display:block;font-size:13px;font-weight:500;color:var(--mid);text-decoration:none;padding:7px 20px;transition:all .15s;border-left:3px solid transparent}
 .sidebar a:hover{color:var(--blue);background:var(--blue-l);border-left-color:var(--blue-m)}
 .sidebar a.active{color:var(--blue);font-weight:700;background:var(--blue-l);border-left-color:var(--blue)}
 .sidebar a.sub{padding-left:32px;font-size:12px}
-.content{min-width:0;padding:52px 56px 100px;margin-left:var(--sidebar);transition:margin-left .3s ease;max-width:860px}
-@media(max-width:1100px){.content{padding:40px 32px 80px}}
-@media(max-width:640px){.content{padding:28px 20px 60px}}
+
+@media(max-width:1100px){}
+@media(max-width:640px){}
 
 /* ── HERO DOC ── */
 .doc-hero{margin-bottom:56px;padding-bottom:48px;border-bottom:1px solid var(--border);box-shadow:0 1px 0 var(--border)}
@@ -221,21 +196,78 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 0}
 .fl{font-size:13px;color:var(--dim)}.ft{font-size:12px;color:var(--dim)}
 
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.rv{opacity:1;transform:none}
 .rv.vis{opacity:1;transform:none}
 
-
-
 /* Screenshot: image visible by default, placeholder hidden */
+
+/* When image fails, JS adds .img-error to the slot → show placeholder */
+
+
+/* ═══════════════════════════════
+   LAYOUT — sidebar fixed + content offset
+═══════════════════════════════ */
+:root { --sidebar-w: 280px; }
+
+.doc-layout {
+  min-height: 100vh;
+  padding-top: 62px;
+}
+
+/* Sidebar — always visible fixed left column */
+.sidebar {
+  position: fixed;
+  top: 62px;
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - 62px);
+  overflow-y: auto;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  padding: 28px 0 40px;
+  z-index: 100;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+
+
+/* Main content — offset by sidebar width */
+.content {
+  margin-left: var(--sidebar-w);
+  padding: 52px 56px 100px;
+  max-width: 860px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1100px) { .content { padding: 40px 32px 80px; } }
+@media (max-width: 640px)  { .content { padding: 28px 18px 60px; } }
+
+/* Screenshot slots */
 .ss-img-wrap { display: block; }
 .ss-placeholder { display: none !important; }
-/* When image fails, JS adds .img-error to the slot → show placeholder */
 .screenshot-slot.img-error .ss-img-wrap { display: none; }
 .screenshot-slot.img-error .ss-placeholder { display: flex !important; }
 
-/* Sidebar state — body class controls content margin */
-body.sidebar-collapsed .content { margin-left: 0 !important; }
-body.sidebar-collapsed #sidebar-toggle { left: 0px !important; }
+
+/* Mobile: sidebar hidden */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .content { margin-left: 0 !important; max-width: 100% !important; padding: 28px 18px 60px; }
+  .toc-mobile { display: block; }
+}
+@media (min-width: 901px) {
+  .toc-mobile { display: none; }
+}
+@media (max-width: 1100px) {
+  .content { padding: 40px 32px 80px; }
+}
+@media (max-width: 640px) {
+  .content { padding: 28px 18px 60px; }
+}
+
 </style>
 
 <style>
@@ -261,6 +293,7 @@ html[lang="en"] .l-fr{display:none !important}
 html[lang="en"] .l-en-block{display:block !important}
 html[lang="en"] .l-fr-block{display:none !important}
 </style>
+
 </head>
 <body>
 
@@ -269,7 +302,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     <div style="display:flex;align-items:center;gap:16px">
       <a href="franco-fournisseur.html" style="display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s;flex-shrink:0" onmouseover="this.style.color='var(--blue)'" onmouseout="this.style.color='var(--dim)'">
         <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        <span class="l-en"><span class="l-fr">Extension</span><span class="l-en">Extension</span></span><span class="l-fr"><span class="l-fr">Extension</span><span class="l-en">Extension</span></span>
+        <span class="l-fr">Extension</span><span class="l-en">Extension</span>
       </a>
       <a href="#top" class="logo">
         <svg width="36" height="36" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -286,16 +319,11 @@ html[lang="en"] .l-fr-block{display:none !important}
     <div class="nav-r">
       <span class="nav-badge">v1.0</span>
       <button id="lang-btn" onclick="toggleLang()" class="lang-btn-style">🇬🇧 EN</button>
-      <a href="#" class="btn-nav-cta"><span class="l-en">Download</span><span class="l-fr"><span class="l-fr">Télécharger</span><span class="l-en">Download</span></span></a>
+      <a href="#" class="btn-nav-cta"><span class="l-en">Download</span><span class="l-fr">Télécharger</span><span class="l-en">Download</span></a>
     </div>
   </div>
 </nav>
 
-<button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()" title="Toggle navigation" aria-label="Toggle navigation">
-  <svg id="toggle-icon" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-    <path d="M15 18l-6-6 6-6"/>
-  </svg>
-</button>
 
 <div class="doc-layout" id="top">
 
@@ -307,7 +335,7 @@ html[lang="en"] .l-fr-block{display:none !important}
       <a href="#s2"><span class="l-fr">2. Concepts clés</span><span class="l-en">2. Key concepts</span></a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-title"><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></div>
+      <div class="sidebar-title"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span><span class="l-en">Setup</span></div>
       <a href="#s3"><span class="l-fr">3. Paramétrage</span><span class="l-en">3. Setup</span></a>
       <a href="#s31" class="sub"><span class="l-fr">3.1 Règles Franco</span><span class="l-en">3.1 Free Shipping Threshold rules</span></a>
       <a href="#s32" class="sub"><span class="l-fr">3.2 Frais automatiques</span><span class="l-en">3.2 Automatic charges</span></a>
@@ -336,7 +364,7 @@ html[lang="en"] .l-fr-block{display:none !important}
       <a href="#s63" class="sub"><span class="l-fr">6.3 Mode d'emploi</span><span class="l-en">6.3 How to use</span></a>
     </div>
     <div class="sidebar-section">
-      <div class="sidebar-title"><span class="l-fr"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span></span><span class="l-en">Activity Dashboard</span></div>
+      <div class="sidebar-title"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span><span class="l-en">Activity Dashboard</span></div>
       <a href="#s7"><span class="l-fr">7. Pile d'activité</span><span class="l-en">7. Dashboard</span></a>
       <a href="#s8"><span class="l-fr">8. Règles de priorité</span><span class="l-en">8. Priority rules</span></a>
       <a href="#s9"><span class="l-fr">9. Référence rapide</span><span class="l-en">9. Quick reference</span></a>
@@ -344,7 +372,7 @@ html[lang="en"] .l-fr-block{display:none !important}
   </aside>
 
   <!-- ── MAIN CONTENT ── -->
-  <main class="content">
+  <main class="content" id="main-content" style="margin-left:280px">
 
     <!-- TOC MOBILE -->
     <details class="toc-mobile rv">
@@ -352,13 +380,13 @@ html[lang="en"] .l-fr-block{display:none !important}
       <ol>
         <li><a href="#s1"><span class="l-fr">Présentation générale</span><span class="l-en">Overview</span></a></li>
         <li><a href="#s2"><span class="l-fr">Concepts clés</span><span class="l-en">Key concepts</span></a></li>
-        <li><a href="#s3"><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></a></li>
+        <li><a href="#s3"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span><span class="l-en">Setup</span></a></li>
         <li><a href="#s4"><span class="l-fr">Gestion sur la Commande Achat</span><span class="l-en">Purchase Order</span></a></li>
         <li><a href="#s5"><span class="l-fr">Feuille de Demande d'Achat</span><span class="l-en">Requisition Worksheet</span></a></li>
         <li><a href="#s6"><span class="l-fr">L'Optimiseur Franco</span><span class="l-en">Free Shipping Optimizer</span></a></li>
-        <li><a href="#s7"><span class="l-fr"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span></span><span class="l-en">Activity Dashboard</span></a></li>
+        <li><a href="#s7"><span class="l-fr">Tableau de bord</span><span class="l-en">Dashboard</span><span class="l-en">Activity Dashboard</span></a></li>
         <li><a href="#s8"><span class="l-fr">Règles de priorité</span><span class="l-en">Priority Rules</span></a></li>
-        <li><a href="#s9"><span class="l-fr"><span class="l-fr">Référence rapide</span><span class="l-en">Quick reference</span></span><span class="l-en">Quick Reference</span></a></li>
+        <li><a href="#s9"><span class="l-fr">Référence rapide</span><span class="l-en">Quick reference</span><span class="l-en">Quick Reference</span></a></li>
       </ol>
     </details>
 
@@ -378,7 +406,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s1"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-en"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span><span class="l-fr"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span></span><span class="l-fr"><span class="l-en"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span><span class="l-fr"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></span></span></div>
+      <div class="section-number"><span class="l-fr">Section 01</span><span class="l-en">Section 01</span></div>
       <h2 class="section-title">Présentation <em>générale</em></h2>
       <p class="section-lead">L'extension <strong><span style="color:#059669">Fr</span><span style="color:#D97706">an</span><span style="color:#DC2626">co</span> <span style="color:#059669">Four</span><span style="color:#D97706">niss</span><span style="color:#DC2626">eur</span></strong> <span class="l-fr">permet de gérer et piloter les seuils de franchise de port (franco) par fournisseur directement dans Business Central.</span><span class="l-en">tracks and manages vendor free shipping thresholds directly in Business Central, eliminating manual tracking and ensuring every order meets or exceeds the free shipping threshold.</span></p>
 
@@ -402,7 +430,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-hint"></div>
         </div>
       </div>
-      </div>
     </section>
 
     <div class="section-divider"></div>
@@ -412,7 +439,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s2"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></span><span class="l-fr"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 02</span><span class="l-en">Section 02</span></div>
       <h2 class="section-title">Concepts <em>clés</em></h2>
       <p class="section-lead"><span class="l-fr">Avant de paramétrer l'extension, voici les deux notions fondamentales à maîtriser.</span><span class="l-en">Before configuring the extension, here are the two fundamental concepts to understand.</span></p>
 
@@ -454,8 +481,8 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s3"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 03</span><span class="l-en">Section 03</span></span><span class="l-fr"><span class="l-fr">Section 03</span><span class="l-en">Section 03</span></span></div>
-      <h2 class="section-title"><em><span class="l-fr"><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span></span><span class="l-en">Setup</span></em></h2>
+      <div class="section-number"><span class="l-fr">Section 03</span><span class="l-en">Section 03</span></div>
+      <h2 class="section-title"><em><span class="l-fr">Paramétrage</span><span class="l-en">Configuration</span><span class="l-en">Setup</span></em></h2>
 
       <!-- 3.1 -->
       <span class="section-anchor" id="s31"></span>
@@ -505,8 +532,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-hint"></div>
         </div>
       </div>
-        </div>
-      </div>
 
       <!-- 3.2 -->
       <span class="section-anchor" id="s32"></span>
@@ -544,8 +569,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-hint"></div>
         </div>
       </div>
-        </div>
-      </div>
     </section>
 
     <div class="section-divider"></div>
@@ -555,7 +578,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s4"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 04</span><span class="l-en">Section 04</span></span><span class="l-fr"><span class="l-fr">Section 04</span><span class="l-en">Section 04</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 04</span><span class="l-en">Section 04</span></div>
       <h2 class="section-title">Gestion sur la <em><span class="l-fr">Commande Achat</span><span class="l-en">Purchase Order</span></em></h2>
 
       <!-- 4.1 -->
@@ -601,8 +624,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <div class="screenshot-title"><span class="l-fr">FactBox Franco sur la Commande Achat</span><span class="l-en">Free Shipping FactBox on Purchase Order</span></div>
           <div class="screenshot-hint"></div>
-        </div>
-      </div>
         </div>
       </div>
 
@@ -676,8 +697,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-hint"></div>
         </div>
       </div>
-        </div>
-      </div>
 
       <!-- 4.4 -->
       <span class="section-anchor" id="s44"></span>
@@ -705,7 +724,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s5"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></span><span class="l-fr"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 05</span><span class="l-en">Section 05</span></div>
       <h2 class="section-title">Gestion sur la <em><span class="l-fr">Feuille de Demande d'Achat</span><span class="l-en">Requisition Worksheet</span></em></h2>
       <p class="section-lead"><span class="l-fr">L'extension ajoute trois boutons et un FactBox à la feuille de demande (</span><span class="l-en">The extension adds three buttons and a FactBox to the requisition worksheet.</span><span class="l-fr">Achats → Planification → Feuilles de demande</span><span class="l-en">Purchases → Planning → Req. Worksheets</span>).</p>
 
@@ -731,7 +750,7 @@ html[lang="en"] .l-fr-block{display:none !important}
           <span class="l-fr">Feuille de demande → onglet « Franco » → « Analyse Franco »</span><span class="l-en">Req. Worksheet → "Free Shipping" tab → "Threshold Analysis"</span>
         </div>
         <div class="subsection-body">
-          <p><span class="l-fr"><span class="l-fr">Ouvre une page récapitulative avec un</span><span class="l-en">Opens a summary page with a</span> <strong><span class="l-fr">tableau consolidé</span><span class="l-en">consolidated table</span></strong> <span class="l-fr">de l'état du franco pour tous les groupes présents dans la feuille. Pour chaque groupe, on voit :</span><span class="l-en">of the free shipping threshold status for all groups in the worksheet. For each group:</span></span><span class="l-en">Opens a summary page with a <strong>consolidated table</strong> of the free shipping threshold status for all groups in the worksheet. For each group:</span></p>
+          <p><span class="l-fr">Ouvre une page récapitulative avec un</span><span class="l-en">Opens a summary page with a</span> <strong><span class="l-fr">tableau consolidé</span><span class="l-en">consolidated table</span></strong> <span class="l-fr">de l'état du franco pour tous les groupes présents dans la feuille. Pour chaque groupe, on voit :</span><span class="l-en">of the free shipping threshold status for all groups in the worksheet. For each group:</span><span class="l-en">Opens a summary page with a <strong>consolidated table</strong> of the free shipping threshold status for all groups in the worksheet. For each group:</span></p>
           <ul>
             <li><span class="l-fr">Le fournisseur, le magasin et la date de réception</span><span class="l-en">The vendor, location, and expected receipt date</span></li>
             <li><span class="l-fr">Le type de franco, son seuil et la valeur actuelle du groupe</span><span class="l-en">The threshold type, value, and current group total</span></li>
@@ -751,8 +770,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-hint"></div>
         </div>
       </div>
-        </div>
-      </div>
 
       <!-- 5.3 -->
       <span class="section-anchor" id="s53"></span>
@@ -763,7 +780,7 @@ html[lang="en"] .l-fr-block{display:none !important}
           <span class="l-fr">Feuille de demande → onglet « Franco » → « Rafraîchir Franco »</span><span class="l-en">Req. Worksheet → "Free Shipping" tab → "Refresh Thresholds"</span>
         </div>
         <div class="subsection-body">
-          <p><span class="l-fr"><span class="l-fr">Affiche d'abord une barre de progression, puis un</span><span class="l-en">Shows a progress bar, then an instant</span> <strong>résumé chiffré</strong> :</span><span class="l-en">Shows a progress bar, then an instant <strong>numerical summary</strong>:</span></p>
+          <p><span class="l-fr">Affiche d'abord une barre de progression, puis un</span><span class="l-en">Shows a progress bar, then an instant</span> <strong>résumé chiffré</strong> :</span><span class="l-en">Shows a progress bar, then an instant <strong>numerical summary</strong>:</span></p>
         </div>
         <div class="callout success">
           <span class="callout-icon">✅</span>
@@ -783,7 +800,7 @@ html[lang="en"] .l-fr-block{display:none !important}
           <span class="l-fr">Feuille de demande → onglet « Franco » → « Optimiser Franco »</span><span class="l-en">Req. Worksheet → "Free Shipping" tab → "Optimize Thresholds"</span>
         </div>
         <div class="subsection-body">
-          <p><span class="l-fr"><span class="l-fr">C'est le cœur de l'outil de planification. Il analyse tous les groupes dont le franco</span><span class="l-en">The core planning tool. Analyzes all groups where the threshold is</span> <strong>n'est pas atteint</strong> <span class="l-fr">et propose, pour chacun, des articles à ajouter pour atteindre le seuil.</span><span class="l-en">and suggests, for each one, items to add to reach the free shipping threshold.</span></span><span class="l-en">The core planning tool. Analyzes all groups where the threshold is <strong>not reached</strong> and suggests, for each one, items to add to reach the free shipping threshold.</span></p>
+          <p><span class="l-fr">C'est le cœur de l'outil de planification. Il analyse tous les groupes dont le franco</span><span class="l-en">The core planning tool. Analyzes all groups where the threshold is</span> <strong>n'est pas atteint</strong> <span class="l-fr">et propose, pour chacun, des articles à ajouter pour atteindre le seuil.</span><span class="l-en">and suggests, for each one, items to add to reach the free shipping threshold.</span><span class="l-en">The core planning tool. Analyzes all groups where the threshold is <strong>not reached</strong> and suggests, for each one, items to add to reach the free shipping threshold.</span></p>
           <p><span class="l-fr">Si tous les groupes sont déjà en franco atteint (ou N/A), un message l'indique et l'optimiseur ne s'ouvre pas.</span><span class="l-en">If all groups are already at threshold reached (or N/A), a message indicates this and the Optimizer does not open.</span></p>
         </div>
       </div>
@@ -796,7 +813,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s6"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></span><span class="l-fr"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 06</span><span class="l-en">Section 06</span></div>
       <h2 class="section-title">L'Optimiseur Franco — <em><span class="l-fr">Fonctionnement détaillé</span><span class="l-en">Detailed operation</span></em></h2>
 
       <!-- 6.1 -->
@@ -830,7 +847,7 @@ html[lang="en"] .l-fr-block{display:none !important}
             <div class="step-num">4</div>
             <div class="step-content">
               <strong><span class="l-fr">Filtrage par délai fournisseur</span><span class="l-en">Filter by vendor lead time</span></strong>
-              <p><span class="l-fr">Les articles dont la <span class="l-fr">date de livraison au plus tôt</span><span class="l-en">earliest delivery date</span> <span class="l-fr">dépasse la date de réception du groupe sont exclus.</span><span class="l-en">exceeds the group's expected receipt date are excluded.</span></span><span class="l-en">Items whose earliest delivery date exceeds the group's expected receipt date are excluded.</span> <span class="l-fr">Voir section 6.2 pour le détail.</span><span class="l-en">See section 6.2 for details.</span></p>
+              <p><span class="l-fr">Les articles dont la <span class="l-fr">date de livraison au plus tôt</span><span class="l-en">earliest delivery date</span> <span class="l-fr">dépasse la date de réception du groupe sont exclus.</span><span class="l-en">exceeds the group's expected receipt date are excluded.</span><span class="l-en">Items whose earliest delivery date exceeds the group's expected receipt date are excluded.</span> <span class="l-fr">Voir section 6.2 pour le détail.</span><span class="l-en">See section 6.2 for details.</span></p>
             </div>
           </div>
           <div class="step-item">
@@ -866,8 +883,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <div class="screenshot-title"><span class="l-fr">Page Optimiseur Franco — propositions d'articles</span><span class="l-en">Free Shipping Optimizer — item proposals</span></div>
           <div class="screenshot-hint"></div>
-        </div>
-      </div>
         </div>
       </div>
 
@@ -938,8 +953,6 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="screenshot-hint"></div>
         </div>
       </div>
-        </div>
-      </div>
     </section>
 
     <div class="section-divider"></div>
@@ -949,7 +962,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s7"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></span><span class="l-fr"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 07</span><span class="l-en">Section 07</span></div>
       <h2 class="section-title">Tableau de bord — <em><span class="l-fr">Pile d'activité Franco</span><span class="l-en">Vendor Free Shipping Activity Stack</span></em></h2>
       <div class="where-tag">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -992,10 +1005,9 @@ html[lang="en"] .l-fr-block{display:none !important}
         <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="screenshot-title"><span class="l-fr"><span class="l-fr">Pile d'activité Franco</span><span class="l-en">Vendor Free Shipping Activity Stack</span> — Page d'accueil BC</span><span class="l-en">Vendor Free Shipping Activity Stack — BC Role Center</span></div>
+          <div class="screenshot-title"><span class="l-fr">Pile d'activité Franco</span><span class="l-en">Vendor Free Shipping Activity Stack</span> — Page d'accueil BC</span><span class="l-en">Vendor Free Shipping Activity Stack — BC Role Center</span></div>
           <div class="screenshot-hint"></div>
         </div>
-      </div>
       </div>
     </section>
 
@@ -1006,14 +1018,14 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s8"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></span><span class="l-fr"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 08</span><span class="l-en">Section 08</span></div>
       <h2 class="section-title">Règles de <em><span class="l-fr">priorité du paramétrage</span><span class="l-en">configuration priority</span></em></h2>
 
       <div class="subsection">
         <div class="subsection-title"><span class="l-fr">Priorité de la règle franco sur une commande</span><span class="l-en">Free Shipping Threshold rule priority on a purchase order</span></div>
         <div class="priority-chain">
           <div class="pc-item">
-            <span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span></span>
+            <span class="pc-badge"><span class="l-fr">Priorité 1</span><span class="l-en">Priority 1</span>
             <div class="pc-body"><strong><span class="l-fr">Fournisseur + Magasin de la commande</span><span class="l-en">Vendor + Order Location</span></strong><p><span class="l-fr">Règle spécifique au magasin — priorité maximale</span><span class="l-en">Location-specific rule — highest priority</span></p></div>
           </div>
           <div class="pc-item">
@@ -1045,7 +1057,7 @@ html[lang="en"] .l-fr-block{display:none !important}
     ─────────────────────────────────── -->
     <span class="section-anchor" id="s9"></span>
     <section class="doc-section rv">
-      <div class="section-number"><span class="l-en"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></span><span class="l-fr"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></span></div>
+      <div class="section-number"><span class="l-fr">Section 09</span><span class="l-en">Section 09</span></div>
       <h2 class="section-title"><span class="l-fr">Référence rapide —</span><span class="l-en">Quick Reference —</span> <em><span class="l-fr">Où trouver quoi</span><span class="l-en">Where to Find What</span></em></h2>
       <p class="section-lead"><span class="l-fr">Tableau de navigation rapide pour retrouver chaque fonctionnalité en un coup d'œil.</span><span class="l-en">Quick navigation table to find any feature at a glance.</span></p>
 
@@ -1094,50 +1106,6 @@ html[lang="en"] .l-fr-block{display:none !important}
 
 <script>
 
-// ── SIDEBAR TOGGLE ──
-function toggleSidebar(){
-  const sidebar = document.getElementById('sidebar');
-  const icon = document.getElementById('toggle-icon');
-  const isCollapsed = sidebar.classList.toggle('collapsed');
-  document.body.classList.toggle('sidebar-collapsed', isCollapsed);
-  icon.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
-  try { localStorage.setItem('sidebar-collapsed', isCollapsed); } catch(e){}
-}
-
-// On mobile: toggle becomes open/close instead
-function handleToggle(){
-  if(window.innerWidth <= 900){
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('open');
-  } else {
-    toggleSidebar();
-  }
-}
-document.getElementById('sidebar-toggle').onclick = handleToggle;
-
-// Restore state
-(function(){
-  if(window.innerWidth <= 900) return;
-  try {
-    if(localStorage.getItem('sidebar-collapsed') === 'true'){
-      document.getElementById('sidebar').classList.add('collapsed');
-      document.body.classList.add('sidebar-collapsed');
-      const icon = document.getElementById('toggle-icon');
-      if(icon) icon.style.transform = 'rotate(180deg)';
-    }
-  } catch(e){}
-})();
-
-// Close mobile sidebar on link click
-document.querySelectorAll('.sidebar a').forEach(a => {
-  a.addEventListener('click', () => {
-    if(window.innerWidth <= 900){
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('sidebar-toggle').style.left = '0px';
-    }
-  });
-});
-
 // ── SCROLL SPY ──
 const anchors = document.querySelectorAll('.section-anchor');
 const links = document.querySelectorAll('.sidebar a');
@@ -1154,16 +1122,9 @@ function updateActive(){
 window.addEventListener('scroll', updateActive, {passive:true});
 updateActive();
 
-// ── REVEAL ──
-const io = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}
-  });
-},{threshold:.08});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+// ── REVEAL ── (instant)
+document.querySelectorAll('.rv').forEach(el=>el.classList.add('vis'));
 </script>
-
-
 
 <script>
 // ── LANG SWITCHER — FR default ──
@@ -1175,9 +1136,6 @@ function toggleLang() {
   document.getElementById('lang-btn').textContent = currentLang === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR';
 }
 </script>
-
-
-
 
 </body>
 </html>
