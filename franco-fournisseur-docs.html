@@ -223,6 +223,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 0}
 @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .rv.vis{opacity:1;transform:none}
+
+/* Screenshot slots */
+.ss-img-wrap { display: block; }
+.ss-placeholder { display: flex !important; }  /* visible by default */
+/* JS will hide placeholder when image loads */
+
 </style>
 
 <style>
@@ -379,12 +385,20 @@ html[lang="en"] .l-fr-block{display:none !important}
       </div>
 
       <div class="screenshot-slot wide rv" style="transition-delay:.08s">
-        <div class="screenshot-slot-inner">
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/01-overview.png"
+            alt="Vue d'ensemble — Extension en action sur Business CentralOverview — Vendor Free Shipping extension in Business Central"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <div class="screenshot-title"><span class="l-fr">Vue d'ensemble — Extension en action sur Business Central</span><span class="l-en">Overview — Vendor Free Shipping extension in Business Central</span></div>
-          <div class="screenshot-hint"><span class="l-fr">Capture recommandée : page d'accueil BC avec la pile d'activité Franco visible</span><span class="l-en">Recommended: BC homepage with Vendor Free Shipping Activity Stack visible in Role Center</span></div>
+          <div class="screenshot-hint"></div>
         </div>
+      </div>
       </div>
     </section>
 
@@ -477,13 +491,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="callout-body"><strong><span class="l-fr">Récupération automatique</span><span class="l-en">Auto-retrieval</span></strong><span class="l-fr">Quand une règle franco est ajoutée, les nouvelles commandes achat créées pour ce fournisseur récupèrent automatiquement le seuil et le type dès la saisie du fournisseur.</span><span class="l-en">When a threshold rule is added, new purchase orders for this vendor automatically inherit the threshold type and value as soon as the vendor is entered.</span></div>
         </div>
 
-        <div class="screenshot-slot rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">Page « Franco fournisseurs » — liste des règles</span><span class="l-en">Vendor Free Shipping Thresholds — rules list</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : liste des règles franco avec les colonnes Fournisseur, Magasin, Type, Seuil, Activé</span><span class="l-en">Recommended: Vendor Free Shipping Thresholds list with Vendor, Location, Type, Threshold, Enabled columns</span></div>
-          </div>
+        <div class="screenshot-slot rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/02-franco-rules-list.png"
+            alt="Page « Franco fournisseurs » — liste des règlesVendor Free Shipping Thresholds — rules list"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">Page « Franco fournisseurs » — liste des règles</span><span class="l-en">Vendor Free Shipping Thresholds — rules list</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
 
@@ -512,13 +534,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="callout-body"><strong><span class="l-fr">Prérequis</span><span class="l-en">Prerequisite</span></strong><span class="l-fr">Les frais annexes doivent être préalablement configurés dans BC : Achats → Configuration → Frais annexes. Plusieurs lignes peuvent être définies pour une même règle — elles seront toutes insérées si le franco n'est pas atteint.</span><span class="l-en">Item charges must be configured in BC first: Purchases → Setup → Item Charges. Multiple lines can be defined per rule — all will be inserted if the threshold is not reached.</span></div>
         </div>
 
-        <div class="screenshot-slot rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">Configuration des frais automatiques</span><span class="l-en">Automatic charges configuration</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : sous-page Frais automatiques avec les colonnes N° frais, Description, Quantité, Coût unitaire</span><span class="l-en">Recommended: Automatic Charges sub-page with Item Charge No., Description, Quantity, Unit Cost columns</span></div>
-          </div>
+        <div class="screenshot-slot rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/03-automatic-charges.png"
+            alt="Configuration des frais automatiquesAutomatic charges configuration"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">Configuration des frais automatiques</span><span class="l-en">Automatic charges configuration</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
     </section>
@@ -567,13 +597,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           </div>
         </div>
 
-        <div class="screenshot-slot wide rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">FactBox Franco sur la Commande Achat</span><span class="l-en">Free Shipping FactBox on Purchase Order</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : volet droit de la commande achat avec le FactBox Franco visible, idéalement avec un statut </span><span class="l-en">Recommended: purchase order right pane with Free Shipping FactBox visible, ideally showing red 'Not Reached' status</span><span class="l-fr">« Franco Non Atteint »</span><span class="l-en">"Threshold Not Reached"</span> (rouge)</div>
-          </div>
+        <div class="screenshot-slot wide rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/04-factbox-not-reached.png"
+            alt="FactBox Franco sur la Commande AchatFree Shipping FactBox on Purchase Order"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">FactBox Franco sur la Commande Achat</span><span class="l-en">Free Shipping FactBox on Purchase Order</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
 
@@ -636,13 +674,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           </tbody>
         </table>
 
-        <div class="screenshot-slot rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">Boîte de dialogue — Frais automatiques au lancement</span><span class="l-en">Confirmation dialog — Automatic charges on release</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : la boîte de confirmation qui s'affiche lors du lancement d'une commande avec franco non atteint</span><span class="l-en">Recommended: The confirmation dialog displayed when releasing an order with threshold not reached</span></div>
-          </div>
+        <div class="screenshot-slot rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/05-factbox-reached.png"
+            alt="Boîte de dialogue — Frais automatiques au lancementConfirmation dialog — Automatic charges on release"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">Boîte de dialogue — Frais automatiques au lancement</span><span class="l-en">Confirmation dialog — Automatic charges on release</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
 
@@ -707,13 +753,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           <p><strong>Quand l'utiliser :</strong> <span class="l-fr">en début de session de planification pour avoir une vue d'ensemble avant de décider des ajustements.</span><span class="l-en">at the start of a planning session to get a full picture before deciding on adjustments.</span></p>
         </div>
 
-        <div class="screenshot-slot wide rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">Page Analyse Franco — <span class="l-fr">tableau consolidé</span><span class="l-en">consolidated table</span> des groupes</span><span class="l-en">Threshold Analysis — consolidated group table</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : la page Analyse Franco avec plusieurs groupes affichés (mix de statuts Atteint/Non Atteint)</span><span class="l-en">Recommended: Threshold Analysis page showing multiple groups with mixed Reached/Not Reached statuses</span></div>
-          </div>
+        <div class="screenshot-slot wide rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/06-dialog-charges-release.png"
+            alt="Page Analyse Franco — tableau consolidéconsolidated table des groupesThreshold Analysis — consolidated group table"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">Page Analyse Franco — <span class="l-fr">tableau consolidé</span><span class="l-en">consolidated table</span> des groupes</span><span class="l-en">Threshold Analysis — consolidated group table</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
 
@@ -820,13 +874,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="callout-body"><strong><span class="l-fr">Note sur le prix utilisé</span><span class="l-en">Price note</span></strong>L'Optimiseur utilise le <strong><span class="l-fr">dernier coût direct</span><span class="l-en">last direct cost</span></strong> <span class="l-fr">de l'article. Si ce champ est vide, il utilise le coût standard. Il ne consulte pas les tarifs fournisseur ou accords prix.</span><span class="l-en">from the item card. If blank, it falls back to standard cost. Vendor price lists and price agreements are not consulted.</span></div>
         </div>
 
-        <div class="screenshot-slot wide rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">Page Optimiseur Franco — propositions d'articles</span><span class="l-en">Free Shipping Optimizer — item proposals</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : la page Optimiseur avec plusieurs propositions d'articles, colonnes Qté Suggérée et Contribution</span><span class="l-en">Recommended: Optimizer page with multiple item proposals, Suggested Qty and Contribution columns visible</span> Franco visibles</div>
-          </div>
+        <div class="screenshot-slot wide rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/07-order-charges-added.png"
+            alt="Page Optimiseur Franco — propositions d'articlesFree Shipping Optimizer — item proposals"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">Page Optimiseur Franco — propositions d'articles</span><span class="l-en">Free Shipping Optimizer — item proposals</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
 
@@ -886,13 +948,21 @@ html[lang="en"] .l-fr-block{display:none !important}
           <div class="step-item"><div class="step-num">6</div><div class="step-content"><strong><span class="l-fr">Cliquer sur « Créer les lignes sélectionnées »</span><span class="l-en">Click "Create Selected Lines"</span></strong><p><span class="l-fr">Les propositions cochées sont ajoutées comme nouvelles lignes dans la feuille, avec fournisseur, magasin, date de réception et quantité. Le franco du groupe est recalculé.</span><span class="l-en">Checked proposals are added as new worksheet lines with vendor, location, receipt date and quantity. The group's threshold status is recalculated.</span></p></div></div>
         </div>
 
-        <div class="screenshot-slot tall rv">
-          <div class="screenshot-slot-inner">
-            <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
-            <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-            <div class="screenshot-title"><span class="l-fr">Optimiseur — Sélection et création des lignes</span><span class="l-en">Optimizer — selecting and creating lines</span></div>
-            <div class="screenshot-hint"><span class="l-fr">Capture recommandée : l'Optimiseur avec des lignes cochées et le bouton « Créer les lignes sélectionnées » visible</span><span class="l-en">Recommended: Optimizer with checked lines and 'Create Selected Lines' button highlighted</span></div>
-          </div>
+        <div class="screenshot-slot tall rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/08-multiorder-factbox.png"
+            alt="Optimiseur — Sélection et création des lignesOptimizer — selecting and creating lines"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
+          <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
+          <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
+          <div class="screenshot-title"><span class="l-fr">Optimiseur — Sélection et création des lignes</span><span class="l-en">Optimizer — selecting and creating lines</span></div>
+          <div class="screenshot-hint"></div>
+        </div>
+      </div>
         </div>
       </div>
     </section>
@@ -940,13 +1010,21 @@ html[lang="en"] .l-fr-block{display:none !important}
         <div class="callout-body"><span class="l-fr">Les indicateurs portent uniquement sur les</span><span class="l-en">Tiles cover</span> <strong>commandes achat</strong><span class="l-fr">. Les feuilles de demande ne sont pas comptabilisées ici. Tuiles actualisées à chaque ouverture de la page d'accueil.</span><span class="l-en">. Requisition worksheets are not counted here. Tiles refresh on every page load.</span></div>
       </div>
 
-      <div class="screenshot-slot wide rv">
-        <div class="screenshot-slot-inner">
+      <div class="screenshot-slot wide rv" >
+        <div class="ss-img-wrap" style="position:relative">
+          <img
+            src="screenshots/09-analysis-page.png"
+            alt="Pile d'activité FrancoVendor Free Shipping Activity Stack — Page d'accueil BCVendor Free Shipping Activity Stack — BC Role Center"
+            style="width:100%;display:block;border-radius:10px;border:1px solid var(--border);box-shadow:var(--sh)"
+          >
+        </div>
+        <div class="screenshot-slot-inner ss-placeholder">
           <div class="screenshot-label"><span class="l-fr">Capture d'écran à ajouter</span><span class="l-en">Screenshot placeholder</span></div>
           <div class="screenshot-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
           <div class="screenshot-title"><span class="l-fr"><span class="l-fr">Pile d'activité Franco</span><span class="l-en">Vendor Free Shipping Activity Stack</span> — Page d'accueil BC</span><span class="l-en">Vendor Free Shipping Activity Stack — BC Role Center</span></div>
-          <div class="screenshot-hint"><span class="l-fr">Capture recommandée : le groupe « Franco Fournisseur en cours » sur le Role Center avec les 5 tuiles visibles</span><span class="l-en">Recommended: Role Center with Vendor Free Shipping activity group and all 5 tiles visible</span></div>
+          <div class="screenshot-hint"></div>
         </div>
+      </div>
       </div>
     </section>
 
@@ -1134,6 +1212,33 @@ function toggleLang() {
   document.documentElement.lang = currentLang;
   document.getElementById('lang-btn').textContent = currentLang === 'fr' ? '🇬🇧 EN' : '🇫🇷 FR';
 }
+</script>
+
+
+<script>
+// Simple: if any screenshot img fails, hide it and show placeholder
+document.querySelectorAll('.ss-img-wrap img').forEach(function(img) {
+  img.addEventListener('load', function() {
+    // Image loaded — hide placeholder
+    var placeholder = img.closest('.screenshot-slot').querySelector('.ss-placeholder');
+    if (placeholder) placeholder.style.display = 'none';
+    img.closest('.ss-img-wrap').style.display = 'block';
+  });
+  img.addEventListener('error', function() {
+    // Image failed — hide img, show placeholder
+    img.closest('.ss-img-wrap').style.display = 'none';
+    var placeholder = img.closest('.screenshot-slot').querySelector('.ss-placeholder');
+    if (placeholder) placeholder.style.display = 'flex';
+  });
+  // Trigger for cached images
+  if (img.complete) {
+    if (img.naturalWidth === 0) {
+      img.dispatchEvent(new Event('error'));
+    } else {
+      img.dispatchEvent(new Event('load'));
+    }
+  }
+});
 </script>
 
 </body>
