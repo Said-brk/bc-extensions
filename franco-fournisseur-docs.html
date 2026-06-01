@@ -37,7 +37,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(248,249,251,
 .btn-nav:hover{background:#1640B0;transform:translateY(-1px)}
 
 /* ── LAYOUT ── */
-.doc-layout{display:flex;min-height:100vh;padding-top:62px;position:relative}
+.doc-layout{min-height:100vh;padding-top:62px}
 .sidebar{
   position:fixed;
   top:62px;left:0;
@@ -69,7 +69,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(248,249,251,
 .sidebar a:hover{color:var(--blue);background:var(--blue-l);border-left-color:var(--blue-m)}
 .sidebar a.active{color:var(--blue);font-weight:700;background:var(--blue-l);border-left-color:var(--blue)}
 .sidebar a.sub{padding-left:32px;font-size:12px}
-.content{flex:1;min-width:0;padding:52px 56px 100px;max-width:calc(var(--content) + 112px);margin-left:var(--sidebar);transition:margin-left .3s ease}
+.content{min-width:0;padding:52px 56px 100px;margin-left:var(--sidebar);transition:margin-left .3s ease;max-width:860px}
 @media(max-width:1100px){.content{padding:40px 32px 80px}}
 @media(max-width:640px){.content{padding:28px 20px 60px}}
 
@@ -232,6 +232,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:28px 0}
 /* When image fails, JS adds .img-error to the slot → show placeholder */
 .screenshot-slot.img-error .ss-img-wrap { display: none; }
 .screenshot-slot.img-error .ss-placeholder { display: flex !important; }
+
+/* Sidebar state — body class controls content margin */
+body.sidebar-collapsed .content { margin-left: 0 !important; }
+body.sidebar-collapsed #sidebar-toggle { left: 0px !important; }
 </style>
 
 <style>
@@ -1094,22 +1098,17 @@ html[lang="en"] .l-fr-block{display:none !important}
 function toggleSidebar(){
   const sidebar = document.getElementById('sidebar');
   const icon = document.getElementById('toggle-icon');
-  const btn = document.getElementById('sidebar-toggle');
-  const mainContent = document.querySelector('.content');
   const isCollapsed = sidebar.classList.toggle('collapsed');
-  btn.style.left = isCollapsed ? '0px' : 'var(--sidebar)';
+  document.body.classList.toggle('sidebar-collapsed', isCollapsed);
   icon.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
-  if(mainContent) mainContent.style.marginLeft = isCollapsed ? '0' : 'var(--sidebar)';
-  try{localStorage.setItem('sidebar-collapsed', isCollapsed);}catch(e){}
+  try { localStorage.setItem('sidebar-collapsed', isCollapsed); } catch(e){}
 }
 
 // On mobile: toggle becomes open/close instead
 function handleToggle(){
   if(window.innerWidth <= 900){
     const sidebar = document.getElementById('sidebar');
-    const btn = document.getElementById('sidebar-toggle');
     sidebar.classList.toggle('open');
-    btn.style.left = sidebar.classList.contains('open') ? 'var(--sidebar)' : '0px';
   } else {
     toggleSidebar();
   }
@@ -1119,18 +1118,14 @@ document.getElementById('sidebar-toggle').onclick = handleToggle;
 // Restore state
 (function(){
   if(window.innerWidth <= 900) return;
-  try{
+  try {
     if(localStorage.getItem('sidebar-collapsed') === 'true'){
-      const sidebar = document.getElementById('sidebar');
-      const btn = document.getElementById('sidebar-toggle');
+      document.getElementById('sidebar').classList.add('collapsed');
+      document.body.classList.add('sidebar-collapsed');
       const icon = document.getElementById('toggle-icon');
-      const mainContent = document.querySelector('.content');
-      sidebar.classList.add('collapsed');
-      btn.style.left = '0px';
-      icon.style.transform = 'rotate(180deg)';
-      if(mainContent) mainContent.style.marginLeft = '0';
+      if(icon) icon.style.transform = 'rotate(180deg)';
     }
-  }catch(e){}
+  } catch(e){}
 })();
 
 // Close mobile sidebar on link click
