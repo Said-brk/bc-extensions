@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox=%220%200%2060%2060%22%3E%0A%20%20%3Ccircle%20cx=%2221%22%20cy=%2222%22%20r=%2216%22%20fill=%22%23059669%22%2F%3E%0A%20%20%3Ccircle%20cx=%2239%22%20cy=%2222%22%20r=%2216%22%20fill=%22%23D97706%22%2F%3E%0A%20%20%3Ccircle%20cx=%2230%22%20cy=%2238%22%20r=%2216%22%20fill=%22%23DC2626%22%2F%3E%0A%20%20%3Ccircle%20cx=%2230%22%20cy=%2227%22%20r=%225%22%20fill=%22%23fff%22%2F%3E%0A%20%20%3Ccircle%20cx=%2230%22%20cy=%2227%22%20r=%222.5%22%20fill=%22%23181C2E%22%2F%3E%0A%3C%2Fsvg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BC Extensions is a Business Central Extensions HUB by WALYCONSEIL S.A.S</title>
+<title>Dynamics 365 Business Central Extensions Hub by WALYCONSEIL</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -219,7 +220,7 @@ footer{padding:36px 0;border-top:1px solid var(--border)}
     <div class="ext-grid">
 
       <!-- FRANCO FOURNISSEUR -->
-      <a href="franco-fournisseur.html" class="ext-card rv" style="transition-delay:.08s">
+      <div class="ext-card rv" onclick="window.location='franco-fournisseur.html'" style="transition-delay:.08s;cursor:pointer">
         <div class="ext-card-top">
           <div class="ext-tag et-ok">
             <svg width="6" height="6" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor"/></svg>
@@ -247,15 +248,15 @@ footer{padding:36px 0;border-top:1px solid var(--border)}
             <div class="ext-feat"><div class="ef-dot"></div>Amount · Net Weight · Unit threshold types</div>
             <div class="ext-feat"><div class="ef-dot"></div>Activity dashboard with urgency alerts</div>
           </div>
+
+          <!-- Actions inside card -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+            <a href="franco-fournisseur.html" class="ext-cta">View extension <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <a href="franco-fournisseur-docs.html" class="ext-doc">Documentation →</a>
+          </div>
+
         </div>
-        <div class="ext-card-bot">
-          <span class="ext-cta">
-            View extension
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-          <a href="franco-fournisseur-docs.html" class="ext-doc" onclick="event.stopPropagation()">Documentation →</a>
-        </div>
-      </a>
+      </div>
 
       <!-- ABC CLASSIFICATION -->
       <div class="ext-card dim rv" style="transition-delay:.16s">
@@ -273,10 +274,13 @@ footer{padding:36px 0;border-top:1px solid var(--border)}
             <div class="ext-feat"><div class="ef-dot" style="background:var(--a)"></div>Classification history &amp; trend tracking</div>
             <div class="ext-feat"><div class="ef-dot" style="background:var(--a)"></div>Direct integration with reorder policies</div>
           </div>
-        </div>
-        <div class="ext-card-bot">
-          <span style="font-size:14px;font-weight:600;color:var(--dim)">Coming soon</span>
-          <a href="mailto:contact@walyconseil.com?subject=ABC Classification - notify me" class="ext-doc">Notify me →</a>
+
+          <!-- Actions inside card -->
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+            <span style="font-size:14px;font-weight:600;color:var(--dim)">Coming soon</span>
+            <a href="mailto:contact@walyconseil.com?subject=ABC Classification - notify me" class="ext-doc">Notify me →</a>
+          </div>
+
         </div>
       </div>
 
