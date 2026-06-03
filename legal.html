@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal — BC Extensions by WALYCONSEIL</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2060%2060%22%3E%3Ccircle%20cx=%2221%22%20cy=%2222%22%20r=%2216%22%20fill=%22%23059669%22/%3E%3Ccircle%20cx=%2239%22%20cy=%2222%22%20r=%2216%22%20fill=%22%23D97706%22/%3E%3Ccircle%20cx=%2230%22%20cy=%2238%22%20r=%2216%22%20fill=%22%23DC2626%22/%3E%3Ccircle%20cx=%2230%22%20cy=%2227%22%20r=%225%22%20fill=%22%23fff%22/%3E%3Ccircle%20cx=%2230%22%20cy=%2227%22%20r=%222.5%22%20fill=%22%23181C2E%22/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F9FB;--bg2:#fff;--bg3:#F0F2F8;--border:#E2E5F0;--border2:#C8CEDF;--text:#181C2E;--mid:#4A5070;--dim:#8890A8;--blue:#1B4FD8;--blue-l:#EEF3FF;--blue-m:#C7D4FA;--a:#059669;--b:#D97706;--c:#DC2626;--r:10px;--sh:0 1px 4px rgba(24,28,46,.06),0 6px 20px rgba(24,28,46,.05)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.6;overflow-x:hidden}
+.wrap{max-width:800px;margin:0 auto;padding:0 24px}
+@media(min-width:640px){.wrap{padding:0 40px}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(248,249,251,.96);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-text{font-size:16px;font-weight:800;letter-spacing:-.02em;color:var(--text)}
+.logo-sub{font-size:10px;font-weight:600;color:var(--dim);letter-spacing:.06em;text-transform:uppercase;border-left:1px solid var(--border2);padding-left:10px;margin-left:2px}
+.nav-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--dim);text-decoration:none;transition:color .2s}
+.nav-back:hover{color:var(--blue)}
+
+/* LAYOUT */
+.page-wrap{padding:100px 0 80px}
+
+/* HERO */
+.page-hero{margin-bottom:52px;padding-bottom:40px;border-bottom:1px solid var(--border)}
+.page-eyebrow{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.page-title{font-size:clamp(28px,4vw,42px);font-weight:800;line-height:1.1;letter-spacing:-.025em;margin-bottom:12px}
+.page-title em{font-style:italic;font-family:'Lora',serif;font-weight:400;color:var(--blue)}
+.page-meta{font-size:13px;color:var(--dim);line-height:1.7}
+
+/* TOC */
+.toc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin-bottom:48px}
+.toc-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.toc ol{padding-left:18px;display:flex;flex-direction:column;gap:7px}
+.toc li a{font-size:14px;color:var(--blue);text-decoration:none;font-weight:500}
+.toc li a:hover{text-decoration:underline}
+
+/* SECTIONS */
+.legal-section{margin-bottom:56px}
+.legal-section:last-child{margin-bottom:0}
+.section-anchor{display:block;height:80px;margin-top:-80px;visibility:hidden}
+.legal-h2{font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--border);color:var(--text)}
+.legal-h2 span{color:var(--blue)}
+.legal-h3{font-size:16px;font-weight:700;margin:24px 0 10px;color:var(--text)}
+.legal-p{font-size:14px;color:var(--mid);line-height:1.85;margin-bottom:14px}
+.legal-p:last-child{margin-bottom:0}
+.legal-p strong{color:var(--text);font-weight:600}
+.legal-ul{margin:10px 0 14px 20px;display:flex;flex-direction:column;gap:7px}
+.legal-ul li{font-size:14px;color:var(--mid);line-height:1.7}
+.legal-ul li strong{color:var(--text);font-weight:600}
+
+/* CALLOUT */
+.callout{padding:14px 18px;border-radius:var(--r);margin:18px 0;display:flex;gap:10px;font-size:13px;line-height:1.75;background:var(--blue-l);border:1px solid var(--blue-m)}
+.callout strong{display:block;font-weight:700;margin-bottom:3px;color:var(--blue)}
+.callout-body{color:var(--mid)}
+
+/* TABLE */
+.legal-table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0 20px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.legal-table th{background:var(--bg3);color:var(--mid);font-weight:700;padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.legal-table td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--mid);vertical-align:top;line-height:1.6}
+.legal-table td:first-child{font-weight:600;color:var(--text)}
+.legal-table tr:last-child td{border-bottom:none}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:48px 0}
+
+/* FOOTER */
+footer{padding:32px 0;border-top:1px solid var(--border);margin-top:64px}
+.fi{display:flex;flex-direction:column;gap:10px}
+@media(min-width:640px){.fi{flex-direction:row;align-items:center;justify-content:space-between}}
+.fc{font-size:13px;color:var(--dim)}
+.flinks{display:flex;gap:16px}
+.flinks a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap" style="max-width:1160px">
+    <div class="nav-in">
+      <div style="display:flex;align-items:center;gap:16px">
+        <a href="index.html" class="nav-back">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Home
+        </a>
+        <a href="index.html" class="logo">
+          <svg width="32" height="32" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="21" cy="22" r="16" fill="#059669"/>
+            <circle cx="39" cy="22" r="16" fill="#D97706"/>
+            <circle cx="30" cy="38" r="16" fill="#DC2626"/>
+            <circle cx="30" cy="27" r="5" fill="#fff"/>
+            <circle cx="30" cy="27" r="2.5" fill="#181C2E"/>
+          </svg>
+          <span class="logo-text">BC Extensions</span>
+          <span class="logo-sub">by WALYCONSEIL</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="wrap">
+
+    <!-- HERO -->
+    <div class="page-hero">
+      <div class="page-eyebrow">Legal · Privacy · EULA</div>
+      <h1 class="page-title">Legal Notice &amp; <em>Privacy Policy</em></h1>
+      <div class="page-meta">
+        Last updated: June 2025 &nbsp;·&nbsp; Publisher: WALYCONSEIL &nbsp;·&nbsp; Applicable to all BC Extensions published under this catalog
+      </div>
+    </div>
+
+    <!-- TOC -->
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#mentions">1. Legal Notice (Mentions légales)</a></li>
+        <li><a href="#eula">2. End User License Agreement (EULA)</a></li>
+        <li><a href="#privacy">3. Privacy Policy</a></li>
+        <li><a href="#data">4. Data Processing &amp; GDPR</a></li>
+        <li><a href="#contact">5. Contact</a></li>
+      </ol>
+    </div>
+
+    <!-- ─── 1. MENTIONS LÉGALES ─── -->
+    <span class="section-anchor" id="mentions"></span>
+    <div class="legal-section">
+      <h2 class="legal-h2"><span>01</span> — Legal Notice <em style="font-style:normal;font-weight:400;font-size:16px;color:var(--dim)">(Mentions légales)</em></h2>
+
+      <div class="legal-h3">Publisher</div>
+      <table class="legal-table">
+        <tbody>
+          <tr><td>Company</td><td>WALYCONSEIL</td></tr>
+          <tr><td>Type</td><td>IT &amp; Management Consulting Firm</td></tr>
+          <tr><td>Headquarters</td><td>Casablanca, Morocco</td></tr>
+          <tr><td>Email</td><td><a href="mailto:contact@walyconseil.com" style="color:var(--blue)">contact@walyconseil.com</a></td></tr>
+          <tr><td>Website</td><td><a href="https://walyconseil.com" style="color:var(--blue)" target="_blank">walyconseil.com</a></td></tr>
+        </tbody>
+      </table>
+
+      <div class="legal-h3">BC Extensions Catalog</div>
+      <p class="legal-p">
+        This website (<strong>BC Extensions by WALYCONSEIL</strong>) is a product catalog publishing Microsoft Dynamics 365 Business Central extensions developed and distributed by WALYCONSEIL.
+        All extensions are commercial software subject to the terms described in Section 2 (EULA).
+      </p>
+
+      <div class="legal-h3">Intellectual Property</div>
+      <p class="legal-p">
+        All extensions, source code, documentation, logos, and visual designs published on this website are the exclusive property of WALYCONSEIL and are protected by applicable intellectual property laws.
+        Reproduction, distribution, or modification without prior written consent is strictly prohibited.
+      </p>
+      <p class="legal-p">
+        Microsoft Dynamics 365 Business Central is a registered trademark of Microsoft Corporation.
+        WALYCONSEIL is an independent publisher and is not affiliated with, endorsed by, or officially partnered with Microsoft Corporation, except through the Microsoft Partner Network.
+      </p>
+
+      <div class="legal-h3">BC Object Range</div>
+      <p class="legal-p">
+        All Business Central objects published by WALYCONSEIL are assigned within the reserved range <strong>73440701 – 73440731</strong>, allocated by Microsoft to WALYCONSEIL through the AppSource registration process.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ─── 2. EULA ─── -->
+    <span class="section-anchor" id="eula"></span>
+    <div class="legal-section">
+      <h2 class="legal-h2"><span>02</span> — End User License Agreement <em style="font-style:normal;font-weight:400;font-size:16px;color:var(--dim)">(EULA)</em></h2>
+
+      <div class="callout">
+        <div class="callout-body">
+          <strong>Important</strong>
+          By installing, copying, or using any BC Extension published by WALYCONSEIL, you agree to be bound by the terms of this End User License Agreement. If you do not agree, do not install or use the extension.
+        </div>
+      </div>
+
+      <div class="legal-h3">2.1 Grant of License</div>
+      <p class="legal-p">
+        WALYCONSEIL grants you a <strong>non-exclusive, non-transferable, revocable license</strong> to install and use the purchased BC Extension solely within your licensed Microsoft Dynamics 365 Business Central environment, for your internal business purposes.
+      </p>
+
+      <div class="legal-h3">2.2 Permitted Use</div>
+      <ul class="legal-ul">
+        <li>Install the extension in your own Business Central tenant(s) covered by a valid license.</li>
+        <li>Use the extension for your internal business operations.</li>
+        <li>Create backup copies solely for archival purposes.</li>
+      </ul>
+
+      <div class="legal-h3">2.3 Restrictions</div>
+      <ul class="legal-ul">
+        <li><strong>No redistribution</strong> — You may not sell, rent, sublicense, or otherwise transfer the extension or your license rights to any third party.</li>
+        <li><strong>No reverse engineering</strong> — You may not decompile, disassemble, or otherwise attempt to derive the source code of the extension.</li>
+        <li><strong>No modification</strong> — You may not modify, adapt, translate, or create derivative works based on the extension without prior written consent from WALYCONSEIL.</li>
+        <li><strong>No resale</strong> — You may not use the extension to provide competing software or services to third parties.</li>
+      </ul>
+
+      <div class="legal-h3">2.4 License Types</div>
+      <p class="legal-p">Licenses are sold on a per-tenant or per-environment basis as specified at the time of purchase. A license is valid only for the Business Central environment(s) explicitly covered by the purchase agreement.</p>
+
+      <div class="legal-h3">2.5 Updates &amp; Maintenance</div>
+      <p class="legal-p">
+        Active license holders receive updates and bug fixes during the subscription period. WALYCONSEIL reserves the right to modify, update, or discontinue any extension at any time, with reasonable notice to active licensees.
+      </p>
+
+      <div class="legal-h3">2.6 Warranty Disclaimer</div>
+      <p class="legal-p">
+        The extension is provided <strong>"as is"</strong>, without warranty of any kind, express or implied. WALYCONSEIL does not warrant that the extension will be error-free, uninterrupted, or meet all your requirements.
+        To the maximum extent permitted by applicable law, WALYCONSEIL disclaims all warranties, including implied warranties of merchantability and fitness for a particular purpose.
+      </p>
+
+      <div class="legal-h3">2.7 Limitation of Liability</div>
+      <p class="legal-p">
+        In no event shall WALYCONSEIL be liable for any indirect, incidental, special, consequential, or punitive damages arising from the use of or inability to use the extension, even if WALYCONSEIL has been advised of the possibility of such damages.
+        WALYCONSEIL's total cumulative liability shall not exceed the amount paid for the license during the 12 months preceding the claim.
+      </p>
+
+      <div class="legal-h3">2.8 Termination</div>
+      <p class="legal-p">
+        This license is effective until terminated. It terminates automatically if you breach any term of this agreement. Upon termination, you must cease all use of the extension and delete all copies.
+      </p>
+
+      <div class="legal-h3">2.9 Governing Law</div>
+      <p class="legal-p">
+        This agreement is governed by the laws of the Kingdom of Morocco, without regard to conflict of law principles. Any disputes shall be subject to the exclusive jurisdiction of the courts of Casablanca, Morocco.
+      </p>
+
+      <div class="legal-h3">2.10 AppSource Compliance</div>
+      <p class="legal-p">
+        Extensions distributed through Microsoft AppSource are additionally subject to the
+        <a href="https://go.microsoft.com/fwlink/?linkid=2009120" target="_blank" style="color:var(--blue)">Microsoft Commercial Marketplace Terms of Use</a> and the
+        <a href="https://go.microsoft.com/fwlink/?linkid=831843" target="_blank" style="color:var(--blue)">Microsoft Privacy Statement</a>.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ─── 3. PRIVACY POLICY ─── -->
+    <span class="section-anchor" id="privacy"></span>
+    <div class="legal-section">
+      <h2 class="legal-h2"><span>03</span> — Privacy Policy</h2>
+
+      <div class="legal-h3">3.1 What data we collect</div>
+      <p class="legal-p">When you interact with this website or contact us, we may collect the following information:</p>
+      <ul class="legal-ul">
+        <li><strong>Contact information</strong> — name, email address, company name, when you submit an inquiry.</li>
+        <li><strong>Usage data</strong> — pages visited, time spent, browser type (via standard web server logs). This website does not use tracking pixels, advertising trackers, or fingerprinting.</li>
+        <li><strong>License information</strong> — information necessary to validate and manage your extension license.</li>
+      </ul>
+
+      <div class="legal-h3">3.2 What data our extensions collect</div>
+      <p class="legal-p">
+        <strong>BC Extensions do not collect, transmit, or store any personal data outside your Business Central environment.</strong>
+        All data processed by the extensions (vendor thresholds, purchase orders, item classifications) resides exclusively within your own Business Central tenant and is never sent to WALYCONSEIL's servers.
+      </p>
+
+      <div class="legal-h3">3.3 How we use your data</div>
+      <ul class="legal-ul">
+        <li>To respond to your inquiries and support requests.</li>
+        <li>To manage and validate your extension license.</li>
+        <li>To send you important product updates (opt-out available at any time).</li>
+        <li>To comply with legal obligations.</li>
+      </ul>
+
+      <div class="legal-h3">3.4 Data sharing</div>
+      <p class="legal-p">
+        WALYCONSEIL does not sell, rent, or share your personal data with third parties, except:
+      </p>
+      <ul class="legal-ul">
+        <li>When required by law or legal process.</li>
+        <li>To Microsoft, solely in the context of AppSource distribution and compliance.</li>
+      </ul>
+
+      <div class="legal-h3">3.5 Cookies</div>
+      <p class="legal-p">
+        This website does not use cookies for tracking or advertising. Standard session cookies may be used for basic website functionality only.
+      </p>
+
+      <div class="legal-h3">3.6 Data retention</div>
+      <p class="legal-p">
+        Contact and license data is retained for the duration of the business relationship and for 3 years thereafter, in compliance with applicable regulations.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ─── 4. GDPR ─── -->
+    <span class="section-anchor" id="data"></span>
+    <div class="legal-section">
+      <h2 class="legal-h2"><span>04</span> — Data Processing &amp; GDPR</h2>
+
+      <p class="legal-p">
+        If you are located in the European Economic Area (EEA), you have the following rights regarding your personal data:
+      </p>
+      <ul class="legal-ul">
+        <li><strong>Right of access</strong> — You may request a copy of the personal data we hold about you.</li>
+        <li><strong>Right to rectification</strong> — You may request correction of inaccurate data.</li>
+        <li><strong>Right to erasure</strong> — You may request deletion of your data, subject to legal retention obligations.</li>
+        <li><strong>Right to portability</strong> — You may request your data in a structured, machine-readable format.</li>
+        <li><strong>Right to object</strong> — You may object to processing based on legitimate interests.</li>
+      </ul>
+      <p class="legal-p">
+        To exercise any of these rights, contact us at <a href="mailto:contact@walyconseil.com" style="color:var(--blue)">contact@walyconseil.com</a>. We will respond within 30 days.
+      </p>
+
+      <div class="legal-h3">Extension data processing</div>
+      <p class="legal-p">
+        As described in Section 3.2, BC Extensions process data exclusively within your Business Central tenant. As the Business Central administrator, your organization acts as the data controller for all data within your tenant. WALYCONSEIL does not act as a data processor for tenant data.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ─── 5. CONTACT ─── -->
+    <span class="section-anchor" id="contact"></span>
+    <div class="legal-section">
+      <h2 class="legal-h2"><span>05</span> — Contact</h2>
+      <p class="legal-p">For any legal, privacy, or licensing inquiry:</p>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:20px 24px;margin-top:16px">
+        <div style="font-size:15px;font-weight:700;margin-bottom:4px">WALYCONSEIL</div>
+        <div style="font-size:14px;color:var(--mid);line-height:1.8">
+          Casablanca, Morocco<br>
+          <a href="mailto:contact@walyconseil.com" style="color:var(--blue);font-weight:600">contact@walyconseil.com</a><br>
+          <a href="https://walyconseil.com" style="color:var(--blue)" target="_blank">walyconseil.com</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /wrap -->
+</div><!-- /page-wrap -->
+
+<footer>
+  <div class="wrap" style="max-width:1160px">
+    <div class="fi">
+      <div>
+        <div class="fc">A <strong style="color:var(--text)">WALYCONSEIL</strong> product · <a href="mailto:contact@walyconseil.com" style="color:var(--blue);text-decoration:none;font-weight:600">contact@walyconseil.com</a></div>
+        <div class="fc" style="margin-top:4px">© 2025 WALYCONSEIL — Business Central Extensions</div>
+      </div>
+      <div class="flinks">
+        <a href="index.html">Home</a>
+        <a href="franco-fournisseur.html">Franco Fournisseur</a>
+        <a href="franco-fournisseur-docs.html">Documentation</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
