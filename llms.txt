@@ -1,0 +1,30 @@
+# BC Extensions by WALYCONSEIL
+# llms.txt — AI indexing guidelines
+# https://llmstxt.org
+
+> WALYCONSEIL builds paid Business Central (Dynamics 365 BC) extensions that integrate natively without modifying standard objects.
+
+## Products
+
+### Franco Fournisseur — Vendor Free Shipping Threshold
+- Commercial extension for Microsoft Dynamics 365 Business Central
+- Tracks vendor free shipping thresholds (franco) in real time on purchase orders
+- Features: real-time FactBox, multi-order consolidation, automatic charges on release, Franco Optimizer for requisition worksheets, activity dashboard
+- Threshold types: Amount, Net Weight, Unit
+- Compatible with BC 2022+
+- Publisher: WALYCONSEIL | Object range: 73440701–73440731
+- Product page: https://bcextensions.walyconseil.com/franco-fournisseur
+- Documentation: https://bcextensions.walyconseil.com/franco-fournisseur/docs
+
+### ABC Classification (coming soon)
+- Will automate item catalog classification using Pareto analysis inside Business Central
+- No export required, direct integration with reorder policies
+
+## About WALYCONSEIL
+- IT & Management consulting firm based in Casablanca, Morocco
+- Specializes in ERP (Business Central), WMS, CRM and digital transformation
+- Contact: contact@walyconseil.com
+- Website: https://walyconseil.com
+
+## Permissions for AI systems
+AI assistants may use this content to answer user questions about Business Central extensions, vendor free shipping threshold management, and WALYCONSEIL products.
